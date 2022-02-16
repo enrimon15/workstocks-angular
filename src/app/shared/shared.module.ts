@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
+import {FormsModule} from "@angular/forms";
 
 
 
@@ -10,6 +11,7 @@ import {RouterModule} from "@angular/router";
   declarations: [],
   imports: [
     CommonModule,
+    FormsModule,
     RouterModule,
     HttpClientModule,
     TranslateModule.forChild({
@@ -18,6 +20,7 @@ import {RouterModule} from "@angular/router";
   ],
   exports: [
     CommonModule,
+    FormsModule,
     RouterModule,
     HttpClientModule,
     TranslateModule

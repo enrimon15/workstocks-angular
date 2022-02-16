@@ -8,20 +8,19 @@
       <h1>{{'home.bannerTitle' | translate}}</h1>
       <p class="lead">{{'home.bannerSubtitle' | translate}}</p>
 
-      <!-- TODO implement form -->
-      <form class="search-big-form no-border search-shadow" method="GET">
+      <form class="search-big-form no-border search-shadow" (ngSubmit)="search(homeForm)" #homeForm="ngForm">
         <div class="row m-0">
           <div class="col-lg-5 col-md-5 col-sm-12 p-0">
             <div class="form-group">
               <i class="ti-search"></i>
-              <input id="title" name="title" type="text" class="form-control b-r" placeholder="{{'home.jobTitle' | translate}}">
+              <input id="title" minlength="3" name="title" ngModel type="text" class="form-control b-r" placeholder="{{'home.jobTitle' | translate}}">
             </div>
           </div>
 
           <div class="col-lg-5 col-md-5 col-sm-12 p-0">
             <div class="form-group">
               <i class="ti-location-pin"></i>
-              <input id="address" name="address" type="text" class="form-control b-r" placeholder="{{'home.location' | translate}}">
+              <input id="address" minlength="3" name="address" ngModel type="text" class="form-control b-r" placeholder="{{'home.location' | translate}}">
             </div>
           </div>
 

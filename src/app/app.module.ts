@@ -17,6 +17,8 @@ import { RegisterComponent } from './components/register/register.component';
 import {ErrorInterceptor} from "./interceptors/error.interceptor";
 import { DeniedErrorComponent } from './components/error/denied-error/denied-error.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {FormsModule} from "@angular/forms";
+import {AppConstants} from "./app.constants";
 
 // required for AOT compilation
 export function HttpLoaderFactory(http: HttpClient) {
@@ -43,6 +45,7 @@ export function defaultBrowserLang(translate: TranslateService) {
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -61,10 +64,14 @@ export function defaultBrowserLang(translate: TranslateService) {
 })
 export class AppModule {
   constructor(private translate: TranslateService) {
-    translate.addLangs(["it", "en"]);
-    translate.setDefaultLang('it');
+    if (localStorage.getItem(AppConstants.LANGUAGE) == null) {
+      translate.addLangs(["it", "en"]);
+      translate.setDefaultLang('it');
 
-    let browserLang = translate.getBrowserLang();
-    translate.use((browserLang && browserLang.match(/en|it/)) ? browserLang : 'it');
+      let browserLang = translate.getBrowserLang();
+      translate.use((browserLang && browserLang.match(/en|it/)) ? browserLang : translate.getDefaultLang());
+    } else {
+      translate.use(localStorage.getItem(AppConstants.LANGUAGE) ?? translate.getDefaultLang());
+    }
   }
 }

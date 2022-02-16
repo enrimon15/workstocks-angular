@@ -4,6 +4,7 @@ import {forkJoin} from "rxjs";
 import {Company} from "../../model/Company";
 import {JobOffer} from "../../model/JobOffer";
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-home',
@@ -72,5 +73,13 @@ export class HomeComponent implements OnInit {
 
         this.loading = false;
     })
+  }
+
+  search(homeForm: NgForm) {
+    if (homeForm.valid && homeForm.value != null) {
+      // dirigiti alla pagina di ricerca offerte con input
+    }
+
+    // error alert lib
   }
 }

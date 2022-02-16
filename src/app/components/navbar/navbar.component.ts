@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
+import {AppConstants} from "../../app.constants";
 
 @Component({
   selector: 'app-navbar',
@@ -15,6 +16,7 @@ export class NavbarComponent implements OnInit {
 
   setTranslateLanguage(newLang: string) {
     this.translate.use(newLang);
+    localStorage.setItem(AppConstants.LANGUAGE, newLang);
   }
 
   getCurrentTranslateLanguage(): string {
