@@ -1,0 +1,129 @@
+<div class="header header-light">
+  <div class="container-fluid">
+    <nav id="navigation" class="navigation navigation-landscape">
+      <div class="nav-header">
+        <a class="nav-brand" routerLink="/">
+          <img src="/assets/img/logo.png" class="logo" alt="" />
+        </a>
+        <div class="nav-toggle"></div>
+      </div>
+      <div class="nav-menus-wrapper" style="transition-property: none;">
+        <ul class="nav-menu">
+
+          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <a routerLink="/">{{'navbar.home' | translate}}<span class="submenu-indicator"></span></a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/job-offers">{{'navbar.offers' | translate}}<span class="submenu-indicator"></span></a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/companies">{{'navbar.companies' | translate}}<span class="submenu-indicator"></span></a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/applicants">{{'navbar.applicants' | translate}}<span class="submenu-indicator"></span></a>
+          </li>
+          <!--<li routerLinkActive="active">
+            <a routerLink="/news">{{'navbar.blog' | translate}}<span class="submenu-indicator"></span></a>
+          </li>-->
+
+          <li>
+            <a href="#">
+              <img [src]="getCurrentTranslateLanguage() === 'it' ? '/assets/img/flag-it.png' : '/assets/img/flag-uk.png'" style="height: 22px"/><span class="submenu-indicator"></span>
+            </a>
+            <ul class="nav-dropdown nav-submenu" style="right: auto; display: none;">
+              <li>
+                <a (click)="setTranslateLanguage(getCurrentTranslateLanguage() === 'it' ? 'en' : 'it')">
+                  <img [src]="getCurrentTranslateLanguage() === 'it' ? '/assets/img/flag-uk.png' : '/assets/img/flag-it.png'" class="mr-2" style="height: 22px">
+                  &nbsp;{{getCurrentTranslateLanguage() === 'it' ? 'Inglese' : 'Italian'}}
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <ul class="nav-menu nav-menu-social align-to-right">
+
+            <!-- isAnonymous() -->
+            <li class="d-none d-lg-inline">
+              <a routerLink="/login">
+                <i class="ti-user mr-1"></i><span class="dn-lg">{{'auth.accountActions' | translate}}</span>
+              </a>
+            </li>
+
+            <!-- isAuthenticated() -->
+            <!--<li class="d-none d-lg-inline">
+              <a sec:authorize="hasRole('APPLICANT')" href="#">
+                <i class="ti-user mr-1"></i>
+                [[${#authentication.principal.user.name}]]
+                <span class="submenu-indicator"></span>
+              </a>
+
+              <a sec:authorize="hasRole('COMPANY_OWNER')" href="#">
+                <i class="ti-user mr-1"></i>
+                [[${#authentication.principal.user.company.name}]]
+                <span class="submenu-indicator"></span>
+              </a>
+
+              <a sec:authorize="hasRole('ADMIN')" href="#">
+                <i class="ti-user mr-1"></i>
+                [[${'Admin'}]]
+                <span class="submenu-indicator"></span>
+              </a>
+
+              <ul class="nav-dropdown nav-submenu" style="right: auto; display: none;">
+
+
+                <li sec:authorize="hasRole('COMPANY_OWNER')"><a th:href="@{/company/profile}" th:text="#{nav.profile}">Profile</a></li>
+                <li sec:authorize="hasRole('APPLICANT')"><a th:href="@{/applicant/profile}" th:text="#{nav.profile}">Profile</a></li>
+                <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin/news-list}" th:text="#{blog.news}">News</a></li>
+                <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/common/change-password}" th:text="#{changePassword.title}">Change pw</a></li>
+                <li>
+                  <a th:href="@{/logout}" th:text=#{nav.logout}>
+                    Logout
+                  </a>
+                </li>
+              </ul>
+            </li> -->
+
+          </ul>
+
+          <!-- end lg screen -->
+
+          <!-- isAnonymous() -->
+          <li class="d-none d-md-block d-lg-none">
+            <a routerLink="/login">
+              <i class="ti-user mr-1"></i><span class="dn-lg">{{'auth.accountActions' | translate}}</span>
+            </a>
+          </li>
+
+          <!-- isAuthenticated() -->
+          <!--<li class="d-none d-md-block d-lg-none" sec:authorize="isAuthenticated()">
+            <a sec:authorize="hasRole('APPLICANT')" href="#">
+              <i class="ti-user mr-1"></i>
+              [[${#authentication.principal.user.name}]]
+              <span class="submenu-indicator"></span>
+            </a>
+
+            <ul class="nav-dropdown nav-submenu" style="right: auto; display: none;">
+
+
+              <li sec:authorize="hasRole('COMPANY_OWNER')"><a th:href="@{/company/profile}" th:text="#{nav.profile}">Profile</a></li>
+              <li sec:authorize="hasRole('APPLICANT')"><a th:href="@{/applicant/profile}" th:text="#{nav.profile}">Profile</a></li>
+              <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin/news}" th:text="#{blog.news}">Dashboard</a>News</li>
+              <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/common/change-password}" th:text="#{changePassword.title}">Change pw</a></li>
+              <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/common/change-password}" th:text="#{nav.profile}">Profile</a></li>
+              <li>
+                <a th:href="@{/logout}" th:text=#{nav.logout}>
+                  Logout
+                </a>
+              </li>
+            </ul>
+          </li>-->
+
+        </ul>
+
+      </div>
+    </nav>
+  </div>
+</div>
+<!-- End Navigation -->
+<div class="clearfix"></div>

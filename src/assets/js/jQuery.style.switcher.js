@@ -55,9 +55,9 @@ SOFTWARE.
 	|*|
 	|*|  Syntaxes:
 	|*|
-	|*|  * docCookies.setItem(name, value[, end[, path[, domain[, secure]]]])
+	|*|  * docCookies.setItem(name, value[, end[, path[, model[, secure]]]])
 	|*|  * docCookies.getItem(name)
-	|*|  * docCookies.removeItem(name[, path[, domain]])
+	|*|  * docCookies.removeItem(name[, path[, model]])
 	|*|  * docCookies.hasItem(name)
 	|*|  * docCookies.keys()
 	|*|
@@ -87,14 +87,14 @@ SOFTWARE.
 						break;
 				}
 			}
-			document.cookie = encodeURIComponent(sKey) + "=" + encodeURIComponent(sValue) + sExpires + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "") + (bSecure ? "; secure" : "");
+			document.cookie = encodeURIComponent(sKey) + "=" + encodeURIComponent(sValue) + sExpires + (sDomain ? "; model=" + sDomain : "") + (sPath ? "; path=" + sPath : "") + (bSecure ? "; secure" : "");
 			return true;
 		},
 		removeItem: function (sKey, sPath, sDomain) {
 			if (!this.hasItem(sKey)) {
 				return false;
 			}
-			document.cookie = encodeURIComponent(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "");
+			document.cookie = encodeURIComponent(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" + (sDomain ? "; model=" + sDomain : "") + (sPath ? "; path=" + sPath : "");
 			return true;
 		},
 		hasItem: function (sKey) {
@@ -132,7 +132,7 @@ SOFTWARE.
 		 * {Object} jQuery reference to <link> tag for swapping CSS
 		 */
 		$themeCss: null,
-		
+
 		/**
 		 * {String} default theme page was loaded with
 		 */
@@ -164,15 +164,15 @@ SOFTWARE.
 				this.defaultTheme = this.$themeCss.attr('href');
 			}
 		},
-		
+
 		resetStyle: function() {
 			this.updateStyle(this.defaultTheme);
 		},
-		
+
 		updateStyle: function(newStyle) {
 			this.$themeCss.attr('href', newStyle);
 		},
-		
+
 		getFullAssetPath: function(asset) {
 			return this.config.fullPath + asset + '.css';
 		},

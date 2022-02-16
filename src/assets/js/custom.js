@@ -3,10 +3,10 @@
 	"use strict";
 
 	//Loader
-	$(window).on('load', function () {
+	/*$(window).on('load', function () {
 		$('.Loader').delay(350).fadeOut('slow');
 		$('body').delay(350).css({ 'overflow': 'visible' });
-	})
+	})*/
 
     // Navigation
 	! function(n, e, i, a) {

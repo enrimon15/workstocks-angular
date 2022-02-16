@@ -3,7 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  baseUrl: 'http://localhost:9100/workstocks/rest',
+  home: {
+    popularCompanies: 'v1/companies/popular',
+    popularJobOffers: 'v1/job-offers/popular',
+    applicationsCount: 'v1/applications/count',
+    applicantsCount: 'v1/applicants/count',
+    companiesCount: 'v1/companies/count',
+    jobOffersCount: 'v1/job-offers/count'
+  }
 };
 
 /*
