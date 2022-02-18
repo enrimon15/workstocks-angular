@@ -7,9 +7,11 @@ import {
 } from '@angular/common/http';
 import {catchError, Observable, retry, tap, throwError} from 'rxjs';
 import {Router} from "@angular/router";
+import {environment} from "../../environments/environment";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
+  private whitelistUrl: string[] = ['login'];
 
   constructor(private router: Router) {}
 
@@ -18,10 +20,14 @@ export class ErrorInterceptor implements HttpInterceptor {
       retry(2),
       tap({
         error: (error) => {
-          if (error.status === 401) {
-            this.router.navigate(['/denied']);
-          } else {
-            this.router.navigate(['/error']);
+          let endpoint = request.url.split(`${environment.baseUrl}/`)[1] ?? '';
+          if (this.whitelistUrl.includes(endpoint)) {
+            // switch case e mettere anche 404 --> un solo compnente con param
+            if (error.status === 401) {
+              this.router.navigate(['/denied']);
+            } else {
+              this.router.navigate(['/error']);
+            }
           }
         }
       }),
@@ -40,6 +46,6 @@ export class ErrorInterceptor implements HttpInterceptor {
     }
 
     // return an observable with a user-facing error message
-    return throwError(() => 'Something bad happened; please try again later.');
+    return throwError(() => new Error( 'Something bad happened; please try again later.'));
   }
 }

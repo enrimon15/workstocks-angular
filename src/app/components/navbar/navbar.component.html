@@ -43,81 +43,56 @@
           <ul class="nav-menu nav-menu-social align-to-right">
 
             <!-- isAnonymous() -->
-            <li class="d-none d-lg-inline">
+            <li *ngIf="!isAuthenticated" class="d-none d-lg-inline">
               <a routerLink="/login">
                 <i class="ti-user mr-1"></i><span class="dn-lg">{{'auth.accountActions' | translate}}</span>
               </a>
             </li>
 
             <!-- isAuthenticated() -->
-            <!--<li class="d-none d-lg-inline">
-              <a sec:authorize="hasRole('APPLICANT')" href="#">
+            <li *ngIf="isAuthenticated" class="d-none d-lg-inline">
+              <a href="#">
                 <i class="ti-user mr-1"></i>
-                [[${#authentication.principal.user.name}]]
-                <span class="submenu-indicator"></span>
-              </a>
-
-              <a sec:authorize="hasRole('COMPANY_OWNER')" href="#">
-                <i class="ti-user mr-1"></i>
-                [[${#authentication.principal.user.company.name}]]
-                <span class="submenu-indicator"></span>
-              </a>
-
-              <a sec:authorize="hasRole('ADMIN')" href="#">
-                <i class="ti-user mr-1"></i>
-                [[${'Admin'}]]
+                {{loggedUser?.name}}
                 <span class="submenu-indicator"></span>
               </a>
 
               <ul class="nav-dropdown nav-submenu" style="right: auto; display: none;">
-
-
-                <li sec:authorize="hasRole('COMPANY_OWNER')"><a th:href="@{/company/profile}" th:text="#{nav.profile}">Profile</a></li>
-                <li sec:authorize="hasRole('APPLICANT')"><a th:href="@{/applicant/profile}" th:text="#{nav.profile}">Profile</a></li>
-                <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin/news-list}" th:text="#{blog.news}">News</a></li>
-                <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/common/change-password}" th:text="#{changePassword.title}">Change pw</a></li>
+                <li><a routerLink="/dashboard}">{{'navbar.profile' | translate}}</a></li>
                 <li>
-                  <a th:href="@{/logout}" th:text=#{nav.logout}>
-                    Logout
+                  <a href="#" (click)="logout()">
+                    {{'navbar.logout' | translate}}
                   </a>
                 </li>
               </ul>
-            </li> -->
+            </li>
 
           </ul>
 
           <!-- end lg screen -->
 
-          <!-- isAnonymous() -->
-          <li class="d-none d-md-block d-lg-none">
+          <li *ngIf="!isAuthenticated" class="d-none d-sm-block d-md-block d-lg-none">
             <a routerLink="/login">
               <i class="ti-user mr-1"></i><span class="dn-lg">{{'auth.accountActions' | translate}}</span>
             </a>
           </li>
 
-          <!-- isAuthenticated() -->
-          <!--<li class="d-none d-md-block d-lg-none" sec:authorize="isAuthenticated()">
-            <a sec:authorize="hasRole('APPLICANT')" href="#">
+          <li *ngIf="isAuthenticated" class="d-none d-md-block d-lg-none" >
+            <a href="#">
               <i class="ti-user mr-1"></i>
-              [[${#authentication.principal.user.name}]]
+              {{loggedUser?.name}}
               <span class="submenu-indicator"></span>
             </a>
 
             <ul class="nav-dropdown nav-submenu" style="right: auto; display: none;">
-
-
-              <li sec:authorize="hasRole('COMPANY_OWNER')"><a th:href="@{/company/profile}" th:text="#{nav.profile}">Profile</a></li>
-              <li sec:authorize="hasRole('APPLICANT')"><a th:href="@{/applicant/profile}" th:text="#{nav.profile}">Profile</a></li>
-              <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin/news}" th:text="#{blog.news}">Dashboard</a>News</li>
-              <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/common/change-password}" th:text="#{changePassword.title}">Change pw</a></li>
-              <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/common/change-password}" th:text="#{nav.profile}">Profile</a></li>
+              <li><a routerLink="/dashboard">{{'navbar.profile' | translate}}</a></li>
               <li>
-                <a th:href="@{/logout}" th:text=#{nav.logout}>
-                  Logout
+                <a href="#" (click)="logout()">
+                  {{'navbar.logout' | translate}}
                 </a>
               </li>
             </ul>
-          </li>-->
+          </li>
 
         </ul>
 

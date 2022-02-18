@@ -4,14 +4,15 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:9100/workstocks/rest',
+  baseUrl: 'http://localhost:9100/workstocks/rest/v1',
+  login: 'auth/login',
   home: {
-    popularCompanies: 'v1/companies/popular',
-    popularJobOffers: 'v1/job-offers/popular',
-    applicationsCount: 'v1/applications/count',
-    applicantsCount: 'v1/applicants/count',
-    companiesCount: 'v1/companies/count',
-    jobOffersCount: 'v1/job-offers/count'
+    popularCompanies: 'companies/popular',
+    popularJobOffers: 'job-offers/popular',
+    applicationsCount: 'applications/count',
+    applicantsCount: 'applicants/count',
+    companiesCount: 'companies/count',
+    jobOffersCount: 'job-offers/count'
   }
 };
 

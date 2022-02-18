@@ -19,15 +19,25 @@ import { DeniedErrorComponent } from './components/error/denied-error/denied-err
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule} from "@angular/forms";
 import {AppConstants} from "./app.constants";
+import {JwtModule} from "@auth0/angular-jwt";
+import {LoginResponse} from "./model/LoginResponse";
 
 // required for AOT compilation
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
-export function defaultBrowserLang(translate: TranslateService) {
-  let browserLang = translate.getBrowserLang();
-  translate.use((browserLang && browserLang.match(/en|it/)) ? browserLang : 'it');
+export function tokenGetter() {
+  let userLogin: LoginResponse;
+  let userStr: string | null = localStorage.getItem(AppConstants.USER_STORAGE);
+
+  if (userStr !== '' && userStr !== null && userStr !== undefined) {
+    userLogin = JSON.parse(userStr);
+  } else {
+    return '';
+  }
+
+  return userLogin.token;
 }
 
 @NgModule({
@@ -49,13 +59,19 @@ export function defaultBrowserLang(translate: TranslateService) {
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
+        allowedDomains: ['localhost:9100']
+      }
+    }),
     TranslateModule.forRoot({
-      //defaultLanguage: 'it',
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
-      } })
+      }
+    })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }

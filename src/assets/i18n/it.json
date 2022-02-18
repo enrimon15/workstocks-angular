@@ -33,6 +33,7 @@
     "applicants": "Iscritti"
   },
   "auth": {
+    "failed": "Credenziali non valide riprova!",
     "registerTitle": "Registrazione",
     "loginTitle": "Accedi con il tuo Account",
     "nameLabel": "Nome",

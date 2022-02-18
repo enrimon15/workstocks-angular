@@ -38,6 +38,7 @@
     "blog": "Blog"
   },
   "auth": {
+    "failed": "These credentials do not match, try again!",
     "registerTitle": "Registration",
     "loginTitle": "Login with your credentials",
     "nameLabel": "Name",
