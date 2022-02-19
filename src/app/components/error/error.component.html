@@ -1,0 +1,16 @@
+<div>
+
+  <div id="notfound">
+    <div class="notfound">
+      <div class="notfound-404">
+        <h1>{{'error.ops' | translate}}</h1>
+        <h2 *ngIf="errorCode === 500">{{'error.error' | translate}}</h2>
+        <h2 *ngIf="errorCode === 404">{{'error.errorDenied' | translate}}</h2>
+        <h2 *ngIf="errorCode === 401">{{'error.errorNotFound' | translate}}</h2>
+      </div>
+      <a routerLink="/">{{'error.goHome' | translate}}</a>
+    </div>
+  </div>
+
+</div>
+

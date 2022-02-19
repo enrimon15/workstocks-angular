@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   baseUrl: 'http://localhost:9100/workstocks/rest/v1',
   login: 'auth/login',
+  register: 'auth/register',
   home: {
     popularCompanies: 'companies/popular',
     popularJobOffers: 'job-offers/popular',
@@ -13,7 +14,17 @@ export const environment = {
     applicantsCount: 'applicants/count',
     companiesCount: 'companies/count',
     jobOffersCount: 'job-offers/count'
-  }
+  },
+  applicant: {
+    search: 'applicants',
+    checkUniqueEmail: 'applicants/email-unique'
+  },
+  company: {
+    search: 'companies'
+  },
+  jobOffer: {
+    search: 'job-offer'
+  },
 };
 
 /*

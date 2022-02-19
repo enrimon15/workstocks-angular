@@ -69,6 +69,13 @@
     "internship": "Internship",
     "construction_base": "Construction Base",
     "others": "Others"
+  },
+  "error": {
+    "ops": "Oops!",
+    "error": "An error has occurred",
+    "errorDenied": "User unauthorized",
+    "errorNotFound": "Resource not found",
+    "goHome": "Go to Homepage"
   }
 
 }

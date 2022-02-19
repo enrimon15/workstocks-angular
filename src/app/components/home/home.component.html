@@ -25,7 +25,7 @@
           </div>
 
           <div class="col-lg-2 col-md-2 col-sm-12 p-0">
-            <button id="submitButt" type="submit" class="btn btn-primary full-width">{{'home.submit' | translate }}</button>
+            <button [disabled]="!homeForm.valid" id="submitButt" type="submit" class="btn btn-primary full-width">{{'home.submit' | translate }}</button>
           </div>
         </div>
       </form>

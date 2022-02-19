@@ -7,6 +7,7 @@ import {LoginResponse} from "../model/LoginResponse";
 import {environment} from "../../environments/environment";
 import {AppConstants} from "../app.constants";
 import {Router} from "@angular/router";
+import {RegisterRequest} from "../model/RegisterRequest";
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,11 @@ export class AuthService {
 
 
   constructor(private httpClient: HttpClient, private jwtHelper: JwtHelperService, private router: Router) { }
+
+  public register(registerRequest: RegisterRequest): Observable<RegisterRequest> {
+    const requestUrl = `${environment.baseUrl}/${environment.register}`;
+    return this.httpClient.post<RegisterRequest>(requestUrl, registerRequest);
+  }
 
   public authenticate(loginRequest: LoginRequest): Observable<LoginResponse> {
     const requestUrl = `${environment.baseUrl}/${environment.login}`;

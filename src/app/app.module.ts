@@ -6,18 +6,17 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ApplicantSearchComponent } from './components/applicant/applicant-search/applicant-search.component';
-import { CompanySearchComponent } from './components/company/company-search.component';
-import { JobSearchComponent } from './components/job-offer/job-search.component';
-import { ErrorComponent } from './components/error/generic-error/error.component';
+import { CompanySearchComponent } from './components/company/company-search/company-search.component';
+import { JobSearchComponent } from './components/job-offer/job-search/job-search.component';
+import { ErrorComponent } from './components/error/error.component';
 import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import {ErrorInterceptor} from "./interceptors/error.interceptor";
-import { DeniedErrorComponent } from './components/error/denied-error/denied-error.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AppConstants} from "./app.constants";
 import {JwtModule} from "@auth0/angular-jwt";
 import {LoginResponse} from "./model/LoginResponse";
@@ -50,12 +49,12 @@ export function tokenGetter() {
     JobSearchComponent,
     ErrorComponent,
     LoginComponent,
-    RegisterComponent,
-    DeniedErrorComponent
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,

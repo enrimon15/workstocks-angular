@@ -3,7 +3,6 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 import {LoginRequest} from "../../model/LoginRequest";
 import {AuthService} from "../../auth/auth.service";
 import {AppConstants} from "../../app.constants";
-import {LoginResponse} from "../../model/LoginResponse";
 
 @Component({
   selector: 'app-login',
@@ -12,7 +11,7 @@ import {LoginResponse} from "../../model/LoginResponse";
 })
 export class LoginComponent implements OnInit {
   redirectUrl?: string;
-  authError: any;
+  authError: boolean = false;
   loading: boolean = false;
   loginData: LoginRequest;
 
@@ -39,7 +38,7 @@ export class LoginComponent implements OnInit {
       },
       error: (error) => {
         this.loading = false;
-        this.authError = error;
+        this.authError = true;
       }
     });
   }

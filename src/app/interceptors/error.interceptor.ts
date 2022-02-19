@@ -22,12 +22,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         error: (error) => {
           let endpoint = request.url.split(`${environment.baseUrl}/`)[1] ?? '';
           if (this.whitelistUrl.includes(endpoint)) {
-            // switch case e mettere anche 404 --> un solo compnente con param
-            if (error.status === 401) {
-              this.router.navigate(['/denied']);
-            } else {
-              this.router.navigate(['/error']);
-            }
+            this.router.navigate(['/error'], {queryParams: { errorCode: error.status }});
           }
         }
       }),

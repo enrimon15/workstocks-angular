@@ -65,5 +65,12 @@
     "internship": "Tirocinio",
     "construction_base": "Apprendistato",
     "others": "Altre"
+  },
+  "error": {
+    "ops": "Oops!",
+    "error": "Si è verificato un errore",
+    "errorDenied": "Utente non autorizzato",
+    "errorNotFound": "Risorsa non trovata",
+    "goHome": "Vai alla Homepage"
   }
 }

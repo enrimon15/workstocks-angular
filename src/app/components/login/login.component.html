@@ -36,7 +36,7 @@
               </button>
             </div> -->
 
-            <p *ngIf="authError != null" class="color--error mb-2"><strong>{{'auth.failed' | translate}}</strong></p>
+            <p *ngIf="authError" class="color--error mb-2"><strong>{{'auth.failed' | translate}}</strong></p>
             <form #loginForm="ngForm" (ngSubmit)="login()">
               <div class="form-group">
                 <label>{{'auth.emailLabel' | translate}}</label>
@@ -54,8 +54,9 @@
                 </div>
               </div>
 
-              <div class="form-group">
-                <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary btn-md full-width pop-login">Login</button>
+              <div class="form-group text-center">
+                <button *ngIf="!loading" [disabled]="!loginForm.valid" type="submit" class="btn btn-primary btn-md full-width pop-login">Login</button>
+                <div *ngIf="loading" class="spinner-border text-success" role="status"><span class="sr-only">Loading...</span></div>
               </div>
 
               <div class="modal-footer">
