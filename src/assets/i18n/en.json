@@ -68,7 +68,52 @@
     "part_time": "Part Time",
     "internship": "Internship",
     "construction_base": "Construction Base",
-    "others": "Others"
+    "others": "Others",
+    "findJobs": "Find Jobs"
+  },
+  "applicant": {
+    "noLastLogin": "No login from registration",
+    "todayLastLogin": "Last login today",
+    "daysLastLogin": "Last login yesterday | Last login :giorni days ago",
+    "favourite": "Shortlist",
+    "nameSurnameTopFilter": "Name or Surname",
+    "placeTopFilter": "Address",
+    "jobTitleTopFilter": "Job Title",
+    "jobSkillsTopFilter": "Competenze",
+    "findSubscriberTopFilterButtom": "Find Subscribers",
+    "result": "Result Found",
+    "results": "Results Found",
+    "showProfile": "Show Profile"
+  },
+  "company": {
+    "findCompany": "Search Company",
+    "website": "Web Site",
+    "employees": "Employees",
+    "more": "See more",
+    "companyName": "Company Name",
+    "foundation": "Foundation Year",
+    "employees": "Employees"
+  },
+  "filter": {
+    "skillsTitle": "Skills",
+    "experienceTitle": "Experience",
+    "jobTypeTitle": "Job Type",
+    "jobLevelTitle": "Ruolo",
+    "expectedSalleryTitle": "Expected Sallery",
+    "year": "Year",
+    "years": "Years",
+    "full_time": "Full time",
+    "part_time": "Part Time",
+    "construction_base": "Construction Base",
+    "internship": "Internship",
+    "jobTitleOrKeywords": "Job Title or Keywords",
+    "location": "Location",
+    "resetFilterButton": "Filters Reset",
+    "noExperience": "No Experience",
+    "orMore": "or more",
+    "companyName": "Company Name",
+    "filterSalaryUpTo": "Up to {{value}}",
+    "filterSalaryFrom": "From {{value}}"
   },
   "error": {
     "ops": "Oops!",

@@ -5,6 +5,7 @@ import {Company} from "../../model/Company";
 import {JobOffer} from "../../model/JobOffer";
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import {NgForm} from "@angular/forms";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -42,9 +43,11 @@ export class HomeComponent implements OnInit {
   countApplications: number = 0;
   countCompanies: number = 0;
   countJobOffers: number = 0;
+  address: string = '';
+  title: string = '';
 
 
-  constructor(private homeService: HomeService) { }
+  constructor(private homeService: HomeService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadData();
@@ -62,8 +65,6 @@ export class HomeComponent implements OnInit {
       this.homeService.countCompanies(),
       this.homeService.countJobOffers()
     ]).subscribe(([companies, jobs, applicantsNumber, applicationsNumber, companiesNumber, jobsNumber]) => {
-        console.log(companies, jobs, applicantsNumber, applicationsNumber, companiesNumber, jobsNumber);
-
         this.mostRankedCompanies = companies;
         this.popularJobs = jobs;
         this.countApplicants = applicantsNumber.count ?? 0;
@@ -77,9 +78,8 @@ export class HomeComponent implements OnInit {
 
   search(homeForm: NgForm) {
     if (homeForm.valid && homeForm.value != null) {
-      // dirigiti alla pagina di ricerca offerte con input
+      let params = {address: this.address ?? null, title: this.title ?? null};
+      this.router.navigate(['job-offers'], {queryParams: params});
     }
-
-    // error alert lib
   }
 }

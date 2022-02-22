@@ -1,4 +1,6 @@
 {
+  "no-result": "Nessun Risultato Trovato",
+  "results": "Risultati Trovati",
   "home": {
     "title": "Workstocks",
     "bannerTitle": "Trova il lavoro adatto a te",
@@ -64,7 +66,47 @@
     "part_time": "Part Time",
     "internship": "Tirocinio",
     "construction_base": "Apprendistato",
+    "findJobs": "Cerca Lavori",
     "others": "Altre"
+  },
+  "applicant": {
+    "favourite": "Aggiungi ai preferiti",
+    "nameSurnameTopFilter": "Nome o Cognome",
+    "placeTopFilter": "Indirizzo",
+    "jobTitleTopFilter": "Ruolo",
+    "jobSkillsTopFilter": "Competenze",
+    "findSubscriberTopFilterButtom": "Cerca iscritti",
+    "showProfile": "Visista Profilo"
+  },
+  "company": {
+    "findCompany": "Cerca Aziende",
+    "website": "Sito Web",
+    "employees": "Impiegati",
+    "more": "Scopri",
+    "companyName": "Nome Azienda",
+    "foundation": "Anno di Fondazione",
+    "employees": "Dipendenti"
+  },
+  "filter": {
+    "skillsTitle": "Competenze",
+    "experienceTitle": "Esperienza Richiesta",
+    "jobTypeTitle": "Tipo di Contratto",
+    "jobLevelTitle": "Ruolo",
+    "expectedSalleryTitle": "Retribuzione",
+    "year": "Anno",
+    "years": "Anni",
+    "full_time": "Full Time",
+    "part_time": "Part Time",
+    "construction_base": "Apprendistato",
+    "internship": "Tirocinio",
+    "jobTitleOrKeywords": "Titolo Offerta o parole chiave",
+    "location": "Indirizzo",
+    "resetFilterButton": "Reset Filtri",
+    "noExperience": "Nessuna Esperienza",
+    "orMore": "o più",
+    "companyName": "Nome Azienda",
+    "filterSalaryUpTo": "Fino a {{value}}",
+    "filterSalaryFrom": "Da {{value}}"
   },
   "error": {
     "ops": "Oops!",

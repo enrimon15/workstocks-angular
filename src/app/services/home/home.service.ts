@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {BaseService} from "../base.service";
 import {environment} from "../../../environments/environment";
-import {catchError, Observable, retry} from "rxjs";
+import {Observable} from "rxjs";
 import {Company} from "../../model/Company";
 import {JobOffer} from "../../model/JobOffer";
 import {Count} from "../../model/Count";

@@ -4,6 +4,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
 import {FormsModule} from "@angular/forms";
+import {NgxPaginationModule} from "ngx-pagination";
 
 
 
@@ -14,6 +15,7 @@ import {FormsModule} from "@angular/forms";
     FormsModule,
     RouterModule,
     HttpClientModule,
+    NgxPaginationModule,
     TranslateModule.forChild({
       extend: true
     }),
@@ -23,6 +25,7 @@ import {FormsModule} from "@angular/forms";
     FormsModule,
     RouterModule,
     HttpClientModule,
+    NgxPaginationModule,
     TranslateModule
   ]
 })

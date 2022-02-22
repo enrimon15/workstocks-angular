@@ -16,14 +16,21 @@ export const environment = {
     jobOffersCount: 'job-offers/count'
   },
   applicant: {
-    search: 'applicants',
+    search: 'applicants/search',
+    get: 'applicants',
     checkUniqueEmail: 'applicants/email-unique'
   },
+  onlineCv: {
+    skills: 'skills',
+    qualifications: 'qualifications',
+    certifications: 'certifications',
+    experiences: 'experiences'
+  },
   company: {
-    search: 'companies'
+    search: 'companies/search'
   },
   jobOffer: {
-    search: 'job-offer'
+    search: 'job-offers/search'
   },
 };
 

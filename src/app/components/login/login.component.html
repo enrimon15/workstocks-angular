@@ -41,7 +41,7 @@
               <div class="form-group">
                 <label>{{'auth.emailLabel' | translate}}</label>
                 <div class="input-with-gray">
-                  <input type="email" class="form-control" [(ngModel)]="loginData.email" placeholder="{{'auth.emailLabel' | translate}}" name="email" required email autocomplete="email">
+                  <input type="email" class="form-control" [(ngModel)]="loginData.email" #email=ngModel placeholder="{{'auth.emailLabel' | translate}}" name="email" required email autocomplete="email">
                   <i class="ti-user"></i>
                 </div>
               </div>
@@ -49,7 +49,7 @@
               <div class="form-group">
                 <label>{{'auth.passwordLabel' | translate}}</label>
                 <div class="input-with-gray">
-                  <input type="password" class="form-control" [(ngModel)]="loginData.password" placeholder="*******" name="password" required autocomplete="current-password">
+                  <input type="password" class="form-control" [(ngModel)]="loginData.password" #password=ngModel placeholder="*******" name="password" required autocomplete="current-password">
                   <i class="ti-unlock"></i>
                 </div>
               </div>

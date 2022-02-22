@@ -13,14 +13,14 @@
           <div class="col-lg-5 col-md-5 col-sm-12 p-0">
             <div class="form-group">
               <i class="ti-search"></i>
-              <input id="title" minlength="3" name="title" ngModel type="text" class="form-control b-r" placeholder="{{'home.jobTitle' | translate}}">
+              <input id="title" minlength="3" name="title" [(ngModel)]="title" type="text" class="form-control b-r" placeholder="{{'home.jobTitle' | translate}}">
             </div>
           </div>
 
           <div class="col-lg-5 col-md-5 col-sm-12 p-0">
             <div class="form-group">
               <i class="ti-location-pin"></i>
-              <input id="address" minlength="3" name="address" ngModel type="text" class="form-control b-r" placeholder="{{'home.location' | translate}}">
+              <input id="address" minlength="3" name="address" [(ngModel)]="address" type="text" class="form-control b-r" placeholder="{{'home.location' | translate}}">
             </div>
           </div>
 
@@ -154,7 +154,7 @@
                 <li class="list-inline-item" *ngIf="job.skills != null && job.skills.length > 0"><h5>{{'home.skill' | translate}}</h5>
                   <div class="skills">
                     <ng-container *ngFor="let skill of job.skills; let i = index">
-                      <span *ngIf="i <= 2">{{'skill.name' | translate}}</span>
+                      <span *ngIf="i <= 2">{{skill}}</span>
                     </ng-container>
                     <ng-container *ngIf="job.skills.length > 3">
                       <span>{{(job.skills.length - 3) + ' ' + ('job.others' | translate)}}</span>

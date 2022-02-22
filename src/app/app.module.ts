@@ -5,9 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { ApplicantSearchComponent } from './components/applicant/applicant-search/applicant-search.component';
-import { CompanySearchComponent } from './components/company/company-search/company-search.component';
-import { JobSearchComponent } from './components/job-offer/job-search/job-search.component';
 import { ErrorComponent } from './components/error/error.component';
 import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
@@ -44,9 +41,6 @@ export function tokenGetter() {
     AppComponent,
     NavbarComponent,
     FooterComponent,
-    ApplicantSearchComponent,
-    CompanySearchComponent,
-    JobSearchComponent,
     ErrorComponent,
     LoginComponent,
     RegisterComponent

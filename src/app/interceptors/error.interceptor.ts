@@ -11,7 +11,7 @@ import {environment} from "../../environments/environment";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  private whitelistUrl: string[] = ['login'];
+  private whitelistUrl: string[] = ['auth/login'];
 
   constructor(private router: Router) {}
 
@@ -21,7 +21,7 @@ export class ErrorInterceptor implements HttpInterceptor {
       tap({
         error: (error) => {
           let endpoint = request.url.split(`${environment.baseUrl}/`)[1] ?? '';
-          if (this.whitelistUrl.includes(endpoint)) {
+          if (!this.whitelistUrl.includes(endpoint)) {
             this.router.navigate(['/error'], {queryParams: { errorCode: error.status }});
           }
         }

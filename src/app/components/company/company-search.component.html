@@ -1,0 +1,225 @@
+<div [ngClass]="loading ? 'Loader' : 'Loader-end'"></div>
+
+<div *ngIf="!loading">
+
+  <div class="clearfix"></div>
+
+  <!-- ============================ Search Form Start================================== -->
+  <section class="p-0 advance-search b-t">
+    <div class="container-fluid p-0">
+
+      <form #searchForm="ngForm" (ngSubmit)="getCompanyList()" class="search-big-form no-border p-0">
+        <div class="row m-0">
+          <div class="col-lg-5 col-md-5 col-sm-12 p-0">
+            <div class="form-group icon-sub-index">
+              <i class="ti-search"></i>
+              <input [(ngModel)]="name" name="name" id="topFilterCompanyName" type="text" class="form-control b-r keyPress"
+                     placeholder="{{'company.companyName' | translate}}" minlength="3">
+            </div>
+          </div>
+
+          <div class="col-lg-5 col-md-5 col-sm-12 p-0">
+            <div class="form-group icon-sub-index">
+              <i class="ti-location-pin"></i>
+              <input [(ngModel)]="address" name="address" id="topFilterLocation" type="text" class="form-control b-r keyPress"
+                     placeholder="{{'filter.location' | translate}}" minlength="3">
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+            <button type="submit" [disabled]="!searchForm.valid" id="searchButton"
+                    class="btn btn-primary full-width">{{'company.findCompany' | translate}}</button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </section>
+  <!-- ============================ Search Form End ================================== -->
+
+  <section class="bg-light">
+    <div class="container">
+
+
+      <div class="row">
+
+        <div class="col-xl-3 col-lg-4">
+
+          <div class="back-brow">
+            <button (click)="resetFilters(searchForm)" type="button" id="resetFilterButton" class="btn btn-primary full-width">
+              <i class="ti-trash"></i> {{'filter.resetFilterButton' | translate}}
+            </button>
+
+          </div>
+
+          <!-- <div class="d-block d-none d-sm-block d-md-none mb-3">
+              <a href="javascript:void(0)" onclick="openNav()" class="btn btn-info full-width btn-md"><i
+                      class="ti-filter mrg-r-5"></i>Filter Search</a>
+          </div> -->
+
+          <div class="sidebar-container d-sm-block d-md-block">
+            <!-- Foundation Year -->
+            <div class="sidebar-widget">
+              <div class="form-group">
+                <h5 class="mb-2">{{'company.foundation' | translate}}</h5>
+                <div class="side-imbo">
+                  <ul class="no-ul-list" id="checkBoxFoundationYear">
+                    <li>
+                      <input [(ngModel)]="foundationYear" (ngModelChange)="onFoundationYearChange($event)" id="checkbox-e0" class="checkbox-custom" name="foundationYear"
+                             type="radio" value="1980" data-linked="group1">
+                      <label for="checkbox-e0"
+                             class="checkbox-custom-label">{{'filter.filterSalaryFrom' | translate: {value: '1980'} }}</label>
+                    </li>
+
+                    <li>
+                      <input [(ngModel)]="foundationYear" (ngModelChange)="onFoundationYearChange($event)" id="checkbox-e1" class="checkbox-custom" name="foundationYear"
+                             type="radio" value="1990" data-linked="group1">
+                      <label for="checkbox-e1"
+                             class="checkbox-custom-label">{{'filter.filterSalaryFrom' | translate:  {value: '1990'} }}</label>
+                    </li>
+
+                    <li>
+                      <input [(ngModel)]="foundationYear" (ngModelChange)="onFoundationYearChange($event)" id="checkbox-e2" class="checkbox-custom" name="foundationYear"
+                             type="radio" value="2000" data-linked="group1">
+                      <label for="checkbox-e2"
+                             class="checkbox-custom-label">{{'filter.filterSalaryFrom' | translate:  {value: '2000'} }}</label>
+                    </li>
+
+                    <li>
+                      <input [(ngModel)]="foundationYear" (ngModelChange)="onFoundationYearChange($event)" id="checkbox-e3" class="checkbox-custom" name="foundationYear"
+                             type="radio" value="2010" data-linked="group1">
+                      <label for="checkbox-e3"
+                             class="checkbox-custom-label">{{'filter.filterSalaryFrom' | translate:  {value: '2010'} }}</label>
+                    </li>
+
+                    <li>
+                      <input [(ngModel)]="foundationYear" (ngModelChange)="onFoundationYearChange($event)" id="checkbox-e4" class="checkbox-custom" name="foundationYear"
+                             type="radio" value="2020" data-linked="group1">
+                      <label for="checkbox-e4"
+                             class="checkbox-custom-label">{{'filter.filterSalaryFrom' | translate:  {value: '2020'} }}</label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Foundation Year -->
+            <div class="sidebar-widget">
+              <div class="form-group">
+                <h5 class="mb-2">{{'company.employees' | translate}}</h5>
+                <div class="side-imbo">
+                  <ul class="no-ul-list" id="checkBoxFilterEmployees">
+                    <li>
+                      <input [(ngModel)]="employeesNumber" (ngModelChange)="onEmployeesNumberChange($event)" id="checkbox-f0" class="checkbox-custom" name="employeesNumber"
+                             type="radio" value="10" data-linked="group1">
+                      <label for="checkbox-f0"
+                             class="checkbox-custom-label">{{'filter.filterSalaryFrom' | translate:  {value: '10'} }}</label>
+                    </li>
+
+                    <li>
+                      <input [(ngModel)]="employeesNumber" (ngModelChange)="onEmployeesNumberChange($event)" id="checkbox-f1" class="checkbox-custom" name="employeesNumber"
+                             type="radio" value="100" data-linked="group1">
+                      <label for="checkbox-f1"
+                             class="checkbox-custom-label">{{'filter.filterSalaryFrom' | translate:  {value: '100'} }}</label>
+                    </li>
+
+                    <li>
+                      <input [(ngModel)]="employeesNumber" (ngModelChange)="onEmployeesNumberChange($event)" id="checkbox-f2" class="checkbox-custom" name="employeesNumber"
+                             type="radio" value="1000" data-linked="group1">
+                      <label for="checkbox-f2"
+                             class="checkbox-custom-label">{{'filter.filterSalaryFrom' | translate:  {value: '1000'} }}</label>
+                    </li>
+
+                    <li>
+                      <input [(ngModel)]="employeesNumber" (ngModelChange)="onEmployeesNumberChange($event)" id="checkbox-f3" class="checkbox-custom" name="employeesNumber"
+                             type="radio" value="5000" data-linked="group1">
+                      <label for="checkbox-f3"
+                             class="checkbox-custom-label">{{'filter.filterSalaryFrom' | translate:  {value: '5000'} }}</label>
+                    </li>
+
+                    <li>
+                      <input [(ngModel)]="employeesNumber" (ngModelChange)="onEmployeesNumberChange($event)" id="checkbox-f4" class="checkbox-custom" name="employeesNumber"
+                             type="radio" value="10000" data-linked="group1">
+                      <label for="checkbox-f4"
+                             class="checkbox-custom-label">{{'filter.filterSalaryFrom' | translate:  {value: '10000'} }}</label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-9 col-lg-8">
+
+          <div class="row">
+            <!-- layout Wrapper -->
+            <div class="col-md-12 mb-3">
+              <div class="layout-switcher-wrap">
+                <div
+                  class="layout-switcher-left"
+                  id="totalResultsInfo">{{('results' | translate) + ': ' + count}}</div>
+                <div
+                  class="layout-switcher-right">
+                  <div *ngIf="loadingNext" style="height: 20px; width: 20px" class="spinner-border text-success" role="status"><span class="sr-only">Loading...</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-12">
+              <!-- Single Large Job List -->
+              <div *ngFor="let company of companyList | paginate : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                }" class="job-new-list">
+                <div class="vc-thumb">
+                  <img class="img-fluid rounded-circle"
+                       src="{{company.photo != null ? 'data:image/jpeg;base64,' + company.photo : '/assets/img/default.png'}}">
+                </div>
+                <div class="vc-content">
+                  <h5 class="title"><a [routerLink]="['company', company.id]">{{company.name}}</a></h5>
+                  <p>{{company.companyForm}}</p>
+
+                  <ul class="vc-info-list">
+                    <li class="list-inline-item">
+                      <h5>{{'company.website' | translate}}</h5>
+                      <i class="ti-world"></i>{{company.website}}
+                    </li>
+                    <li class="list-inline-item">
+                      <h5>{{'company.employees' | translate}}</h5>
+                      <i class="ti-user"></i>{{company.employeesNumber}}
+                    </li>
+                  </ul>
+                </div>
+
+                <a class="btn btn-black bn-det" [routerLink]="['company', company.id]">{{'company.more' | translate}}
+                  <i class="ti-arrow-right ml-1"></i></a>
+              </div>
+            </div>
+
+            <div class="pagination-container col-md-12 mt-4">
+              <pagination-controls class="my-pagination text-center"
+                                   previousLabel=""
+                                   nextLabel=""
+                                   [maxSize]="10"
+                                   [responsive]="true"
+                                   (pageChange)="handlePageChange($event)">
+              </pagination-controls>
+            </div>
+
+
+          </div>
+        </div>
+
+      </div>
+
+
+
+    </div>
+  </section>
+  <div class="clearfix"></div>
+
+</div>

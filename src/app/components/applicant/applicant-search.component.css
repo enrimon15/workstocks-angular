@@ -1,0 +1,7 @@
+input.ng-invalid.ng-touched {
+  border: unset !important;
+}
+
+.my-pagination ::ng-deep .ngx-pagination .current {
+  background: #00a94f;
+}

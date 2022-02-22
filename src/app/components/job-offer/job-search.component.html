@@ -1,0 +1,285 @@
+<div [ngClass]="loading ? 'Loader' : 'Loader-end'"></div>
+
+<div *ngIf="!loading">
+  <div class="clearfix"></div>
+
+
+  <!-- ============================ Search Form Start================================== -->
+  <section class="p-0 advance-search b-t">
+    <div class="container-fluid p-0">
+
+      <form #searchForm="ngForm" (ngSubmit)="getJobList()" class="search-big-form no-border p-0">
+        <div class="row m-0">
+          <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+            <div class="form-group icon-sub-index">
+              <i class="ti-search"></i>
+              <input [(ngModel)]="description" name="description" id="topFilterJobTitle" type="text" class="form-control b-r keyPress"
+                     placeholder="{{'filter.jobTitleOrKeywords' | translate}}">
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+            <div class="form-group icon-sub-index">
+              <i class="ti-location-pin"></i>
+              <input [(ngModel)]="address" name="address" id="topFilterLocation" type="text" class="form-control b-r keyPress"
+                     placeholder="{{'filter.location' | translate}}">
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+            <div class="form-group icon-sub-index">
+              <i class="ti-briefcase"></i>
+              <input [(ngModel)]="company" name="company" id="topFilterCompanyName" type="text" class="form-control b-r keyPress"
+                     placeholder="{{'filter.companyName' | translate}}"
+              >
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+            <div class="form-group icon-sub-index">
+              <i class="ti-briefcase"></i>
+              <input [(ngModel)]="skill" name="skill" id="topFilterSkillName" type="text" class="form-control b-r keyPress"
+                     placeholder="{{'filter.skillsTitle' | translate}}"
+              >
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+            <button type="submit" [disabled]="!searchForm.valid" id="searchButton"
+                    class="btn btn-primary full-width">{{'job.findJobs' | translate}}</button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </section>
+  <!-- ============================ Search Form End ================================== -->
+
+  <section class="bg-light">
+    <div class="container">
+
+
+      <div class="row">
+
+        <div class="col-xl-3 col-lg-4">
+
+          <div class="back-brow">
+            <button (click)="resetFilters(searchForm)" type="button" id="resetFilterButton" class="btn btn-primary full-width">
+              <i class="ti-trash"></i> {{'filter.resetFilterButton' | translate}}
+            </button>
+
+          </div>
+
+          <!-- <div class="d-block d-none d-sm-block d-md-none mb-3">
+              <a href="javascript:void(0)" onclick="openNav()" class="btn btn-info full-width btn-md"><i
+                      class="ti-filter mrg-r-5"></i>Filter Search</a>
+          </div> -->
+
+          <div class="sidebar-container d-sm-block d-md-block">
+
+            <!-- Experience -->
+            <div class="sidebar-widget">
+              <div class="form-group">
+                <h5 class="mb-2">{{'filter.experienceTitle' | translate}}</h5>
+                <div class="side-imbo">
+                  <ul class="no-ul-list" id="checkBoxFilterExperience">
+                    <li>
+                      <input [(ngModel)]="experience" (ngModelChange)="onExperienceChange($event)" id="checkbox-e0" class="checkbox-custom" name="experience"
+                             type="radio" value="0" data-linked="group1">
+                      <label for="checkbox-e0"
+                             class="checkbox-custom-label">{{'filter.noExperience' | translate}}</label>
+                    </li>
+
+                    <li>
+                      <input [(ngModel)]="experience" (ngModelChange)="onExperienceChange($event)" id="checkbox-e1" class="checkbox-custom" name="experience"
+                             type="radio" value="1" data-linked="group1">
+                      <label for="checkbox-e1"
+                             class="checkbox-custom-label">1 {{'filter.year' | translate}}</label>
+                    </li>
+
+                    <li>
+                      <input [(ngModel)]="experience" (ngModelChange)="onExperienceChange($event)" id="checkbox-e2" class="checkbox-custom" name="experience"
+                             type="radio" value="2" data-linked="group1">
+                      <label for="checkbox-e2"
+                             class="checkbox-custom-label">2 {{'filter.years' | translate}}</label>
+                    </li>
+
+                    <li>
+                      <input [(ngModel)]="experience" (ngModelChange)="onExperienceChange($event)" id="checkbox-e3" class="checkbox-custom" name="experience"
+                             type="radio" value="3" data-linked="group1">
+                      <label for="checkbox-e3"
+                             class="checkbox-custom-label">3 {{'filter.years' | translate}}</label>
+                    </li>
+
+                    <li>
+                      <input [(ngModel)]="experience" (ngModelChange)="onExperienceChange($event)" id="checkbox-e4" class="checkbox-custom" name="experience"
+                             type="radio" value="4" data-linked="group1">
+                      <label for="checkbox-e4"
+                             class="checkbox-custom-label">4 {{('filter.years' | translate) + ' ' + ('filter.orMore' | translate)}}</label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Job Type -->
+            <div class="sidebar-widget">
+              <div class="form-group">
+                <h5 class="mb-2">{{'filter.jobTypeTitle' | translate}}</h5>
+                <div class="side-imbo">
+                  <ul class="no-ul-list" id="checkBoxFilterOfferType">
+                    <li>
+                      <input [(ngModel)]="contractType" (ngModelChange)="onContractTypeChange($event)" id="checkbox-j1" class="checkbox-custom" name="contractType"
+                             type="radio" value="FULLTIME">
+                      <label for="checkbox-j1"
+                             class="checkbox-custom-label">{{'filter.full_time' | translate}}</label>
+                    </li>
+
+                    <li>
+                      <input [(ngModel)]="contractType" (ngModelChange)="onContractTypeChange($event)" id="checkbox-j2" class="checkbox-custom" name="contractType"
+                             type="radio" value="PARTTIME">
+                      <label for="checkbox-j2"
+                             class="checkbox-custom-label">{{'filter.part_time' | translate}}</label>
+                    </li>
+
+                    <li>
+                      <input [(ngModel)]="contractType" (ngModelChange)="onContractTypeChange($event)" id="checkbox-j3" class="checkbox-custom" name="contractType"
+                             type="radio" value="CONSTRUCTIONBASE">
+                      <label for="checkbox-j3"
+                             class="checkbox-custom-label">{{'filter.construction_base' | translate}}</label>
+                    </li>
+
+                    <li>
+                      <input [(ngModel)]="contractType" (ngModelChange)="onContractTypeChange($event)" id="checkbox-j4" class="checkbox-custom" name="contractType"
+                             type="radio" value="INTERNSHIP">
+                      <label for="checkbox-j4"
+                             class="checkbox-custom-label">{{'filter.internship' | translate}}</label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- Compensation -->
+            <div class="sidebar-widget">
+              <div class="form-group">
+                <h5 class="mb-2">{{'filter.expectedSalleryTitle' | translate}}</h5>
+                <div class="side-imbo">
+                  <ul class="no-ul-list" id="checkBoxFilterSalary">
+                    <li>
+                      <input [(ngModel)]="salary" (ngModelChange)="onSalaryChange($event)" id="checkbox-c0" class="checkbox-custom" name="salary"
+                             type="radio" value="10">
+                      <label for="checkbox-c0" class="checkbox-custom-label">{{'filter.filterSalaryFrom' | translate:{value: '10k'} }}</label>
+                    </li>
+
+                    <li>
+                      <input [(ngModel)]="salary" (ngModelChange)="onSalaryChange($event)" id="checkbox-c1" class="checkbox-custom" name="salary"
+                             type="radio" value="20">
+                      <label for="checkbox-c1" class="checkbox-custom-label">{{'filter.filterSalaryFrom' | translate:{value: '20k'} }}</label>
+                    </li>
+
+                    <li>
+                      <input [(ngModel)]="salary" (ngModelChange)="onSalaryChange($event)" id="checkbox-c2" class="checkbox-custom" name="salary"
+                             type="radio" value="30">
+                      <label for="checkbox-c2" class="checkbox-custom-label">{{'filter.filterSalaryFrom' | translate:{value: '30k'} }}</label>
+                    </li>
+
+                    <li>
+                      <input [(ngModel)]="salary" (ngModelChange)="onSalaryChange($event)" id="checkbox-c3" class="checkbox-custom" name="salary"
+                             type="radio" value="40">
+                      <label for="checkbox-c3" class="checkbox-custom-label">{{'filter.filterSalaryFrom' | translate:{value: '40k'} }}</label>
+                    </li>
+
+                    <li>
+                      <input [(ngModel)]="salary" (ngModelChange)="onSalaryChange($event)" id="checkbox-c4" class="checkbox-custom" name="salary"
+                             type="radio" value="50">
+                      <label for="checkbox-c4" class="checkbox-custom-label">{{'filter.filterSalaryFrom' | translate:{value: '50k'} }}</label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-xl-9 col-lg-8">
+
+          <div class="row">
+            <!-- layout Wrapper -->
+            <div class="col-md-12 mb-3">
+              <div class="layout-switcher-wrap">
+                <div
+                  class="layout-switcher-left"
+                  id="totalResultsInfo">{{('results' | translate) + ': ' + count}}</div>
+                <div
+                  class="layout-switcher-right">
+                  <div *ngIf="loadingNext" style="height: 20px; width: 20px" class="spinner-border text-success" role="status"><span class="sr-only">Loading...</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-12">
+              <!-- Single Large Job List -->
+              <div *ngFor="let job of jobList | paginate : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                }" class="job-new-list">
+                <div class="vc-thumb">
+                  <img class="img-fluid rounded-circle" src="{{(job.company && job.company?.photo) ? 'data:image/jpeg;base64,' + job.company?.photo : '/assets/img/default.png'}}">
+                </div>
+                <div class="vc-content">
+                  <h5 class="title"><a [routerLink]="['job-offers', job.id]">{{job.title}}</a><span
+                    class="j-full-time">{{('filter.' + job.contractType) | translate}}</span></h5>
+                  <p>{{job?.company?.name}}</p>
+
+                  <ul class="vc-info-list">
+                    <li class="list-inline-item">
+                      <h5>{{'filter.expectedSalleryTitle' | translate}}</h5>
+                      <i class="ti-credit-card"></i>{{job.minSalary + 'K€ - ' + job.maxSalary + 'K€'}}
+                    </li>
+
+                    <li class="list-inline-item" *ngIf="job.skills != null && job.skills.length > 0"><h5>{{'filter.skillsTitle' | translate}}</h5>
+                      <div class="skills">
+                        <ng-container *ngFor="let skill of job.skills; let i = index">
+                          <span *ngIf="i <= 2">{{skill}}</span>
+                        </ng-container>
+                        <ng-container *ngIf="job.skills.length > 3">
+                          <span>{{(job.skills.length - 3) + ' ' + ('job.others' | translate)}}</span>
+                        </ng-container>
+                      </div>
+                    </li>
+
+                  </ul>
+                </div>
+                <a class="btn btn-black bn-det" [routerLink]="['job-offers', job.id]">{{'home.apply' | translate}}
+                  <i class="ti-arrow-right ml-1"></i></a>
+              </div>
+            </div>
+
+            <div class="pagination-container col-md-12 mt-4">
+              <pagination-controls class="my-pagination text-center"
+                                   previousLabel=""
+                                   nextLabel=""
+                                   [maxSize]="10"
+                                   [responsive]="true"
+                                   (pageChange)="handlePageChange($event)">
+              </pagination-controls>
+            </div>
+
+
+          </div>
+        </div>
+
+      </div>
+
+
+
+    </div>
+  </section>
+  <div class="clearfix"></div>
+
+</div>

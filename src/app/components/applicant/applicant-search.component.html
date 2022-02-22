@@ -1,0 +1,193 @@
+<div [ngClass]="loading ? 'Loader' : 'Loader-end'"></div>
+
+<div *ngIf="!loading">
+
+  <!-- ============================ Search Form Start================================== -->
+  <section class="p-0 advance-search b-t">
+    <div class="container-fluid p-0">
+
+      <form #searchForm="ngForm" (ngSubmit)="getApplicantList()" class="search-big-form no-border p-0">
+        <div class="row m-0">
+          <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+            <div class="form-group icon-sub-index">
+              <i class="ti-search"></i>
+              <input [(ngModel)]="name" name="name" id="topFilterNameSurname" type="text" class="form-control b-r keyPress"
+                     placeholder="{{'applicant.nameSurnameTopFilter' | translate}}" minlength="3">
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+            <div class="form-group icon-sub-index">
+              <i class="ti-location-pin"></i>
+              <input [(ngModel)]="address" name="address" id="topFilterLocation" type="text" class="form-control b-r keyPress"
+                     placeholder="{{'applicant.placeTopFilter'| translate}}" minlength="3">
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+            <div class="form-group icon-sub-index">
+              <i class="ti-briefcase"></i>
+              <input [(ngModel)]="jobTitle" name="jobTitle" id="topFilterJobTitle" type="text" class="form-control b-r keyPress"
+                     placeholder="{{'applicant.jobTitleTopFilter' | translate}}" minlength="3">
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+            <div class="form-group icon-sub-index">
+              <i class="ti-briefcase"></i>
+              <input [(ngModel)]="skill" name="skill" id="topFilterSkills" type="text" class="form-control b-r keyPress"
+                     placeholder="{{'applicant.jobSkillsTopFilter'| translate}}" minlength="3">
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+            <button [disabled]="!searchForm.valid" type="submit" id="searchButton"
+                    class="btn btn-primary full-width">{{'applicant.findSubscriberTopFilterButtom' | translate}}</button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </section>
+  <!-- ============================ Search Form End ================================== -->
+
+  <section class="bg-light">
+    <div class="container">
+
+
+      <div class="row">
+
+        <div class="col-xl-3 col-lg-4">
+
+          <div class="back-brow">
+            <button (click)="resetFilters(searchForm)" type="button" id="resetFilterButton" class="btn btn-primary full-width">
+              <i class="ti-trash"></i> {{'filter.resetFilterButton' | translate}}
+            </button>
+
+          </div>
+
+          <!-- <div class="d-block d-none d-sm-block d-md-none mb-3">
+              <a href="javascript:void(0)" onclick="openNav()" class="btn btn-info full-width btn-md"><i
+                      class="ti-filter mrg-r-5"></i>Filter Search</a>
+          </div> -->
+
+          <div class="sidebar-container d-sm-block d-md-block">
+
+            <!-- Compensation -->
+            <div class="sidebar-widget">
+              <div class="form-group">
+                <h5 class="mb-2">{{'filter.expectedSalleryTitle' | translate}}</h5>
+                <div class="side-imbo">
+                  <ul class="no-ul-list" id="checkBoxFilterSalary">
+                    <li>
+                      <input [(ngModel)]="salary" (ngModelChange)="onSalaryChange($event)" id="checkbox-c0" class="checkbox-custom" name="minimumExpectedSalary"
+                             type="radio" value="10">
+                      <label for="checkbox-c0" class="checkbox-custom-label">{{'filter.filterSalaryUpTo' | translate:{value: '10k'} }}</label>
+                    </li>
+
+                    <li>
+                      <input [(ngModel)]="salary" (ngModelChange)="onSalaryChange($event)" id="checkbox-c1" class="checkbox-custom" name="minimumExpectedSalary"
+                             type="radio" value="20">
+                      <label for="checkbox-c1" class="checkbox-custom-label">{{'filter.filterSalaryUpTo' | translate:{value: '20k'} }}</label>
+                    </li>
+
+                    <li>
+                      <input [(ngModel)]="salary" (ngModelChange)="onSalaryChange($event)" id="checkbox-c2" class="checkbox-custom" name="minimumExpectedSalary"
+                             type="radio" value="30">
+                      <label for="checkbox-c2" class="checkbox-custom-label">{{'filter.filterSalaryUpTo' | translate:{value: '30k'} }}</label>
+                    </li>
+
+                    <li>
+                      <input [(ngModel)]="salary" (ngModelChange)="onSalaryChange($event)" id="checkbox-c3" class="checkbox-custom" name="minimumExpectedSalary"
+                             type="radio" value="40">
+                      <label for="checkbox-c3" class="checkbox-custom-label">{{'filter.filterSalaryUpTo' | translate:{value: '40k'} }}</label>
+                    </li>
+
+                    <li>
+                      <input [(ngModel)]="salary" (ngModelChange)="onSalaryChange($event)" id="checkbox-c4" class="checkbox-custom" name="minimumExpectedSalary"
+                             type="radio" value="50">
+                      <label for="checkbox-c4" class="checkbox-custom-label">{{'filter.filterSalaryUpTo' | translate:{value: '50k'} }}</label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-xl-9 col-lg-8">
+
+          <div class="row">
+            <!-- layout Wrapper -->
+            <div class="col-md-12 mb-3">
+              <div class="layout-switcher-wrap">
+                <div
+                  class="layout-switcher-left"
+                  id="totalResultsInfo">{{('results' | translate) + ': ' + count}}</div>
+                <div
+                  class="layout-switcher-right">
+                  <div *ngIf="loadingNext" style="height: 20px; width: 20px" class="spinner-border text-success" role="status"><span class="sr-only">Loading...</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-12">
+              <!-- Single Candidate List -->
+              <div *ngFor="let applicant of applicantList | paginate : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                }" class="candidate-list-layout">
+                <div class="cll-wrap">
+                  <div class="cll-thumb">
+                    <a href="#"><img src="{{applicant.photo ? 'data:image/jpeg;base64,' + applicant.photo : '/assets/img/default.png'}}" class="img-responsive img-circle" alt="" /></a>
+                  </div>
+                  <div class="cll-caption">
+                    <h4><a [routerLink]="['applicant', applicant.id]">{{applicant.name + ' ' + applicant.surname}}</a>
+
+                      <span *ngIf="applicant.jobTitle != null"><i class="ti-briefcase"></i>{{applicant.jobTitle}}</span>
+
+                    </h4>
+
+                    <ul>
+                      <li *ngIf="applicant?.address?.country != null || applicant?.address?.city != null">
+                        <i class="ti-location-pin text-danger"></i>
+                        {{applicant?.address?.country + ' ' + applicant?.address?.city}}
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+
+                <div class="cll-right">
+                  <a [routerLink]="['applicant', applicant.id]" class="btn btn-primary btn-shortlist"><i class="ti-plus"></i>{{'applicant.showProfile' | translate}}</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="pagination-container col-md-12 mt-4">
+              <pagination-controls class="my-pagination text-center"
+                previousLabel=""
+                nextLabel=""
+                [maxSize]="10"
+                [responsive]="true"
+                (pageChange)="handlePageChange($event)">
+              </pagination-controls>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+
+
+    </div>
+  </section>
+  <div class="clearfix"></div>
+
+</div>
