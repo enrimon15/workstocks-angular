@@ -18,5 +18,5 @@ export interface User {
   qualifications?: string;
   experiences?: string;
   photo?: string;
-  isCv?: boolean;
+  cv?: boolean;
 }

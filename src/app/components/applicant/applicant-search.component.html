@@ -147,7 +147,7 @@
                     <a href="#"><img src="{{applicant.photo ? 'data:image/jpeg;base64,' + applicant.photo : '/assets/img/default.png'}}" class="img-responsive img-circle" alt="" /></a>
                   </div>
                   <div class="cll-caption">
-                    <h4><a [routerLink]="['applicant', applicant.id]">{{applicant.name + ' ' + applicant.surname}}</a>
+                    <h4><a [routerLink]="[applicant.id]">{{applicant.name + ' ' + applicant.surname}}</a>
 
                       <span *ngIf="applicant.jobTitle != null"><i class="ti-briefcase"></i>{{applicant.jobTitle}}</span>
 
@@ -164,7 +164,7 @@
                 </div>
 
                 <div class="cll-right">
-                  <a [routerLink]="['applicant', applicant.id]" class="btn btn-primary btn-shortlist"><i class="ti-plus"></i>{{'applicant.showProfile' | translate}}</a>
+                  <a [routerLink]="[applicant.id]" class="btn btn-primary btn-shortlist"><i class="ti-plus"></i>{{'applicant.showProfile' | translate}}</a>
                 </div>
               </div>
             </div>

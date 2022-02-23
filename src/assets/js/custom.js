@@ -315,5 +315,13 @@
 		});
 	});
 
+  window.addEventListener('load', function () {
+    // tooltip
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    });
+  });
+
 
 })(jQuery);
+

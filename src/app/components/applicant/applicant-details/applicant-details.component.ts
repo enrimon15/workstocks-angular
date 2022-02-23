@@ -51,6 +51,7 @@ export class ApplicantDetailsComponent implements OnInit {
       this.applicantService.getQualifications(this.applicantId),
       this.applicantService.getExperiences(this.applicantId),
     ]).subscribe(([user, skills, certifications, qualifications, experiences]) => {
+      console.log(user, skills, certifications, qualifications, experiences);
       this.user = user;
       this.skills = skills;
       this.certifications = certifications;
@@ -96,7 +97,7 @@ export class ApplicantDetailsComponent implements OnInit {
       },
       error: (error) => {
         this.loadingCV = false;
-        this.toastr.error('error cv', {
+        this.toastr.error('error cv', '', {
           timeOut: 5000,
           easeTime: 300
         });
@@ -116,7 +117,7 @@ export class ApplicantDetailsComponent implements OnInit {
       },
       error: (error) => {
         this.loadingMail = false;
-        this.toastr.error('error mail', {
+        this.toastr.error('error mail', '', {
           timeOut: 5000,
           easeTime: 300
         });
