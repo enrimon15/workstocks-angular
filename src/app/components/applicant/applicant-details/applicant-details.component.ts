@@ -52,4 +52,30 @@ export class ApplicantDetailsComponent implements OnInit {
     })
   }
 
+  getSkillLevel(assestment: string): number {
+    switch (assestment) {
+      case 'BEGINNER':
+        return 33;
+      case 'INTERMEDIATE':
+        return 66;
+      case 'ADVANCED':
+        return 100;
+      default:
+        return 0;
+    }
+  }
+
+  getSkillColor(assestment: string) {
+    switch (assestment) {
+      case 'BEGINNER':
+        return "danger";
+      case 'INTERMEDIATE':
+        return "warning";
+      case 'ADVANCED':
+        return "success";
+      default:
+        return null;
+    }
+  }
+
 }
