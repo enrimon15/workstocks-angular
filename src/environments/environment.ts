@@ -18,16 +18,19 @@ export const environment = {
   applicant: {
     search: 'applicants/search',
     get: 'applicants',
-    checkUniqueEmail: 'applicants/email-unique'
+    checkUniqueEmail: 'applicants/email-unique',
+    email: 'email'
   },
   onlineCv: {
     skills: 'skills',
     qualifications: 'qualifications',
     certifications: 'certifications',
-    experiences: 'experiences'
+    experiences: 'experiences',
+    cv: 'cv'
   },
   company: {
-    search: 'companies/search'
+    search: 'companies/search',
+    get: 'companies',
   },
   jobOffer: {
     search: 'job-offers/search'

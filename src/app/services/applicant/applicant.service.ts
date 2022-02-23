@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, catchError} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {User} from "../../model/User";
 import {PaginatedResponse} from "../../model/PaginatedResponse";
@@ -8,13 +8,16 @@ import {Skill} from "../../model/Skill";
 import {Experience} from "../../model/Experience";
 import {Certification} from "../../model/Certification";
 import {Qualification} from "../../model/Qualification";
+import { BaseService } from '../base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ApplicantService {
+export class ApplicantService extends BaseService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    super();
+  }
 
   getAll(salary: number | null, name: string, skill: string, jobTitle: string, address: string, page: number, pageSize: number): Observable<PaginatedResponse<User>> {
     let requestParam = new HttpParams().append('limit', pageSize);
@@ -64,5 +67,11 @@ export class ApplicantService {
   getQualifications(applicantId: number): Observable<Qualification[]> {
     const requestUrl = `${environment.baseUrl}/${environment.applicant.get}/${applicantId}/${environment.onlineCv.qualifications}`;
     return this.http.get<Qualification[]>(requestUrl);
+  }
+
+  downloadCv(applicantId: number): Observable<void> {
+    const requestUrl = `${environment.baseUrl}/${environment.applicant.get}/${applicantId}/${environment.onlineCv.cv}`;
+    return this.http.get<void>(requestUrl)
+    .pipe(catchError(this.handleError));
   }
 }

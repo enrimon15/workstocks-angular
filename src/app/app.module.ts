@@ -17,6 +17,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AppConstants} from "./app.constants";
 import {JwtModule} from "@auth0/angular-jwt";
 import {LoginResponse} from "./model/LoginResponse";
+import { ToastrModule } from 'ngx-toastr';
 
 // required for AOT compilation
 export function HttpLoaderFactory(http: HttpClient) {
@@ -52,6 +53,7 @@ export function tokenGetter() {
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     JwtModule.forRoot({
       config: {
         tokenGetter,

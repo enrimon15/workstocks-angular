@@ -10,11 +10,9 @@ import {Count} from "../../model/Count";
 @Injectable({
   providedIn: 'root'
 })
-export class HomeService extends BaseService {
+export class HomeService {
 
-  constructor(private http: HttpClient) {
-    super();
-  }
+  constructor(private http: HttpClient) {}
 
   getPopularCompanies(): Observable<Company[]> {
     let requestParam = new HttpParams().append('limit', 5);
