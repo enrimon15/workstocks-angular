@@ -11,6 +11,8 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { EmailService } from 'src/app/services/email/email.service';
 import { EmailRequest } from 'src/app/model/EmailRequest';
 import { ToastrService } from 'ngx-toastr';
+import * as FileSaver from 'file-saver';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-applicant-details',
@@ -30,7 +32,8 @@ export class ApplicantDetailsComponent implements OnInit {
   emailData: EmailRequest;
 
 
-  constructor(private route: ActivatedRoute, private applicantService: ApplicantService, public authService: AuthService, private mailService: EmailService, private toastr: ToastrService) {
+  constructor(private route: ActivatedRoute, private applicantService: ApplicantService, public authService: AuthService,
+              private mailService: EmailService, private toastr: ToastrService, private translateService: TranslateService) {
     this.emailData = {to: '', subject: '', messageBody: ''}
   }
 
@@ -93,13 +96,17 @@ export class ApplicantDetailsComponent implements OnInit {
 
     this.applicantService.downloadCv(this.applicantId).subscribe({
       next: (res) => {
+        const fileName = `CV_${this.user?.name}_${this.user?.surname}_${this.applicantId}.pdf`
+        FileSaver.saveAs(res, fileName)
         this.loadingCV = false;
       },
       error: (error) => {
         this.loadingCV = false;
-        this.toastr.error('error cv', '', {
-          timeOut: 5000,
-          easeTime: 300
+        this.translateService.get('profile.cvError').subscribe((res: string) => {
+          this.toastr.error(res, '', {
+            timeOut: 3000,
+            easeTime: 300
+          });
         });
       }
     });
@@ -117,9 +124,11 @@ export class ApplicantDetailsComponent implements OnInit {
       },
       error: (error) => {
         this.loadingMail = false;
-        this.toastr.error('error mail', '', {
-          timeOut: 5000,
-          easeTime: 300
+        this.translateService.get('profile.mailError').subscribe((res: string) => {
+          this.toastr.error(res, '', {
+            timeOut: 3000,
+            easeTime: 300
+          });
         });
       }
     });

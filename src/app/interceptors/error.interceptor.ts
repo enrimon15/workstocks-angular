@@ -11,7 +11,7 @@ import {environment} from "../../environments/environment";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  private whitelistUrl: string[] = ['auth/login', 'curriculum', 'applicants/email'];
+  private whitelistUrl: string[] = ['auth/login', 'cv', 'applicants/email'];
 
   constructor(private router: Router) {}
 

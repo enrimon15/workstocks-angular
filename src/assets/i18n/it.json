@@ -108,6 +108,36 @@
     "filterSalaryUpTo": "Fino a {{value}}",
     "filterSalaryFrom": "Da {{value}}"
   },
+  "profile": {
+    "message": "Manda un Messaggio",
+    "overview": "Descrizione Utente",
+    "noDesc": "Descrizione non disponibile",
+    "skill": "Competenze e Conoscenze",
+    "noSkill": "Competenze non disponibili",
+    "education": " Istruzione e Qualifiche",
+    "noEducation": "Istruzione non disponibile",
+    "experience": "Esperienze Lavorative",
+    "noExperience": "Esperienze lavorative non disponibili",
+    "certificate": "Certificazioni",
+    "noCertificate": "Certificazioni non disponibili",
+    "detail": "Dettagli Utente",
+    "address": "Indirizzo Utente",
+    "gender": "Genere",
+    "salary": "Salario Minimo",
+    "cv": "Scarica CV",
+    "cvError": "Impossibile scaricare il cv",
+    "mail": "Scrivi un messaggio...",
+    "mailSuccess": "Mail inviata con successo",
+    "mailError": "Impossibile iniviare la Mail",
+    "society": "Rilasciato da:",
+    "credential": "Credenziale:",
+    "noExp": "(nessuna scadenza)",
+    "valuation": "Valutazione:",
+    "submit": "Invia"
+  },
+  "onlineCV": {
+    "inProgress": "In corso"
+  },
   "error": {
     "ops": "Oops!",
     "error": "Si è verificato un errore",

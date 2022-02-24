@@ -69,10 +69,10 @@ export class ApplicantService extends BaseService {
     return this.http.get<Qualification[]>(requestUrl);
   }
 
-  downloadCv(applicantId: number): Observable<ArrayBuffer> {
+  downloadCv(applicantId: number): Observable<Blob> {
     const requestUrl = `${environment.baseUrl}/${environment.applicant.get}/${applicantId}/${environment.onlineCv.cv}`;
     // @ts-ignore
-    return this.http.get<ArrayBuffer>(requestUrl, {responseType: 'blob'})
+    return this.http.get<Blob>(requestUrl, {responseType: 'blob'})
     .pipe(catchError(this.handleError));
   }
 }

@@ -23,7 +23,7 @@
           </div>
           <div class="listing-detail_right">
             <div class="listing-detail-item">
-              <a href="javascript:void(0)" data-toggle="modal" data-target="#mail" class="btn btn-list full-width color--linkedin"><i class="ti-email mr-2"></i> {{'up.message' | translate}}</a>
+              <a href="javascript:void(0)" data-toggle="modal" data-target="#mail" class="btn btn-list full-width color--linkedin"><i class="ti-email mr-2"></i> {{'profile.message' | translate}}</a>
             </div>
           </div>
         </div>
@@ -59,19 +59,19 @@
           <!-- Candidate Overview -->
           <div class="tr-single-box">
             <div class="tr-single-header">
-              <h4><i class="ti-info"></i>{{'up.overview' | translate}}</h4>
+              <h4><i class="ti-info"></i>{{'profile.overview' | translate}}</h4>
             </div>
             <div *ngIf="user?.overview; else noOverview" [innerHTML]="user?.overview" class="tr-single-body">
             </div>
             <ng-template #noOverview>
-              <div class="tr-single-body">{{'up.noDesc' | translate}}</div>
+              <div class="tr-single-body">{{'profile.noDesc' | translate}}</div>
             </ng-template>
           </div>
 
           <!-- Extra Skill& Knowledge -->
           <div class="tr-single-box">
             <div class="tr-single-header">
-              <h4><i class="ti-book"></i> {{'up.skill' | translate}}</h4>
+              <h4><i class="ti-book"></i> {{'profile.skill' | translate}}</h4>
             </div>
             <div class="tr-single-body">
               <!-- Skills -->
@@ -86,7 +86,7 @@
                   </div>
                 </ng-container>
                 <ng-template #noSkills>
-                  <p class="ml-4">{{'up.noSkill' | translate}}</p>
+                  <p class="ml-4">{{'profile.noSkill' | translate}}</p>
                 </ng-template>
 
               </div>
@@ -98,7 +98,7 @@
           <!-- Education & Qualification -->
           <div class="tr-single-box">
             <div class="tr-single-header">
-              <h4><i class="ti-cup"></i>{{'up.education' | translate}}</h4>
+              <h4><i class="ti-cup"></i>{{'profile.education' | translate}}</h4>
             </div>
             <div class="tr-single-body">
               <ul class="qa-skill-list" [style.border-left]="qualifications == null || qualifications.length <= 0 ? 'none!important' : ''">
@@ -107,7 +107,7 @@
                   <!-- Single List -->
                   <li *ngFor="let qualification of qualifications">
                     <div class="qa-skill-box">
-                      <h4 class="qa-skill-title">{{qualification.name}}<span class="qa-time">{{qualification.startDate + ' - ' + (qualification.endDate != null ? qualification.endDate : ('ocv.inProgress' | translate))}}</span></h4>
+                      <h4 class="qa-skill-title">{{qualification.name}}<span class="qa-time">{{qualification.startDate + ' - ' + (qualification.endDate != null ? qualification.endDate : ('onlineCV.inProgress' | translate))}}</span></h4>
                       <h5 class="qa-subtitle">{{qualification.institute}}</h5>
 
                       <div *ngIf="qualification.description != null && qualification.description.trim().length > 0" class="qa-content">
@@ -115,13 +115,13 @@
                       </div>
 
                       <div *ngIf="qualification.valuation != null && qualification.valuation.trim().length > 0; else noValuation" class="qa-content">
-                        <p>{{('up.valuation' | translate) + ' ' + qualification.valuation}}</p>
+                        <p>{{('profile.valuation' | translate) + ' ' + qualification.valuation}}</p>
                       </div>
                     </div>
                   </li>
                 </ng-container>
                 <ng-template #noValuation>
-                  <p>{{'up.noEducation' | translate}}</p>
+                  <p>{{'profile.noEducation' | translate}}</p>
                 </ng-template>
 
               </ul>
@@ -131,7 +131,7 @@
           <!-- Experience -->
           <div class="tr-single-box">
             <div class="tr-single-header">
-              <h4><i class="lni lni-briefcase"></i>{{'up.experience' | translate}}</h4>
+              <h4><i class="lni lni-briefcase"></i>{{'profile.experience' | translate}}</h4>
             </div>
             <div class="tr-single-body">
               <ul class="qa-skill-list" [style.border-left]="experiences == null || experiences.length <= 0 ? 'border-left: none!important' : ''">
@@ -140,7 +140,7 @@
                   <!-- Single List -->
                   <li *ngFor="let experience of experiences">
                     <div class="qa-skill-box">
-                      <h4 class="qa-skill-title">{{experience.jobPosition}}<span class="qa-time">{{experience.startDate + ' - ' + (experience.endDate != null ? experience.endDate : ('ocv.inProgress' | translate))}}</span></h4>
+                      <h4 class="qa-skill-title">{{experience.jobPosition}}<span class="qa-time">{{experience.startDate + ' - ' + (experience.endDate != null ? experience.endDate : ('onlineCV.inProgress' | translate))}}</span></h4>
                       <h5 class="qa-subtitle">{{experience.company}}</h5>
 
                       <div *ngIf="experience.description != null && experience.description.trim().length > 0" class="qa-content">
@@ -151,7 +151,7 @@
                   </li>
                 </ng-container>
                 <ng-template #noExperience>
-                  <p>{{'up.noExperience' | translate}}</p>
+                  <p>{{'profile.noExperience' | translate}}</p>
                 </ng-template>
 
               </ul>
@@ -161,7 +161,7 @@
           <!-- Certificate -->
           <div class="tr-single-box">
             <div class="tr-single-header">
-              <h4><i class="lni-certificate"></i>{{'up.certificate' | translate}}</h4>
+              <h4><i class="lni-certificate"></i>{{'profile.certificate' | translate}}</h4>
             </div>
             <div class="tr-single-body">
               <ul class="qa-skill-list" [style.border-left]="certifications == null || certifications.length < 0 ? 'border-left: none!important' : ''">
@@ -170,16 +170,16 @@
                   <!-- Single List -->
                   <li *ngFor="let certificate of certifications">
                     <div class="qa-skill-box">
-                      <h4 class="qa-skill-title">{{certificate.name}}<span class="qa-time">{{certificate.date + ' - ' + (certificate.endDate != null ? certificate.endDate : ('up.noExp' | translate))}}</span></h4>
-                      <h5 class="qa-subtitle">{{('up.society' | translate) + ' ' + certificate.society}}</h5>
+                      <h4 class="qa-skill-title">{{certificate.name}}<span class="qa-time">{{certificate.date + ' - ' + (certificate.endDate != null ? certificate.endDate : ('profile.noExp' | translate))}}</span></h4>
+                      <h5 class="qa-subtitle">{{('profile.society' | translate) + ' ' + certificate.society}}</h5>
                       <div class="qa-content">
-                        <p>{{'up.credential' | translate}} <a href="{{certificate?.url ?? 'javascript:void(0)'}}">{{certificate.credential}}</a></p>
+                        <p>{{'profile.credential' | translate}} <a href="{{certificate?.url ?? 'javascript:void(0)'}}">{{certificate.credential}}</a></p>
                       </div>
                     </div>
                   </li>
                 </ng-container>
                 <ng-template #noCertificate>
-                  <p>{{'up.noCertificate' | translate}}</p>
+                  <p>{{'profile.noCertificate' | translate}}</p>
                 </ng-template>
 
               </ul>
@@ -194,10 +194,10 @@
 
           <div class="offer-btn-wrap mb-4">
 
-            <a data-toggle="tooltip" data-placement="top" title="{{'ocv.cvNotAvailable' | translate}}" *ngIf="!user?.cv; else cvOk" href="javascript:void(0)" style="cursor: not-allowed" class="btn btn-info btn-md full-width"><i class="mr-2 ti-download"></i>{{'up.cv' | translate}}</a>
+            <a data-toggle="tooltip" data-placement="top" title="{{'onlineCV.cvNotAvailable' | translate}}" *ngIf="!user?.cv; else cvOk" href="javascript:void(0)" style="cursor: not-allowed" class="btn btn-info btn-md full-width"><i class="mr-2 ti-download"></i>{{'profile.cv' | translate}}</a>
 
             <ng-template #cvOk>
-              <a *ngIf="!loadingCV" href="javascript:void(0)" (click)="downloadCV()"  class="btn btn-info btn-md full-width"><i class="mr-2 ti-download"></i>{{'up.cv' | translate}}</a>
+              <a *ngIf="!loadingCV" href="javascript:void(0)" (click)="downloadCV()"  class="btn btn-info btn-md full-width"><i class="mr-2 ti-download"></i>{{'profile.cv' | translate}}</a>
               <div *ngIf="loadingCV" id="spinnerCV" class="spinner-border text-success" role="status"><span class="sr-only">Loading...</span></div>
             </ng-template>
 
@@ -206,7 +206,7 @@
           <!-- Candidate Detail -->
           <div class="tr-single-box">
             <div class="tr-single-header">
-              <h4><i class="ti-direction"></i> {{'up.detail' | translate}}</h4>
+              <h4><i class="ti-direction"></i> {{'profile.detail' | translate}}</h4>
             </div>
 
 
@@ -220,7 +220,7 @@
                       <i class="ti-money"></i>
                     </div>
                     <div class="icon-box-text">
-                      <strong class="d-block">{{'up.salary' | translate}}</strong>
+                      <strong class="d-block">{{'profile.salary' | translate}}</strong>
                       {{user?.minimumExpectedSalary + ' K'}}
                     </div>
                   </div>
@@ -234,7 +234,7 @@
                       <i class="lni-users"></i>
                     </div>
                     <div class="icon-box-text">
-                      <strong class="d-block">{{'up.gender' | translate}}</strong>
+                      <strong class="d-block">{{'profile.gender' | translate}}</strong>
                       {{user?.gender}}
                     </div>
                   </div>
@@ -249,7 +249,7 @@
           <!-- Candidate Address -->
           <div class="tr-single-box">
             <div class="tr-single-header">
-              <h4><i class="ti-direction"></i> {{'up.address' | translate}}</h4>
+              <h4><i class="ti-direction"></i> {{'profile.address' | translate}}</h4>
             </div>
 
             <div class="tr-single-body">
@@ -327,7 +327,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">{{'up.message' | translate}}</h5>
+          <h5 class="modal-title" id="exampleModalLabel">{{'profile.message' | translate}}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -336,11 +336,11 @@
           <form #emailForm="ngForm" (ngSubmit)="handleMail()" id="form-contact">
             <div class="row">
               <div class="form-group col-md-12 col-sm-12">
-                <textarea [(ngModel)]="emailData.messageBody" class="form-control" placeholder="{{'up.mail' | translate}}" name="sourceTextMessage" required minlength="3"></textarea>
+                <textarea [(ngModel)]="emailData.messageBody" class="form-control" placeholder="{{'profile.mail' | translate}}" name="sourceTextMessage" required minlength="3"></textarea>
               </div>
 
               <div class="col-md-12 col-sm-12">
-                <button *ngIf="!loadingMail" [disabled]="!authService.isAuthenticated() || !emailForm.valid" class="btn btn-primary" type="submit">{{'up.submit' | translate}}</button>
+                <button *ngIf="!loadingMail" [disabled]="!authService.isAuthenticated() || !emailForm.valid" class="btn btn-primary" type="submit">{{'profile.submit' | translate}}</button>
                 <div *ngIf="loadingMail" id="spinner" class="spinner-border text-success" role="status"><span class="sr-only">Loading...</span></div>
               </div>
             </div>
