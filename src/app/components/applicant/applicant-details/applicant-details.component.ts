@@ -10,9 +10,9 @@ import {Certification} from "../../../model/Certification";
 import { AuthService } from 'src/app/auth/auth.service';
 import { EmailService } from 'src/app/services/email/email.service';
 import { EmailRequest } from 'src/app/model/EmailRequest';
-import { ToastrService } from 'ngx-toastr';
 import * as FileSaver from 'file-saver';
-import {TranslateService} from "@ngx-translate/core";
+import {AlertService} from "../../../services/alert/alert.service";
+import {AppConstants} from "../../../app.constants";
 
 @Component({
   selector: 'app-applicant-details',
@@ -33,7 +33,7 @@ export class ApplicantDetailsComponent implements OnInit {
 
 
   constructor(private route: ActivatedRoute, private applicantService: ApplicantService, public authService: AuthService,
-              private mailService: EmailService, private toastr: ToastrService, private translateService: TranslateService) {
+              private mailService: EmailService, private alertService: AlertService) {
     this.emailData = {to: '', subject: '', messageBody: ''}
   }
 
@@ -54,7 +54,6 @@ export class ApplicantDetailsComponent implements OnInit {
       this.applicantService.getQualifications(this.applicantId),
       this.applicantService.getExperiences(this.applicantId),
     ]).subscribe(([user, skills, certifications, qualifications, experiences]) => {
-      console.log(user, skills, certifications, qualifications, experiences);
       this.user = user;
       this.skills = skills;
       this.certifications = certifications;
@@ -102,12 +101,7 @@ export class ApplicantDetailsComponent implements OnInit {
       },
       error: (error) => {
         this.loadingCV = false;
-        this.translateService.get('profile.cvError').subscribe((res: string) => {
-          this.toastr.error(res, '', {
-            timeOut: 3000,
-            easeTime: 300
-          });
-        });
+        this.alertService.showError('profile.cvError', '');
       }
     });
   }
@@ -116,20 +110,16 @@ export class ApplicantDetailsComponent implements OnInit {
     this.loadingMail = true;
 
     this.emailData.to = this.user?.email ?? '';
-    this.emailData.subject = 'Contact Request';
+    this.emailData.subject = AppConstants.REQUEST_CONTACT;
 
     this.mailService.sendEmail(this.emailData).subscribe({
       next: (res) => {
         this.loadingMail = false;
+        this.alertService.showSuccess('profile.mailSuccess', '');
       },
       error: (error) => {
         this.loadingMail = false;
-        this.translateService.get('profile.mailError').subscribe((res: string) => {
-          this.toastr.error(res, '', {
-            timeOut: 3000,
-            easeTime: 300
-          });
-        });
+        this.alertService.showError('profile.mailError', '');
       }
     });
   }

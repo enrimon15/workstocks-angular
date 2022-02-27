@@ -42,29 +42,28 @@
 
           <ul class="nav-menu nav-menu-social align-to-right">
 
-            <!-- isAnonymous() -->
+
             <li *ngIf="!isAuthenticated" class="d-none d-lg-inline">
               <a routerLink="/login">
                 <i class="ti-user mr-1"></i><span class="dn-lg">{{'auth.accountActions' | translate}}</span>
               </a>
             </li>
 
-            <!-- isAuthenticated() -->
             <li *ngIf="isAuthenticated" class="d-none d-lg-inline">
-              <a href="#">
+              <a href="#" routerLink="/dashboard/profile">
                 <i class="ti-user mr-1"></i>
                 {{loggedUser?.name}}
                 <span class="submenu-indicator"></span>
               </a>
 
-              <ul class="nav-dropdown nav-submenu" style="right: auto; display: none;">
-                <li><a routerLink="/dashboard}">{{'navbar.profile' | translate}}</a></li>
+              <!--<ul class="nav-dropdown nav-submenu" style="right: auto; display: none;">
+                <li><a routerLink="/dashboard/profile">{{'navbar.profile' | translate}}</a></li>
                 <li>
                   <a href="#" (click)="logout()">
                     {{'navbar.logout' | translate}}
                   </a>
                 </li>
-              </ul>
+              </ul>-->
             </li>
 
           </ul>
@@ -78,20 +77,20 @@
           </li>
 
           <li *ngIf="isAuthenticated" class="d-none d-md-block d-lg-none" >
-            <a href="#">
+            <a href="#" routerLink="/dashboard/profile">
               <i class="ti-user mr-1"></i>
               {{loggedUser?.name}}
               <span class="submenu-indicator"></span>
             </a>
 
-            <ul class="nav-dropdown nav-submenu" style="right: auto; display: none;">
-              <li><a routerLink="/dashboard">{{'navbar.profile' | translate}}</a></li>
+            <!--<ul class="nav-dropdown nav-submenu" style="right: auto; display: none;">
+              <li><a routerLink="/dashboard/profile">{{'navbar.profile' | translate}}</a></li>
               <li>
                 <a href="#" (click)="logout()">
                   {{'navbar.logout' | translate}}
                 </a>
               </li>
-            </ul>
+            </ul>-->
           </li>
 
         </ul>

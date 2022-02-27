@@ -5,11 +5,12 @@ import {HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {NgxPaginationModule} from "ngx-pagination";
+import {SpinnerComponent} from "../components/spinner/spinner.component";
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [SpinnerComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -26,7 +27,8 @@ import {NgxPaginationModule} from "ngx-pagination";
     RouterModule,
     HttpClientModule,
     NgxPaginationModule,
-    TranslateModule
+    TranslateModule,
+    SpinnerComponent
   ]
 })
 export class SharedModule { }

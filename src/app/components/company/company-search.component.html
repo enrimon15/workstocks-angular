@@ -180,7 +180,7 @@
                        src="{{company.photo != null ? 'data:image/jpeg;base64,' + company.photo : '/assets/img/default.png'}}">
                 </div>
                 <div class="vc-content">
-                  <h5 class="title"><a [routerLink]="['company', company.id]">{{company.name}}</a></h5>
+                  <h5 class="title"><a [routerLink]="[company.id]">{{company.name}}</a></h5>
                   <p>{{company.companyForm}}</p>
 
                   <ul class="vc-info-list">
@@ -195,7 +195,7 @@
                   </ul>
                 </div>
 
-                <a class="btn btn-black bn-det" [routerLink]="['company', company.id]">{{'company.more' | translate}}
+                <a class="btn btn-black bn-det" [routerLink]="[company.id]">{{'company.more' | translate}}
                   <i class="ti-arrow-right ml-1"></i></a>
               </div>
             </div>

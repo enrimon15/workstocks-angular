@@ -1,0 +1,559 @@
+<app-spinner *ngIf="loading"></app-spinner>
+
+<!-- My Resume and Online CV -->
+
+<div *ngIf="!loading" class="tab-pane active container" id="resume">
+
+  <!-- Add Educations -->
+  <div class="tr-single-box">
+    <div class="tr-single-header">
+      <h4><i class="lni-graduation"></i> {{'dashboard.onlineCV.qualTitle' | translate}}</h4>
+    </div>
+
+    <div class="tr-single-body">
+      <table id="qualification_table" class="table table-striped nowrap">
+        <thead class="thead-dark">
+        <tr>
+          <th scope="col">{{'dashboard.onlineCV.qualTitle' | translate}}</th>
+          <th scope="col">{{'dashboard.onlineCV.date' | translate}}</th>
+          <th scope="col">{{'dashboard.onlineCV.qualInstitute' | translate}}</th>
+          <th scope="col">{{'dashboard.onlineCV.qualValuation' | translate}}</th>
+          <th scope="col">{{'dashboard.onlineCV.qualDescription' | translate}}</th>
+          <th scope="col">{{'dashboard.onlineCV.actions' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let qualification of qualificationList">
+          <th scope="row">{{qualification?.name}}</th>
+          <td>{{qualification?.startDate + '  -  ' + (qualification?.endDate ?? ('dashboard.onlineCV.inProgress' | translate))}}</td>
+          <td>{{qualification?.institute}}</td>
+          <td>{{qualification?.valuation}}</td>
+          <td>
+            <span *ngIf="qualification?.description" data-toggle="modal" data-target="#qualification-description-modal">
+              <a href="javascript:void(0)" class="dg-edit" data-toggle="tooltip" data-placement="top" title="{{'dashboard.onlineCV.readDesc' | translate}}" (click)="markDescription(qualification?.description);">
+                  <i class="ti-eye"></i>
+              </a>
+            </span>
+          </td>
+          <td>
+            <div class="dash-action">
+              <a href="javascript:void(0)" class="dg-edit" data-toggle="tooltip" data-placement="top" title="{{'dashboard.onlineCV.modify' | translate}}"><i class="ti-pencil"></i></a>
+              <span data-toggle="tooltip" data-placement="top" title="{{'dashboard.onlineCV.delete' | translate}}">
+                  <a href="javascript:void(0)" class="dg-delete" (click)="markRemoveOnlineCv('qualification', qualification.id)" data-toggle="modal" data-target="#delete-qualification-modal"><i class="ti-trash"></i></a>
+              </span>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <table class="price-list-wrap mb-4 mt-5">
+        <tbody class="ui-sortable"><tr class="pricing-list-item pattern ui-sortable-handle">
+          <td>
+            <div (click)="openForm('qualification')" class="box-close"><a href="javascript:void(0)" style="cursor: pointer" id="add-qualification-butt" class="delete"><i id="add-qualification-icon" class="ti-plus"></i></a></div>
+
+            <form [formGroup]="qualificationForm" (ngSubmit)="addQualification()">
+              <div id="add-qualification" class="row" style="display: none">
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="form-group">
+                    <label>{{'dashboard.onlineCV.qualName' | translate}}</label>
+                    <input formControlName="name" class="form-control" name="name" placeholder="{{'dashboard.onlineCV.qualName' | translate}}" type="text" required>
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="form-group mt-1 float-right">
+                    <input formControlName="inProgress" type="checkbox" name="inProgress" id="check-qualification">&nbsp;&nbsp;{{'dashboard.onlineCV.inProgress' | translate}}
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="form-group">
+                    <label>{{'dashboard.onlineCV.startDate' | translate}}</label>
+                    <input formControlName="startDate" type="date" class="form-control" name="startDate" required>
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="form-group">
+                    <label>{{'dashboard.onlineCV.endDate' | translate}}</label>
+                    <input formControlName="endDate" id="end-qualification" type="date" class="form-control" name="endDate">
+                  </div>
+                </div>
+
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="form-group">
+                    <label>{{'dashboard.onlineCV.qualInstitute' | translate}}</label>
+                    <input formControlName="institute" placeholder="{{'dashboard.onlineCV.phInstitute' | translate}}" name="institute" type="text" class="form-control" required>
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="form-group">
+                    <label>{{'dashboard.onlineCV.qualDescription' | translate}}</label>
+                    <textarea formControlName="descrption" placeholder="{{'dashboard.onlineCV.qualDescription' | translate}}" name="description" class="form-control"></textarea>
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="form-group">
+                    <label>{{'dashboard.onlineCV.qualValuation' | translate}}</label>
+                    <input formControlName="valuation" placeholder="{{'dashboard.onlineCV.qualValuation' | translate}}" name="valuation" type="text" class="form-control">
+                  </div>
+                </div>
+
+                <button *ngIf="!loadingQualification" [disabled]="!qualificationForm.valid" type="submit" class="btn add-pr-item-btn mt-2 ml-1">{{'dashboard.onlineCV.addButton' | translate}}</button>
+                <div *ngIf="loadingQualification" class="spinner-border text-success mx-auto" role="status"><span class="sr-only">Loading...</span></div>
+              </div>
+            </form>
+
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <!-- /Education Info -->
+
+  <!-- Modal Delete Qualification -->
+  <div class="modal fade" id="delete-qualification-modal" tabindex="-1" role="dialog" aria-labelledby="delete-qualification-modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{'dashboard.onlineCV.modalTitle' | translate}}</h5>
+        </div>
+        <div class="modal-body">{{'dashboard.onlineCV.modalBodyQualification' | translate}}</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">{{'cancelButton' | translate}}</button>
+          <a (click)="removeQualification()" id="buttonDeleteQualification" href="#" class="btn btn-danger color--white" style="border-color: transparent!important;">{{'dashboard.onlineCV.delete' | translate}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Qualification Description -->
+  <div class="modal fade" id="qualification-description-modal" tabindex="-1" role="dialog" aria-labelledby="qualification-description-modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{'dashboard.onlineCV.qualModalTitle' | translate}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="modal-qualification">{{description ?? ''}}</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">{{'dashboard.onlineCV.close' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Experience -->
+  <div class="tr-single-box">
+    <div class="tr-single-header">
+      <h4><i class="lni-briefcase"></i> {{'dashboard.onlineCV.expTitle' | translate}}</h4>
+    </div>
+
+    <div class="tr-single-body">
+      <table id="experience_table" class="table table-striped nowrap">
+        <thead class="thead-dark">
+        <tr>
+          <th scope="col">{{'dashboard.onlineCV.titleExp' | translate}}</th>
+          <th scope="col">{{'dashboard.onlineCV.date' | translate}}</th>
+          <th scope="col">{{'dashboard.onlineCV.expDescription' | translate}}</th>
+          <th scope="col">{{'dashboard.onlineCV.actions' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let experience of experienceList">
+          <th scope="row">{{experience?.jobPosition + ' @ ' + experience?.company}}</th>
+          <td>
+            {{experience?.startDate + ' - ' + (experience?.endDate ?? ('dashboard.onlineCV.inProgress' | translate))}}</td>
+          <td>
+            <span *ngIf="experience?.description" data-toggle="modal" data-target="#experience-description-modal">
+            <a href="javascript:void(0)" class="dg-edit" data-toggle="tooltip" data-placement="top" title="{{'dashboard.onlineCV.readDesc' | translate}}" (click)="markDescription(experience?.description)">
+                <i class="ti-eye"></i>
+            </a>
+            </span>
+          </td>
+          <td>
+            <div class="dash-action">
+              <a href="javascript:void(0)" class="dg-edit" data-toggle="tooltip" data-placement="top" title="{{'dashboard.onlineCV.modify' | translate}}"><i class="ti-pencil"></i></a>
+              <span data-toggle="tooltip" data-placement="top" title="{{'dashboard.onlineCV.delete' | translate}}">
+                  <a href="#" (click)="markRemoveOnlineCv('experience', experience.id)" data-toggle="modal" data-target="#delete-experience-modal" class="dg-delete"><i class="ti-trash"></i></a>
+              </span>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <table class="price-list-wrap mb-3 mt-5">
+        <tbody class="ui-sortable"><tr class="pricing-list-item pattern ui-sortable-handle">
+          <td>
+            <div (click)="openForm('experience')" class="box-close"><a href="javascript:void(0)" style="cursor: pointer" id="add-experience-butt" class="delete"><i id="add-experience-icon" class="ti-plus"></i></a></div>
+            <form [formGroup]="experienceForm" (ngSubmit)="addExperience()">
+              <div class="row" id="add-experience" style="display: none">
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="form-group">
+                    <label>{{'dashboard.onlineCV.expJob' | translate}}</label>
+                    <input formControlName="jobPosition" class="form-control" type="text" placeholder="{{'dashboard.onlineCV.expJob' | translate}}" name="jobPosition" required>
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="form-group">
+                    <label>{{'dashboard.onlineCV.expCompany' | translate}}</label>
+                    <input formControlName="company" placeholder="{{'dashboard.onlineCV.phCompany' | translate}}" type="text" class="form-control" name="company" required>
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="form-group mt-1 float-right">
+                    <input formControlName="inProgress" type="checkbox" name="inProgress" id="check-experience">&nbsp;&nbsp;{{'dashboard.onlineCV.inProgress' | translate}}
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="form-group">
+                    <label>{{'dashboard.onlineCV.startDate' | translate}}</label>
+                    <input formControlName="startDate" type="date" class="form-control" name="startDate" required>
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="form-group">
+                    <label>{{'dashboard.onlineCV.endDate' | translate}}</label>
+                    <input formControlName="endDate" id="end-experience" type="date" class="form-control" name="endDate">
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="form-group">
+                    <label>{{'dashboard.onlineCV.expDescription' | translate}}</label>
+                    <textarea formControlName="description" placeholder="{{'dashboard.onlineCV.expDescription' | translate}}" name="description" class="form-control" required></textarea>
+                  </div>
+                </div>
+
+                <button *ngIf="!loadingExperience" [disabled]="!experienceForm.valid" type="submit" class="btn add-pr-item-btn mt-2 ml-1">{{'dashboard.onlineCV.addButton' | translate}}</button>
+                <div *ngIf="loadingExperience" class="spinner-border text-success mx-auto" role="status"><span class="sr-only">Loading...</span></div>
+              </div>
+            </form>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- Modal Delete Experience -->
+  <div class="modal fade" id="delete-experience-modal" tabindex="-1" role="dialog" aria-labelledby="delete-experience-modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{'dashboard.onlineCV.modalTitle' | translate}}</h5>
+        </div>
+        <div class="modal-body">{{'dashboard.onlineCV.modalBodyExperience' | translate}}</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">{{'cancelButton' | translate}}</button>
+          <a (click)="removeExperience()" id="buttonDeleteExperience" href="#" class="btn btn-danger color--white" style="border-color: transparent!important;">{{'dashboard.onlineCV.delete' | translate}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Qualification Description -->
+  <div class="modal fade" id="experience-description-modal" tabindex="-1" role="dialog" aria-labelledby="xperience-description-modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{'dashboard.onlineCV.expModalTitle' | translate}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="modal-experience">{{description ?? 0}}</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">{{'dashboard.onlineCV.close' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Certificates -->
+  <div class="tr-single-box">
+    <div class="tr-single-header">
+      <h4><i class="ti-cup"></i> {{'dashboard.onlineCV.certTitle' | translate}}</h4>
+    </div>
+
+    <div class="tr-single-body">
+      <table id="certificate_table" class="table table-striped nowrap">
+        <thead class="thead-dark">
+        <tr>
+          <th scope="col">{{'dashboard.onlineCV.titleCert' | translate}}</th>
+          <th scope="col">{{'dashboard.onlineCV.date' | translate}}</th>
+          <th scope="col">{{'dashboard.onlineCV.certCredential' | translate}}</th>
+          <th scope="col">{{'dashboard.onlineCV.societyCert' | translate}}</th>
+          <th scope="col">{{'dashboard.onlineCV.actions' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let certificate of certificationList">
+          <th scope="row">{{certificate.name}}</th>
+          <td>{{certificate?.date + ' - ' + (certificate?.endDate ?? ('dashboard.onlineCV.certNoExp' | translate))}}</td>
+
+          <td><a [style.text-decoration-line]="certificate?.url ? 'underline' : ''" href="{{certificate.url ?? 'javascript:void(0)'}}" target="_blank">
+            {{certificate?.credential}}</a></td>
+          <td>{{certificate?.society}}</td>
+          <td>
+            <div class="dash-action">
+              <a href="javascript:void(0)" class="dg-edit" data-toggle="tooltip" data-placement="top" title="{{'dashboard.onlineCV.modify' | translate}}"><i class="ti-pencil"></i></a>
+              <span data-toggle="tooltip" data-placement="top" title="{{'dashboard.onlineCV.delete' | translate}}">
+                  <a href="javascript:void(0)" (click)="markRemoveOnlineCv('certification', certificate.id)" data-toggle="modal" data-target="#delete-certificate-modal" class="dg-delete"><i class="ti-trash"></i></a>
+              </span>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <table class="price-list-wrap mb-3 mt-5">
+        <tbody class="ui-sortable"><tr class="pricing-list-item pattern ui-sortable-handle">
+          <td>
+            <div (click)="openForm('certification')" class="box-close"><a href="javascript:void(0)" style="cursor: pointer" id="add-certificate-butt" class="delete"><i id="add-certificate-icon" class="ti-plus"></i></a></div>
+            <form [formGroup]="certificationForm" (ngSubmit)="addCertification()">
+              <div class="row" id="add-certificate" style="display: none">
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="form-group">
+                    <label th:text="#{ocv.certName}">certName</label>
+                    <input formControlName="name" class="form-control" type="text" th:placeholder="#{ocv.phCertificate}" name="name" required>
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="form-group">
+                    <label th:text="#{ocv.certSociety}">certSociety</label>
+                    <input formControlName="society" th:placeholder="#{ocv.phSociety}" type="text" class="form-control" name="certificateSociety" required>
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="form-group mt-1 float-right">
+                    <input formControlName="noExpiration" type="checkbox" name="noEnd" id="no-end-certification">&nbsp;&nbsp;[[#{ocv.certNoExp}]]
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="form-group">
+                    <label th:text="#{ocv.certGet}">certGet</label>
+                    <input formControlName="date" type="date" class="form-control" name="date" required>
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="form-group">
+                    <label th:text="#{ocv.certExpired}">.certExpired</label>
+                    <input formControlName="endDate" id="end-certification" type="date" class="form-control" name="endDate">
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="form-group">
+                    <label th:text="#{ocv.certCredential}">certCredential</label>
+                    <input formControlName="credential" type="text" th:placeholder="#{ocv.phCredential}" class="form-control" name="credential" required>
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="form-group">
+                    <label th:text="#{ocv.certLink}">certLink</label>
+                    <input formControlName="url" type="text" th:placeholder="#{ocv.phLink}" class="form-control" name="link" th:field="*{url}">
+                  </div>
+                </div>
+
+                <button *ngIf="!loadingCertification" [disabled]="!certificationForm.valid" type="submit" class="btn add-pr-item-btn mt-2 ml-1" th:text="#{ocv.addButton}">addButton</button>
+                <div *ngIf="loadingCertification" class="spinner-border text-success mx-auto" role="status"><span class="sr-only">Loading...</span></div>
+              </div>
+            </form>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <!-- /Certificates Info -->
+
+  <!-- Modal Delete Certificate -->
+  <div class="modal fade" id="delete-certificate-modal" tabindex="-1" role="dialog" aria-labelledby="delete-certificate-modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{'dashboard.onlineCV.modalTitle' | translate}}</h5>
+        </div>
+        <div class="modal-body">{{'dashboard.onlineCV.modalBodyCertificate' | translate}}</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">{{'cancelButton' | translate}}</button>
+          <a (click)="removeCertification()" id="buttonDeleteCertificate" href="#" class="btn btn-danger color--white" style="border-color: transparent!important;">{{'dashboard.onlineCV.delete' | translate}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Skills -->
+  <div class="tr-single-box">
+    <div class="tr-single-header">
+      <h4><i class="ti-light-bulb"></i> {{'dashboard.onlineCV.skillTitle' | translate}}</h4>
+    </div>
+
+    <div class="tr-single-body">
+      <table id="skill_table" class="table table-striped nowrap">
+        <thead class="thead-dark">
+        <tr>
+          <th scope="col">{{'dashboard.onlineCV.skillName' | translate}}</th>
+          <th scope="col">{{'dashboard.onlineCV.skillLevel' | translate}}</th>
+          <th scope="col">{{'dashboard.onlineCV.actions' | translate}}</th>
+      </tr>
+      </thead>
+      <tbody>
+            <tr *ngFor="let skill of skillList">
+                <th scope="row">{{skill.name}}</th>
+                <td>{{('dashboard.onlineCV.' + (skill?.assestment | lowercase)) | translate}}</td>
+                <td>
+                    <div class="dash-action">
+                        <a href="javascript:void(0)" class="dg-edit" data-toggle="tooltip" data-placement="top" title="{{'dashboard.onlineCV.modify' | translate}}"><i class="ti-pencil"></i></a>
+                        <span data-toggle="tooltip" data-placement="top" title="{{'dashboard.onlineCV.delete' | translate}}">
+                            <a href="#" (click)="markRemoveOnlineCv('skill', skill.id)" data-toggle="modal" data-target="#delete-skill-modal" class="dg-delete"><i class="ti-trash"></i></a>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+          <table class="price-list-wrap mb-3 mt-5">
+              <tbody class="ui-sortable"><tr class="pricing-list-item pattern ui-sortable-handle">
+                  <td>
+                      <div (click)="openForm('skill')" class="box-close"><a href="javascript:void(0)" style="cursor: pointer" id="add-skill-butt" class="delete"><i id="add-skill-icon" class="ti-plus"></i></a></div>
+                      <form [formGroup]="skillForm" (ngSubmit)="addSkill()">
+                          <div class="row" id="add-skill" style="display:none;">
+
+                              <div class="ccol-lg-12 col-md-12 col-sm-12">
+                                  <div class="form-group">
+                                      <label th:text="#{ocv.skillName}">skillName</label>
+                                      <input formControlName="name" class="form-control" th:placeholder="#{ocv.phSkill}" type="text" name="skillName" required th:field="*{name}">
+                                  </div>
+                              </div>
+
+                              <div class="col-lg-12 col-md-12 col-sm-12">
+                                  <div class="form-group">
+                                      <label th:text="#{ocv.skillLevel}">skillLevel</label>
+                                      <select formControlName="assestment" class="form-control" name="skillLevel" required id="level-skill-select" th:field="*{assestment}">
+                                          <option th:value="${T(it.workstocks.entity.enums.Assestment).BEGINNER}" th:text="#{ocv.beginner}">.beginner</option>
+                                          <option th:value="${T(it.workstocks.entity.enums.Assestment).INTERMEDIATE}" th:text="#{ocv.intermediate}">intermediate</option>
+                                          <option th:value="${T(it.workstocks.entity.enums.Assestment).ADVANCED}" th:text="#{ocv.advanced}">advanced</option>
+                                      </select>
+                                  </div>
+                              </div>
+
+                              <button *ngIf="!loadingSkill" [disabled]="!skillForm.valid" type="submit" class="btn add-pr-item-btn mt-2 ml-1" th:text="#{ocv.addButton}">addButton</button>
+                              <div *ngIf="loadingSkill" class="spinner-border text-success mx-auto" role="status"><span class="sr-only">Loading...</span></div>
+                          </div>
+                      </form>
+                  </td>
+              </tr>
+              </tbody>
+          </table>
+        </div>
+
+    </div>
+    <!-- /Skills Info -->
+
+  <!-- Modal Delete Skill -->
+  <div class="modal fade" id="delete-skill-modal" tabindex="-1" role="dialog" aria-labelledby="delete-skill-modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{'dashboard.onlineCV.modalTitle' | translate}}</h5>
+        </div>
+        <div class="modal-body">{{'dashboard.onlineCV.modalBodySkill' | translate}}</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">{{'cancelButton' | translate}}</button>
+          <a (click)="removeSkill()" id="buttonDeleteSkill" href="#" class="btn btn-danger color--white" style="border-color: transparent!important;">{{'dashboard.onlineCV.delete' | translate}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Add CV file -->
+    <div class="tr-single-box">
+        <div class="tr-single-header">
+
+            <h4><i class="ti-file"></i> {{'dashboard.onlineCV.cvTitle' | translate}}</h4>
+        </div>
+
+        <div class="tr-single-body">
+            <form id="form-cv">
+                <div class="row">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="row float-right">
+
+                            <p *ngIf="isCv" class="mr-3">{{'CV_' + authService.getUserLogged()?.name + '_' + authService.getUserLogged()?.surname+ '_' applicantId + '.pdf'}}</p>
+                            <div class="form-group mr-2">
+                                <a href="javascript:void(0)">
+                                    <button (click)="downloadCurriculum()" [disabled]="!cv?.curriculum" type="button" class="btn btn-primary p-15" data-toggle="tooltip" data-placement="top"><i class="ti-download mr-2"></i>{{'dashboard.onlineCV.downloadCv' | translate}}</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label>{{'dashboard.onlineCV.cv' | translate}}</label>
+                            <div class="custom-file">
+                                <input #cvInput (change)="processCV(cvInput)" type="file" class="custom-file-input" id="ccv" name="cv" accept=".pdf" required>
+                                <label class="custom-file-label" for="ccv">{{'dashboard.onlineCV.chooseCv' | translate}}</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="loadingCV" class="spinner-border text-success mt-3 ml-3" role="status"><span class="sr-only">Loading...</span></div>
+                    <button *ngIf="!loadingCV" id="butt-cv" (click)="loadCV(false)" class="btn add-pr-item-btn mt-2 ml-1">
+                      {{'dashboard.onlineCV.loadCvFile' | translate}}</button>
+
+                </div>
+            </form>
+
+            <hr class="mt-5">
+
+            <form id="auto-form-cv">
+                <div class="row">
+
+                	<div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label>{{'dashboard.onlineCV.generateText' | translate}}</label>
+                        </div>
+                    </div>
+
+                    <div *ngIf="loadingCV" class="spinner-border text-success mt-3 ml-3" role="status"><span class="sr-only">Loading...</span></div>
+                    <button *ngIf="!loadingCV" id="auto-butt-cv" (click)="loadCV(false)" class="btn add-pr-item-btn mt-2 ml-1">
+                      {{'dashboard.onlineCV.generateButton' | translate}}</button>
+
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+</div>

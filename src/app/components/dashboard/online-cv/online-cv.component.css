@@ -1,0 +1,11 @@
+table {
+  border-bottom: 0 !important;
+}
+
+.dataTables_scrollBody {
+  border-bottom: 0 !important;
+}
+
+td {
+  height: 35px;
+}

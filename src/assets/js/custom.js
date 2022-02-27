@@ -322,6 +322,46 @@
     });
   });
 
+  $(document).ready(function() {
+    $('select').select2({
+      minimumResultsForSearch: -1
+    });
+  });
+
+  $(document).ready(function() {
+    $('#level-skill-select').select2({
+      minimumResultsForSearch: -1
+    });
+  });
+
+  jQuery(function($) {
+    $(document).ready( function () {
+
+      let options = {
+        "scrollX": true,
+        "scrollY": '280px',
+        "scrollCollapse": true,
+        "order": false,
+        "targets": 'no-sort',
+        "bSort": false,
+        "bInfo": false,
+        "bLengthChange": false,
+        "bFilter": true,
+        "bAutoWidth": false,
+        "paging": false,
+        "language": {
+          "emptyTable": "[[#{ocv.noData}]]",
+          "sSearch": "[[#{ocv.search}]]"
+        }
+      };
+
+      $('#qualification_table').DataTable(options);
+      $('#skill_table').DataTable(options);
+      $('#experience_table').DataTable(options);
+      $('#certificate_table').DataTable(options);
+    } );
+  });
+
 
 })(jQuery);
 

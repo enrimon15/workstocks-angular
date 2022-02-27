@@ -107,7 +107,7 @@
                   <!-- Single List -->
                   <li *ngFor="let qualification of qualifications">
                     <div class="qa-skill-box">
-                      <h4 class="qa-skill-title">{{qualification.name}}<span class="qa-time">{{qualification.startDate + ' - ' + (qualification.endDate != null ? qualification.endDate : ('onlineCV.inProgress' | translate))}}</span></h4>
+                      <h4 class="qa-skill-title">{{qualification.name}}<span class="qa-time">{{(qualification.startDate | date: 'dd-MM-yyyy') + ' - ' + (qualification.endDate != null ? (qualification.endDate | date: 'dd-MM-yyyy') : ('onlineCV.inProgress' | translate))}}</span></h4>
                       <h5 class="qa-subtitle">{{qualification.institute}}</h5>
 
                       <div *ngIf="qualification.description != null && qualification.description.trim().length > 0" class="qa-content">
@@ -140,7 +140,7 @@
                   <!-- Single List -->
                   <li *ngFor="let experience of experiences">
                     <div class="qa-skill-box">
-                      <h4 class="qa-skill-title">{{experience.jobPosition}}<span class="qa-time">{{experience.startDate + ' - ' + (experience.endDate != null ? experience.endDate : ('onlineCV.inProgress' | translate))}}</span></h4>
+                      <h4 class="qa-skill-title">{{experience.jobPosition}}<span class="qa-time">{{(experience.startDate | date: 'dd-MM-yyyy') + ' - ' + (experience.endDate != null ? (experience.endDate | date: 'dd-MM-yyyy') : ('onlineCV.inProgress' | translate))}}</span></h4>
                       <h5 class="qa-subtitle">{{experience.company}}</h5>
 
                       <div *ngIf="experience.description != null && experience.description.trim().length > 0" class="qa-content">
@@ -170,7 +170,7 @@
                   <!-- Single List -->
                   <li *ngFor="let certificate of certifications">
                     <div class="qa-skill-box">
-                      <h4 class="qa-skill-title">{{certificate.name}}<span class="qa-time">{{certificate.date + ' - ' + (certificate.endDate != null ? certificate.endDate : ('profile.noExp' | translate))}}</span></h4>
+                      <h4 class="qa-skill-title">{{certificate.name}}<span class="qa-time">{{(certificate.date | date: 'dd-MM-yyyy') + ' - ' + (certificate.endDate != null ? (certificate.endDate | date: 'dd-MM-yyyy') : ('profile.noExp' | translate))}}</span></h4>
                       <h5 class="qa-subtitle">{{('profile.society' | translate) + ' ' + certificate.society}}</h5>
                       <div class="qa-content">
                         <p>{{'profile.credential' | translate}} <a href="{{certificate?.url ?? 'javascript:void(0)'}}">{{certificate.credential}}</a></p>

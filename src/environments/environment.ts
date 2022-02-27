@@ -31,10 +31,22 @@ export const environment = {
   company: {
     search: 'companies/search',
     get: 'companies',
+    review: 'reviews',
+    jobAlert: 'job-alerts'
   },
   jobOffer: {
-    search: 'job-offers/search'
+    search: 'job-offers/search',
+    get: 'job-offers'
   },
+  favourites: {
+    get: 'favourites'
+  },
+  application: {
+    get: 'applications'
+  },
+  dashboard: {
+    photo: 'photo'
+  }
 };
 
 /*

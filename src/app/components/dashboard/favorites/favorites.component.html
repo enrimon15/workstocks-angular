@@ -1,0 +1,90 @@
+<app-spinner *ngIf="loading"></app-spinner>
+
+<!-- Favorite Job Offer -->
+<div *ngIf="!loading" class="tab-pane active container" id="favorites">
+
+  <!-- Modal Delete Favorite Job -->
+  <div class="modal fade" id="delete-favorite-modal" tabindex="-1" role="dialog" aria-labelledby="delete-favorite-modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{'dashboard.favorite.modalTitle' | translate}}</h5>
+        </div>
+        <div class="modal-body">{{'dashboard.favorite.modalBody' | translate}}</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">{{'cancelButton' | translate}}</button>
+          <a *ngIf="!loadingModal" (click)="deleteFavorite()" id="buttonDelete" href="#" class="btn btn-danger color--white" style="border-color: transparent!important;">{{'dashboard.favorite.delete' | translate}}</a>
+          <div *ngIf="loadingModal" id="spinner" class="spinner-border text-success" role="status"><span class="sr-only">Loading...</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tr-single-box ">
+    <div class="tr-single-header mb-3">
+      <h4><i class="ti-layers-alt"></i> {{'dashboard.favorite.title' | translate}}</h4>
+      <div *ngIf="loadingNext"
+           class="layout-switcher-right">
+        <div style="height: 20px; width: 20px" class="spinner-border text-success" role="status"><span class="sr-only">Loading...</span></div>
+      </div>
+    </div>
+
+    <div class="container">
+
+
+      <ng-container *ngIf="favorites && favorites.length > 0; else noFavorites">
+        <div *ngFor="let job of favorites | paginate : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                }" class="p-1">
+          <div class="manage-list">
+
+            <div class="mg-list-wrap">
+              <div class="mg-list-caption">
+                <h4 class="mg-title title">
+                  <a [routerLink]="['/job-offers', job.id]" style="cursor: pointer">{{job.title}}</a>
+                  <span class="j-part-time p-2 ml-2" style="font-size: small; font-weight: normal">{{('job.' + job.contractType) | translate}}</span>
+                </h4>
+
+                <span class="mg-subtitle" style="color: #00a94f">{{job.company.name}}</span>
+
+                <ng-container>
+                  <span><em>{{job.createdAt | date:'dd-MM-yyyy'}}</em></span>
+                  <div *ngIf="job.dueDate > now"><span class="color--error">{{'dashboard.application.expired' | translate}} <i class="ti-na ml-2"></i></span></div>
+                </ng-container>
+
+              </div>
+            </div>
+
+            <div class="mg-action">
+              <span [ngClass]="job.dueDate > now ? 'd-none' : ''">
+                  <div class="btn-group" data-toggle="tooltip" data-placement="top" title="{{'dashboard.favorite.tooltipDelete' | translate}}">
+                      <a (click)="markFavoriteToDelete(job.id)" data-toggle="modal" data-target="#delete-favorite-modal" href="#" class="mg-delete"><i class="ti-trash"></i></a>
+                  </div>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #noFavorites>
+        <p>{{'dashboard.favorite.noContent' | translate}}</p>
+      </ng-template>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="pagination-container col-md-12 mt-4">
+      <pagination-controls class="my-pagination text-center"
+                           previousLabel=""
+                           nextLabel=""
+                           [maxSize]="10"
+                           [responsive]="true"
+                           (pageChange)="handlePageChange($event)">
+      </pagination-controls>
+    </div>
+  </div>
+
+</div>

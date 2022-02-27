@@ -4,6 +4,7 @@ import {AppConstants} from "../../app.constants";
 import {AuthService} from "../../auth/auth.service";
 import {LoginResponse} from "../../model/LoginResponse";
 import {Subscription} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +16,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   loggedUser: LoginResponse | null = null;
   private loginSubscription!: Subscription;
 
-  constructor(private translate: TranslateService, private authService: AuthService) { }
+  constructor(private translate: TranslateService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.loginSubscription = this.authService.isUserLogged.subscribe(isLogged => {
@@ -31,12 +32,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   getCurrentTranslateLanguage(): string {
     return this.translate.currentLang;
-  }
-
-  logout() {
-    this.authService.logout();
-    this.isAuthenticated = false;
-    this.loggedUser = null;
   }
 
   ngOnDestroy() {

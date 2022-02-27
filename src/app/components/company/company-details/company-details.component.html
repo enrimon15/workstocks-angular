@@ -1,1 +1,410 @@
-<p>company-details works!</p>
+<div [ngClass]="loading ? 'Loader' : 'Loader-end'"></div>
+
+<div>
+
+  <!-- ======================= Start Banner ===================== -->
+  <section class="page-title-banner" [style.backgroundImage]="'url(/assets/img/companies-banner.jpeg)'">
+    <div class="container">
+      <div class="row m-0 align-items-end detail-swap">
+        <div class="tr-list-wrap">
+          <div class="tr-list-detail">
+            <div class="tr-list-thumb">
+              <img [src]="company?.photo ? 'data:image/jpeg;base64,' + company?.photo : '/assets/img/default.png'" class="img-responsive" alt="" />
+            </div>
+            <div class="tr-list-info">
+              <h4 class="mb-1">{{company?.name}}</h4>
+              <p class="mb-1 text-warning">{{company?.slogan ?? null}}</p>
+              <p class="mb-1"><i class="ti-location-pin mr-2"></i>{{company?.address?.city + ', ' + company?.address?.country}}</p>
+            </div>
+          </div>
+          <div class="listing-detail_right">
+            <div class="listing-detail-item">
+              <span *ngIf="!authService.isAuthenticated()"> <a style="cursor: not-allowed" href="javascript:void(0)" class="btn btn-list full-width mb-2 color--googleplus" id="job-alert-butt-noauth"><i class="ti-support mr-2"></i> {{'profile.jobAlert' | translate}}</a><br> </span>
+              <span *ngIf="authService.isAuthenticated()"> <a href="javascript:void(0)" class="btn btn-list full-width mb-2 color--googleplus" id="job-alert-butt-ok" (click)="handleJobAlert()"><i id="job-alert-icon" [ngClass]="isJobAlert.result ? 'ti-briefcase mr-2' : 'ti-support mr-2'"></i> {{isJobAlert.result ? ('profile.jobAlertRemove' | translate) : ('profile.jobAlert' | translate)}}</a><br> </span>
+              <a href="#" data-toggle="modal" data-target="#review" class="btn btn-list full-width mb-2 color--success"><i class="ti-star mr-2"></i> {{'profile.reviewClick' | translate}}</a><br>
+              <a href="#" data-toggle="modal" data-target="#mail" class="btn btn-list full-width color--linkedin"><i class="ti-email mr-2"></i> {{'profile.message' | translate}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ======================= End Banner ===================== -->
+
+  <!-- ============== Job Detail ====================== -->
+  <section class="tr-single-detail gray-bg">
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-md-8 col-sm-12">
+
+          <!-- Job Review -->
+          <div class="tr-single-box">
+            <div class="tr-single-header">
+              <h4><i class="ti-star"></i> {{'profile.reviewDisplay' | translate}}</h4>
+            </div>
+            <div class="container">
+              <div class="row" *ngIf="company?.ratingStats?.ratingAverage; else noRatings">
+                <div class="col-md-4 border-right">
+                  <div class="ratings text-center p-4 py-5"> <span class="badge bg-success">{{company?.ratingStats?.ratingAverage}} <i class="fa fa-star-o"></i></span> <span class="d-block total-ratings mt-2">
+                    {{company?.ratingStats?.reviewNumber + ' ' + ('profile.reviewDisplay' | translate)}}</span> </div>
+                </div>
+                <div class="col-md-8 my-auto pr-5">
+                  <div class="rating-progress-bars">
+                    <div class="progress-1 align-items-center">
+                      <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" [style.width]="(company?.ratingStats?.ratingAverage ?? 0) * 20 + '%'"> </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ng-template #noRatings>
+              <div class="row">
+                <div class="col-12 border-right">
+                  <div class="tr-single-body">{{'profile.noReview' | translate}}</div>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+
+          <!-- Job Overview -->
+          <div class="tr-single-box">
+            <div class="tr-single-header">
+              <h4><i class="ti-info"></i>{{'profile.overviewCompany' | translate}}</h4>
+            </div>
+            <div class="tr-single-body" [innerHTML]="company?.overview">
+            </div>
+          </div>
+
+          <!-- Job Qualifications -->
+          <div class="tr-single-box">
+            <div class="tr-single-header">
+              <h4><i class="ti-map-alt"></i>{{'profile.workingPlaces' | translate}}</h4>
+            </div>
+            <div class="tr-single-body">
+              <ul class="jb-detail-list">
+                <ng-container *ngFor="let workingPlace of company?.workingPlaces">
+                  <li>
+                    {{workingPlace.address.street + ', ' + workingPlace.address.city + ' (' + workingPlace.address.country + ') - '}}
+                    <strong>{{('profile.'+ workingPlace.workingPlaceType) | translate}}</strong>
+                  </li>
+                </ng-container>
+              </ul>
+            </div>
+          </div>
+
+
+          <!-- Job Latest -->
+          <div class="tr-single-box">
+            <div class="tr-single-header">
+              <div class="col-sm-12 col-lg col-md">
+                <h4><i class="ti-cup"></i> {{'profile.openPosition' | translate}}</h4>
+              </div>
+              <div id="showMore" class="col-sm-12 col-lg col-md" style="text-align: end">
+                <a *ngIf="company?.jobOffers" [routerLink]="['/job-offers']" [queryParams]="{company: company?.name}">
+                  {{'profile.showMore' | translate}}
+                </a>
+              </div>
+
+            </div>
+            <div class="tr-single-body">
+              <div id="rl-list">
+                <div *ngIf="company?.jobOffers; else noJobOffers">
+                  <owl-carousel-o [options]="customOptions">
+                  <ng-container *ngFor="let job of company?.jobOffers">
+                    <ng-template carouselSlide>
+                      <div class="item">
+                        <div class="job-grid style-1">
+                          <div class="job-grid-wrap">
+                            <span class="job-type j-part-time"> {{job.contractType}}</span>
+                            <div class="job-grid-thumb">
+                              <a style="cursor: auto" href="#"><img [src]="company?.photo ? 'data:image/jpeg;base64,' + company?.photo : '/assets/img/default.png'" class="img-fluid mx-auto" alt="" /></a>
+                            </div>
+                            <h4 class="job-title"><a [routerLink]="['/job-offers', job.id]">{{job.title}}</a></h4>
+                            <hr>
+                            <div class="job-grid-detail">
+                              <h4 class="jbc-name"><a style="cursor: auto" href="javascript:void(0)">{{job.company?.name}}</a></h4>
+
+                            </div>
+                            <div class="job-grid-footer">
+                              <h4 class="job-price">{{('profile.upTo' | translate) + ' ' + job.maxSalary + 'k'}}</h4>
+                              <a [routerLink]="['/job-offers', job.id]" class="btn btn-outline-info btn-rounded">{{'home.apply' | translate}}</a>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ng-container>
+                  </owl-carousel-o>
+                </div>
+
+                <ng-template #noJobOffers>
+                  <p>{{'profile.noJobs' | translate}}</p>
+                </ng-template>
+
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+        <!-- Sidebar Start -->
+        <div class="col-md-4 col-sm-12">
+
+          <!-- Company Overview -->
+          <div class="tr-single-box">
+            <div class="tr-single-header">
+              <h4><i class="ti-direction"></i> {{'profile.description' | translate}}</h4>
+            </div>
+
+            <div class="tr-single-body">
+              <ul class="extra-service">
+                <li>
+                  <div class="icon-box-icon-block">
+                    <div class="icon-box-round">
+                      <i class="lni-users"></i>
+                    </div>
+                    <div class="icon-box-text">
+                      <strong class="d-block">{{'profile.employee' | translate}}</strong>
+                      {{company?.employeesNumber}}
+                    </div>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="icon-box-icon-block">
+                    <div class="icon-box-round">
+                      <i class="lni-text-format"></i>
+                    </div>
+                    <div class="icon-box-text">
+                      <strong class="d-block">{{'profile.vatNumber' | translate}}</strong>
+                      {{company?.vatNumber}}
+                    </div>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="icon-box-icon-block">
+                    <div class="icon-box-round">
+                      <i class="ti-home"></i>
+                    </div>
+                    <div class="icon-box-text">
+                      <strong class="d-block">{{'profile.form' | translate}}</strong>
+                      {{company?.companyForm}}
+                    </div>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="icon-box-icon-block">
+                    <div class="icon-box-round">
+                      <i class="lni-certificate"></i>
+                    </div>
+                    <div class="icon-box-text">
+                      <strong class="d-block">{{'profile.year' | translate}}</strong>
+                      {{company?.foundationYear}}
+                    </div>
+                  </div>
+                </li>
+
+                <li *ngIf="company?.slogan">
+                  <div class="icon-box-icon-block">
+                    <div class="icon-box-round">
+                      <i class="lni-pencil"></i>
+                    </div>
+                    <div class="icon-box-text">
+                      <strong class="d-block">{{'profile.slogan' | translate}}</strong>
+                      {{company?.slogan}}
+                    </div>
+                  </div>
+                </li>
+
+              </ul>
+            </div>
+
+          </div>
+
+          <!-- Company Address -->
+          <div class="tr-single-box">
+            <div class="tr-single-header">
+              <h4><i class="ti-direction"></i> {{'profile.addressTitle' | translate}}</h4>
+            </div>
+
+            <div class="tr-single-body">
+              <ul class="extra-service">
+                <li>
+                  <div class="icon-box-icon-block">
+                    <a href="{{'https://www.google.com/maps/search/?api=1&amp;query='
+									+ company?.address?.street?.replace('\\s','%20') + '%20'
+									+ company?.address?.city?.replace('\\s','%20') + '%20'
+									+ company?.address?.country?.replace('\\s','%20')}}">
+
+                      <div class="icon-box-round">
+                        <i class="lni-map-marker"></i>
+                      </div>
+                      <div class="icon-box-text">
+                        {{company?.address?.street + ', ' + company?.address?.city + ' (' + company?.address?.country + ')'}}
+                      </div>
+                    </a>
+                  </div>
+                </li>
+
+                <li *ngIf="company?.telephone != null">
+                  <div class="icon-box-icon-block">
+                    <a href="{{'tel:' + company?.telephone}}">
+                      <div class="icon-box-round">
+                        <i class="lni-phone-handset"></i>
+                      </div>
+                      <div class="icon-box-text">
+                        {{company?.telephone}}
+                      </div>
+                    </a>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="icon-box-icon-block">
+                    <a href="{{'mailto:' + company?.email}}">
+                      <div class="icon-box-round">
+                        <i class="lni-envelope"></i>
+                      </div>
+                      <div class="icon-box-text">
+                        {{company?.email}}
+                      </div>
+                    </a>
+                  </div>
+                </li>
+
+                <li *ngIf="company?.website">
+                  <div class="icon-box-icon-block">
+                    <a href="{{company?.website}}">
+                      <div class="icon-box-round">
+                        <i class="lni-world"></i>
+                      </div>
+                      <div class="icon-box-text">
+                        {{company?.website}}
+                      </div>
+                    </a>
+                  </div>
+                </li>
+
+              </ul>
+            </div>
+
+          </div>
+
+        </div>
+        <!-- /col-md-4 -->
+      </div>
+    </div>
+  </section>
+  <!-- ============== Job Detail ====================== -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="mail" tabindex="-1" role="dialog" aria-labelledby="mail" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="mailLabel">{{'profile.message' | translate}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="form-contact" #emailForm="ngForm" (ngSubmit)="handleMail()">
+            <div class="row">
+              <div class="form-group col-md-12 col-sm-12">
+                <textarea [(ngModel)]="email.messageBody" name="sourceTextMessage" class="form-control" [placeholder]="'profile.mail' | translate" required minlength="3"></textarea>
+              </div>
+
+              <div class="col-md-12 col-sm-12">
+                <button *ngIf="!loadingSpinner" [disabled]="!authService.isAuthenticated() || !emailForm.valid" class="btn btn-primary" type="submit">{{'profile.submit' | translate}}</button>
+                <div *ngIf="loadingSpinner" id="spinner" class="spinner-border text-success" role="status"><span class="sr-only">Loading...</span></div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="review" tabindex="-1" role="dialog" aria-labelledby="mail" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{'profile.reviewClick' | translate}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="form-review" #reviewForm="ngForm" (ngSubmit)="sendReview()">
+
+            <div class="row">
+
+              <div class="container col-mx-auto p-3 mb-5 mt-2">
+
+                <div class="container d-flex align-items-center justify-content-center">
+                  <div class="row justify-content-center">
+
+                    <!-- star rating -->
+                    <div class="rating-wrapper">
+
+                      <!-- star 5 -->
+                      <input [(ngModel)]="review.rating" type="radio" id="5-star-rating" name="star-rating" value="5">
+                      <label for="5-star-rating" class="star-rating">
+                        <i class="lni lni-star d-inline-block"></i>
+                      </label>
+
+                      <!-- star 4 -->
+                      <input [(ngModel)]="review.rating" type="radio" id="4-star-rating" name="star-rating" value="4">
+                      <label for="4-star-rating" class="star-rating star">
+                        <i class="lni lni-star d-inline-block"></i>
+                      </label>
+
+                      <!-- star 3 -->
+                      <input [(ngModel)]="review.rating" type="radio" id="3-star-rating" name="star-rating" value="3">
+                      <label for="3-star-rating" class="star-rating star">
+                        <i class="lni lni-star d-inline-block"></i>
+                      </label>
+
+                      <!-- star 2 -->
+                      <input [(ngModel)]="review.rating" type="radio" id="2-star-rating" name="star-rating" value="2">
+                      <label for="2-star-rating" class="star-rating star">
+                        <i class="lni lni-star d-inline-block"></i>
+                      </label>
+
+                      <!-- star 1 -->
+                      <input [(ngModel)]="review.rating" type="radio" id="1-star-rating" name="star-rating" value="1">
+                      <label for="1-star-rating" class="star-rating star">
+                        <i class="lni lni-star d-inline-block"></i>
+                      </label>
+
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="col-md-12 col-sm-12">
+                <button *ngIf="!loadingSpinner" [disabled]="!authService.isAuthenticated() || !reviewForm.valid" id="spinnerReview" class="btn btn-primary" type="submit">
+                  {{'profile.submit' | translate}}</button>
+                <div *ngIf="loadingSpinner" id="spinnerReviewLoad" class="spinner-border text-success" role="status"><span class="sr-only">Loading...</span></div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,1 +1,296 @@
-<p>job-offer-details works!</p>
+<div [ngClass]="loading ? 'Loader' : 'Loader-end'"></div>
+
+<div>
+
+  <!-- ============================================================== -->
+  <!-- Main wrapper - style you can find in pages.scss -->
+  <!-- ============================================================== -->
+
+  <!-- ======================= Start Banner ===================== -->
+  <section class="page-title-banner" [style.backgroundImage]="'url(/assets/img/joboffer-details-banner.jpeg)'">
+    <div class="container">
+      <div class="row m-0 align-items-end detail-swap">
+        <div class="tr-list-wrap">
+          <div class="tr-list-detail">
+            <div class="tr-list-thumb">
+              <img [src]="jobOffer?.company?.photo ? 'data:image/jpeg;base64,' + jobOffer?.company?.photo : '/assets/img/default.png'" class="img-responsive" alt="" />
+            </div>
+            <div class="tr-list-info">
+              <h4 class="mb-1">{{jobOffer?.title}}</h4>
+              <h6 class="font-14"><a [routerLink]="['/companies', jobOffer?.company?.id]" class="text-warning">
+                {{jobOffer?.company?.name}}</a></h6>
+              <p class="mb-1"><i class="ti-location-pin mr-2"></i>{{jobOffer?.address?.street + ', ' + jobOffer?.address?.city + ' (' + jobOffer?.address?.country +')'}}</p>
+            </div>
+          </div>
+          <div class="listing-detail_right">
+            <div class="listing-detail-item">
+              <a *ngIf="isApplicated?.result; else applyButt" id="butt-apply-remove" [style.cursor]="'not-allowed'" href="javascript:void(0)" class="btn btn-list full-width mb-2 text-warning">
+                <i class="ti-email mr-2"></i>
+                {{'job.alreadyApplied'}}
+              </a>
+
+              <ng-template #applyButt>
+                <a id="butt-apply" href="javascript:void(0)" data-toggle="modal" data-target="#apply" class="btn btn-list full-width mb-2 text-warning">
+                  <i class="ti-email mr-2"></i>
+                  {{'home.apply' | translate}}
+                </a>
+              </ng-template>
+              <br>
+
+              <!--<a href="#" class="btn btn-list full-width color--linkedin"><i class="ti-linkedin mr-2"></i> Apply With linkedin</a>-->
+
+              <!-- Modal -->
+              <div class="modal fade" id="apply" tabindex="-1" role="dialog" aria-labelledby="apply" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">{{'home.apply' | translate}}</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div *ngIf="!authService.isAuthenticated(); else applyAuth" class="modal-body">
+                      {{'job.applyGuest' | translate}}
+                    </div>
+
+                    <ng-template #applyAuth>
+                    <div class="modal-body" [innerHTML]="'job.applyMessage' | translate:{jobName: jobOffer?.title, companyName: jobOffer?.company?.name}">
+                    </div>
+                    </ng-template>
+
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">{{'cancelButton' | translate}}</button>
+                      <button [disabled]="!authService.isAuthenticated()" (click)="sendApplication()" type="button" id="confirmationButton" class="btn btn-primary">
+                        {{'job.confirmButton' | translate}}</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ======================= End Banner ===================== -->
+
+  <!-- ============== Job Detail ====================== -->
+  <section class="tr-single-detail gray-bg">
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-lg-8 col-md-12 col-sm-12">
+
+          <!-- Default Style -->
+          <div class="single-job-head head-light" style="border: 1px solid #00a94f!important;">
+            <div class="single-job-info pl-0">
+              <ul class="tags-jobs row">
+                <li class="col mx-auto text-left"><i class="ti-file float-none"></i> <strong>{{'job.applications' | translate}}</strong> {{jobOffer?.applicationsSize}}</li>
+                <li class="col mx-auto text-center"><i class="ti-calendar float-none"></i> <strong>{{'job.postDate' | translate}}</strong> {{jobOffer?.createdAt | date: 'dd-MM-yyyy'}}</li>
+                <li class="col mx-auto text-right"><i class="ti-alarm-clock float-none"></i> <strong>{{'job.dueDate' | translate}}</strong> {{jobOffer?.dueDate | date: 'dd-MM-yyyy'}}</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Job Overview -->
+          <div class="tr-single-box">
+            <div class="tr-single-header">
+              <h4><i class="ti-info"></i>{{'job.jobDescription' | translate}}</h4>
+            </div>
+            <div class="tr-single-body" [innerHTML]="jobOffer?.description">
+            </div>
+          </div>
+
+          <!-- Job Qualifications -->
+          <div class="tr-single-box">
+            <div class="tr-single-header">
+              <h4><i class="ti-book"></i>{{'filter.skillsTitle' | translate}}</h4>
+            </div>
+            <div class="tr-single-body">
+              <ul *ngIf="jobOffer?.skills; else noSkill" class="jb-detail-list">
+                <li *ngFor="let skill of jobOffer?.skills">
+                  {{skill}}</li>
+              </ul>
+              <ng-template #noSkill>
+                <div>
+                  <p>{{'profile.noSkill' | translate}}</p>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+
+          <a *ngIf="isApplicated?.result; else noApplicatedBottom" id="butt-apply-yes-bottom" href="javascript:void(0)" style="cursor: not-allowed" class="btn btn-info full-width mb-2">
+            {{'job.alreadyApplied' | translate}}</a>
+
+          <ng-template #noApplicatedBottom>
+            <a id="butt-apply-no-bottom"href="javascript:void(0)" data-toggle="modal" data-target="#apply" class="btn btn-info full-width mb-2">
+              {{'home.apply' | translate}}</a>
+          </ng-template>
+
+        </div>
+
+        <!-- Sidebar Start -->
+        <div class="col-lg-4 col-md-12 col-sm-12">
+
+          <div class="offer-btn-wrap mb-4">
+            <a id="butt-favorite" *ngIf="authService.isAuthenticated(); else favoriteNoAuth" (click)="handleFavorite()" href="javascript:void(0)" class="btn btn-info btn-md full-width"><i [ngClass]="isFavorite?.result ? 'mr-2 ti-trash' : 'mr-2 ti-bookmark'"></i>{{isFavorite?.result ? ('job.alreadyFavorite' | translate) : ('job.addBookMark' | translate)}}</a>
+            <ng-template #favoriteNoAuth>
+              <a href="javascript:void(0)" class="btn btn-info btn-md full-width" style="cursor: not-allowed;"><i class="mr-2 ti-bookmark"></i>{{'job.addBookMark' | translate}}</a>
+            </ng-template>
+          </div>
+
+          <!-- Job Overview -->
+          <div class="tr-single-box">
+            <div class="tr-single-header">
+              <h4><i class="ti-direction"></i>{{'job.jobOverview' | translate}}</h4>
+            </div>
+
+            <div class="tr-single-body">
+              <ul class="extra-service">
+                <li>
+                  <div class="icon-box-icon-block">
+                    <div class="icon-box-round">
+                      <i class="ti-money"></i>
+                    </div>
+                    <div class="icon-box-text">
+                      <strong class="d-block">{{'job.offeredSalary' | translate}}</strong>
+                      {{jobOffer?.minSalary + 'K - ' + jobOffer?.maxSalary +'K'}}
+                    </div>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="icon-box-icon-block">
+                    <div class="icon-box-round">
+                      <i class="lni-users"></i>
+                    </div>
+                    <div class="icon-box-text">
+                      <strong class="d-block">{{'job.gender' |  translate}}</strong>
+                      {{'job.'+ jobOffer?.gender | translate}}
+                    </div>
+                  </div>
+                </li>
+
+                <!-- CI SERVE ?
+                <li>
+                    <div class="icon-box-icon-block">
+                        <div class="icon-box-round">
+                            <i class="ti-home"></i>
+                        </div>
+                        <div class="icon-box-text">
+                            <strong class="d-block">Industry</strong>
+                            Management
+                        </div>
+                    </div>
+                </li>
+                -->
+                <li>
+                  <div class="icon-box-icon-block">
+                    <div class="icon-box-round">
+                      <i class="lni-certificate"></i>
+                    </div>
+                    <div class="icon-box-text">
+                      <strong class="d-block">{{'job.experience' | translate}}</strong>
+                      {{jobOffer?.experience + ' ' + ('filter.year' | translate)}}
+                    </div>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="icon-box-icon-block">
+                    <div class="icon-box-round">
+                      <i class="lni lni-briefcase"></i>
+                    </div>
+                    <div class="icon-box-text">
+                      <strong class="d-block">{{'job.offerType' | translate}}</strong>
+                      {{'job.'+ jobOffer?.contractType}}
+                    </div>
+                  </div>
+                </li>
+
+              </ul>
+            </div>
+
+          </div>
+
+          <!-- Company Address -->
+          <div class="tr-single-box">
+            <div class="tr-single-header">
+              <h4><i class="ti-direction"></i>{{'job.companyAddress' | translate}}</h4>
+            </div>
+
+            <div class="tr-single-body">
+              <ul class="extra-service">
+                <li>
+                  <div class="icon-box-icon-block">
+                    <a href="{{'https://www.google.com/maps/search/?api=1&amp;query='
+                                + jobOffer?.address?.street?.replace('\\s','%20') + '%20'
+                                + jobOffer?.address?.city?.replace('\\s','%20') + '%20'
+                                + jobOffer?.address?.country?.replace('\\s','%20')}}">
+
+
+                      <div class="icon-box-round">
+                        <i class="lni-map-marker"></i>
+                      </div>
+                      <div class="icon-box-text">
+                        {{jobOffer?.address?.street + ', ' + jobOffer?.address?.city + ', '+ jobOffer?.address?.country}}
+                      </div>
+                    </a>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="icon-box-icon-block">
+                    <a href="{{'tel:'+jobOffer?.company?.telephone}}">
+                      <div class="icon-box-round">
+                        <i class="lni-phone-handset"></i>
+                      </div>
+                      <div class="icon-box-text">
+                        {{jobOffer?.company?.telephone}}
+                      </div>
+                    </a>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="icon-box-icon-block">
+                    <a href="{{'mailto:'+jobOffer?.company?.email}}">
+                      <div class="icon-box-round">
+                        <i class="lni-envelope"></i>
+                      </div>
+                      <div class="icon-box-text">
+                        {{jobOffer?.company?.email}}
+                      </div>
+                    </a>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="icon-box-icon-block">
+                    <a href="{{jobOffer?.company?.website}}">
+                      <div class="icon-box-round">
+                        <i class="lni-world"></i>
+                      </div>
+                      <div class="icon-box-text">
+                        {{jobOffer?.company?.website}}
+                      </div>
+                    </a>
+                  </div>
+                </li>
+
+              </ul>
+            </div>
+
+          </div>
+
+
+
+        </div>
+        <!-- /col-md-4 -->
+      </div>
+    </div>
+  </section>
+  <!-- ============== Job Detail ====================== -->
+</div>

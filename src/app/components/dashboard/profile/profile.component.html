@@ -1,0 +1,194 @@
+<app-spinner *ngIf="loading"></app-spinner>
+
+<div *ngIf="!loading" class="tab-pane active container" id="profile">
+
+  <form [formGroup]="profileForm" (ngSubmit)="updateProfile()" class="mb-4">
+
+    <!-- Basic Info -->
+    <div class="tr-single-box">
+      <div class="tr-single-header">
+        <h4><i class="ti-desktop"></i> {{'dashboard.profile.title' | translate}}</h4>
+      </div>
+      <div class="tr-single-body">
+
+        <div class="row">
+
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+              <label>{{'dashboard.profile.name' | translate}}</label>
+              <input formControlName="name" class="form-control" name="name" required type="text">
+            </div>
+            <!-- Error -->
+
+            <p class="color--error mb-2" *ngIf="!profileForm.get('name')?.valid && profileForm.get('name')?.touched"><strong>error name</strong></p>
+          </div>
+
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+              <label>{{'dashboard.profile.surname' | translate}}</label>
+              <input formControlName="surname" class="form-control" name="surname" required type="text">
+            </div>
+            <!-- Error -->
+            <p class="color--error mb-2" *ngIf="!profileForm.get('surname')?.valid && profileForm.get('surname')?.touched"><strong>error surname</strong></p>
+          </div>
+
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+              <label>{{'dashboard.profile.jobPosition' | translate}}</label>
+              <input formControlName="jobTitle" class="form-control" name="jobTitle" type="text" placeholder="{{'dashboard.profile.jobPosition' | translate}}">
+            </div>
+            <!-- Error -->
+            <p class="color--error mb-2" *ngIf="!profileForm.get('jobPosition')?.valid && profileForm.get('jobPosition')?.touched"><strong>job title</strong></p>
+          </div>
+
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+              <label>{{'dashboard.profile.minSalary' | translate}}</label>
+              <input formControlName="minimumExpectedSalary" class="form-control" name="minimumExpectedSalary" type="number" placeholder="0">
+            </div>
+            <!-- Error -->
+            <p class="color--error mb-2" *ngIf="!profileForm.get('minimumExpectedSalary')?.valid && profileForm.get('minimumExpectedSalary')?.touched"><strong>min salary</strong></p>
+          </div>
+
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+              <label>{{'dashboard.profile.overview' | translate}}</label>
+              <textarea [ngxSummernote]="summernoteConfig" formControlName="overview" name="overview"></textarea>
+            </div>
+            <!-- Error -->
+            <p class="color--error mb-2" *ngIf="!profileForm.get('overview')?.valid && profileForm.get('overview')?.touched"><strong>description</strong></p>
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group">
+              <label>{{'dashboard.profile.birth' | translate}}</label>
+              <input formControlName="dateOfBirth" class="form-control" type="date" name="dateOfBirth">
+            </div>
+            <!-- Error -->
+            <p class="color--error mb-2" *ngIf="!profileForm.get('dateOfBirth')?.valid && profileForm.get('dateOfBirth')?.touched"><strong>error birth</strong></p>
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group">
+              <label>{{'dashboard.profile.gender' | translate}}</label>
+              <select formControlName="gender" class="form-control" name="gender" id="sex-select">
+                <option [selected]="profileForm.get('gender')?.value != 'M' && profileForm.get('gender')?.value != 'F'"  value="NOTSPECIFIED">{{'dashboard.profile.choose' | translate}}</option>
+                <option [selected]="profileForm.get('gender')?.value == 'M'" value="MALE">M</option>
+                <option [selected]="profileForm.get('gender')?.value == 'F'" value="FEMALE">F</option>
+              </select>
+
+            </div>
+            <!-- Error -->
+            <p class="color--error mb-2" *ngIf="!profileForm.get('gender')?.valid && profileForm.get('gender')?.touched"><strong>error sex</strong></p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <!-- /Basic Info -->
+
+    <!-- Contact Info -->
+    <div class="tr-single-box">
+      <div class="tr-single-header">
+        <h4><i class="ti-headphone" ></i>{{'dashboard.profile.contactsTitle' | translate}}</h4>
+      </div>
+
+      <div class="tr-single-body">
+        <div class="row">
+
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group">
+              <label class="social-nfo">{{'dashboard.profile.telephone' | translate}}</label>
+              <input formControlName="phoneNumber" class="form-control" type="text" name="phoneNumber" placeholder="{{'dashboard.profile.telephone' | translate}}">
+            </div>
+            <!-- Error -->
+            <p class="color--error mb-2" *ngIf="!profileForm.get('phoneNumber')?.valid && profileForm.get('phoneNumber')?.touched"><strong>error telephone</strong></p>
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group">
+              <label class="social-nfo">{{'dashboard.profile.email' | translate}}</label>
+              <input formControlName="email" class="form-control" type="email" name="email" required>
+            </div>
+            <!-- Error -->
+            <p *ngIf="profileForm.get('email')?.errors?.['emailExists'] && profileForm.get('email')?.touched; else errorMailFormat" class="color--error mb-2"><strong>error email exists</strong></p>
+            <ng-template #errorMailFormat>
+              <div class="container">
+                <p *ngIf="!profileForm.get('email')?.valid && profileForm.get('email')?.touched" class="color--error mb-2"><strong>error email</strong></p>
+              </div>
+            </ng-template>
+          </div>
+
+          <ng-container formGroupName="address" class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <div class="form-group">
+                <label class="social-nfo">{{'dashboard.profile.country' | translate}}</label>
+                <input formControlName="country" class="form-control" type="text" minlength="2" maxlength="2" name="country" placeholder="{{'dashboard.profile.phCountry' | translate}}">
+              </div>
+              <!-- Error -->
+              <p class="color--error mb-2" *ngIf="!profileForm.get('address.country')?.valid && profileForm.get('address.country')?.touched"><strong>error country</strong></p>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <div class="form-group">
+                <label class="social-nfo">{{'dashboard.profile.city' | translate}}</label>
+                <input formControlName="city" class="form-control" type="text" name="city" placeholder="{{'dashboard.profile.phCity' | translate}}">
+              </div>
+              <!-- Error -->
+              <p class="color--error mb-2" *ngIf="!profileForm.get('address.city')?.valid && profileForm.get('address.city')?.touched"><strong>error city</strong></p>
+            </div>
+          </ng-container>
+
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+              <label class="social-nfo">{{'dashboard.profile.website' | translate}}</label>
+              <input formControlName="website" class="form-control" name="website" type="text" placeholder="{{'dashboard.profile.phWebsite' | translate}}">
+            </div>
+            <!-- Error -->
+            <p class="color--error mb-2" *ngIf="!profileForm.get('website')?.valid && profileForm.get('website')?.touched"><strong>error website</strong></p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <!-- /Contact Info -->
+
+    <button *ngIf="!loadingProfile" [disabled]="!profileForm.valid || profileForm.pending" type="submit" class="btn btn-info btn-md full-width">{{'dashboard.profile.buttonSave' | translate}}<i class="ml-2 ti-arrow-right"></i></button>
+    <div *ngIf="loadingProfile" class="row">
+      <div class="spinner-border text-success mx-auto" role="status"><span class="sr-only">Loading...</span></div>
+    </div>
+
+  </form>
+
+
+
+  <!-- Basic Info -->
+  <div class="tr-single-box mt-5">
+    <div class="tr-single-header">
+      <h4><i class="ti-image"></i> {{'dashboard.profile.photo' | translate}}</h4>
+    </div>
+    <div class="tr-single-body">
+
+      <div class="row">
+
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="form-group">
+            <label>{{'dashboard.profile.avatar' | translate}}</label>
+            <div class="custom-file">
+              <input #imageInput (change)="processFile(imageInput)" type="file" class="custom-file-input" id="clogo" name="photo" accept=".png,.jpg,.jpeg">
+              <label class="custom-file-label" for="clogo">{{'dashboard.profile.chooseImg' | translate}}</label>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="loadingPhoto" class="spinner-border text-success mt-3 ml-3" role="status"><span class="sr-only">Loading...</span></div>
+        <button *ngIf="!loadingPhoto" [disabled]="!photo" (click)="uploadPhoto()" id="butt-cv" type="submit" class="btn add-pr-item-btn mt-3 ml-1">{{'dashboard.profile.buttonSave' | translate}}</button>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>

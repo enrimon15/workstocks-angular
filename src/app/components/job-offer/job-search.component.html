@@ -232,7 +232,7 @@
                   <img class="img-fluid rounded-circle" src="{{(job.company && job.company?.photo) ? 'data:image/jpeg;base64,' + job.company?.photo : '/assets/img/default.png'}}">
                 </div>
                 <div class="vc-content">
-                  <h5 class="title"><a [routerLink]="['job-offers', job.id]">{{job.title}}</a><span
+                  <h5 class="title"><a [routerLink]="[job.id]">{{job.title}}</a><span
                     class="j-full-time">{{('filter.' + job.contractType) | translate}}</span></h5>
                   <p>{{job?.company?.name}}</p>
 
@@ -255,7 +255,7 @@
 
                   </ul>
                 </div>
-                <a class="btn btn-black bn-det" [routerLink]="['job-offers', job.id]">{{'home.apply' | translate}}
+                <a class="btn btn-black bn-det" [routerLink]="[job.id]">{{'home.apply' | translate}}
                   <i class="ti-arrow-right ml-1"></i></a>
               </div>
             </div>

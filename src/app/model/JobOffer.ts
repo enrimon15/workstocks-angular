@@ -6,14 +6,15 @@ export interface JobOffer {
   createdAt: Date;
   company: Company;
   title: string;
-  description: string;
+  description?: string;
   dueDate: Date;
   contractType: string;
   gender: string;
   minSalary: number;
   maxSalary: number;
   experience: number;
-  address: Address;
-  skills: string[];
+  address?: Address;
+  skills?: string[];
+  applicationsSize?: number;
   detailsURL: string;
 }

@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'applicants', loadChildren: () => import('./components/applicant/applicant.module').then(m => m.ApplicantModule)},
   { path: 'companies', loadChildren: () => import('./components/company/company.module').then(m => m.CompanyModule )},
   { path: 'job-offers', loadChildren: () => import('./components/job-offer/job-offer.module').then(m => m.JobOfferModule )},
+  { path: 'dashboard', loadChildren: () => import('./components/dashboard/dashboard.module').then(m => m.DashboardModule )},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'error', component: ErrorComponent },

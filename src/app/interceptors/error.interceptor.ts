@@ -9,9 +9,40 @@ import {catchError, Observable, retry, tap, throwError} from 'rxjs';
 import {Router} from "@angular/router";
 import {environment} from "../../environments/environment";
 
+interface whitelist {
+  uri: string,
+  method: string;
+}
+
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  private whitelistUrl: string[] = ['auth/login', 'cv', 'applicants/email'];
+  private whitelistUrl: whitelist[] = [
+    {uri: 'login', method: 'POST'},
+    {uri: 'cv', method: 'GET'},
+    {uri: 'cv', method: 'PUT'},
+    {uri: 'email', method: 'POST'},
+    {uri: 'reviews', method: 'PUT'},
+    {uri: 'job-alerts', method: 'POST'},
+    {uri: 'job-alerts', method: 'DELETE'},
+    {uri: 'favourites', method: 'POST'},
+    {uri: 'favourites', method: 'DELETE'},
+    {uri: 'application', method: 'POST'},
+    {uri: 'application', method: 'DELETE'},
+    {uri: 'applicants', method: 'PATCH'},
+    {uri: 'photo', method: 'PUT'},
+    {uri: 'skills', method: 'DELETE'},
+    {uri: 'skills', method: 'PUT'},
+    {uri: 'skills', method: 'POST'},
+    {uri: 'qualifications', method: 'DELETE'},
+    {uri: 'qualifications', method: 'PUT'},
+    {uri: 'qualifications', method: 'POST'},
+    {uri: 'certifications', method: 'DELETE'},
+    {uri: 'certifications', method: 'PUT'},
+    {uri: 'certifications', method: 'POST'},
+    {uri: 'experiences', method: 'DELETE'},
+    {uri: 'experiences', method: 'PUT'},
+    {uri: 'experiences', method: 'POST'},
+  ];
 
   constructor(private router: Router) {}
 
@@ -21,13 +52,9 @@ export class ErrorInterceptor implements HttpInterceptor {
       tap({
         error: (error) => {
           let endpoint = request.url.split(`${environment.baseUrl}/`)[1] ?? '';
-          if (!this.whitelistUrl.some(item => endpoint.includes(item))) {
+          if (!this.whitelistUrl.some(item => endpoint.includes(item.uri) && request.method.toUpperCase() == item.method)) {
             this.router.navigate(['/error'], {queryParams: { errorCode: error.status }});
           }
-
-          /*if (!this.whitelistUrl.includes(endpoint)) {
-            this.router.navigate(['/error'], {queryParams: { errorCode: error.status }});
-          }*/
         }
       }),
       catchError(this.handleError));

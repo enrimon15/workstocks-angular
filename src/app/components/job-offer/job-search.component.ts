@@ -31,6 +31,7 @@ export class JobSearchComponent implements OnInit {
     this.route.queryParams.subscribe( (params: Params) => {
       if (params['title']) this.description = params['title'];
       if (params['address']) this.address = params['address'];
+      if (params['company']) this.company = params['company'];
       this.getJobList();
     });
   }
