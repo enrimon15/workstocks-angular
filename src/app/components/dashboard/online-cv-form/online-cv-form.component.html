@@ -1,0 +1,198 @@
+<!-- SKILL -->
+
+<form *ngIf="type == 'SKILL'" [formGroup]="skillForm" (ngSubmit)="addSkill()">
+  <div class="row" id="add-skill">
+
+    <div class="ccol-lg-12 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label>{{'dashboard.onlineCV.skillName' | translate}}</label>
+        <input formControlName="name" class="form-control" placeholder="{{'dashboard.onlineCV.phSkill' | translate}}" type="text" name="skillName" required>
+      </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label>{{'dashboard.onlineCV.skillLevel' | translate}}</label>
+        <select formControlName="assestment" class="form-control" name="skillLevel" required id="level-skill-select">
+          <option selected value="BEGINNER">{{'dashboard.onlineCV.beginner' | translate}}</option>
+          <option value="INTERMEDIATE">{{'dashboard.onlineCV.intermediate' | translate}}</option>
+          <option value="ADVANCED">{{'dashboard.onlineCV.advanced' | translate}}</option>
+        </select>
+      </div>
+    </div>
+
+    <button *ngIf="!loading" [disabled]="!skillForm.valid" type="submit" class="btn add-pr-item-btn mt-2 ml-1">{{'dashboard.onlineCV.addButton' | translate}}</button>
+    <div *ngIf="loading" class="spinner-border text-success ml-3 mt-2" role="status"><span class="sr-only">Loading...</span></div>
+  </div>
+</form>
+
+
+<!-- CERTIFICATION -->
+
+<form *ngIf="type == 'CERTIFICATION'" [formGroup]="certificationForm" (ngSubmit)="addCertification()">
+  <div class="row" id="add-certificate">
+
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label>{{'dashboard.onlineCV.certName' | translate}}</label>
+        <input formControlName="name" class="form-control" type="text" placeholder="{{'dashboard.onlineCV.phCertificate' | translate}}" name="name" required>
+      </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label>{{'dashboard.onlineCV.certSociety' | translate}}</label>
+        <input formControlName="society" placeholder="{{'dashboard.onlineCV.phSociety' | translate}}" type="text" class="form-control" name="certificateSociety" required>
+      </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="form-group mt-1 float-right">
+        <input formControlName="noExpiration" (change)="changeInProgress($event, 'CERTIFICATION')" type="checkbox" name="noEnd" id="no-end-certification">&nbsp;&nbsp;{{'dashboard.onlineCV.certNoExp' | translate}}
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <div class="form-group">
+        <label>{{'dashboard.onlineCV.certGet' | translate}}</label>
+        <input formControlName="date" type="date" class="form-control" name="date" required>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <div class="form-group">
+        <label>{{'dashboard.onlineCV.certExpired' | translate}}</label>
+        <input formControlName="endDate" id="end-certification" type="date" class="form-control" name="endDate">
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <div class="form-group">
+        <label>{{'dashboard.onlineCV.certCredential' | translate}}</label>
+        <input formControlName="credential" type="text" placeholder="{{'dashboard.onlineCV.phCredential' | translate}}" class="form-control" name="credential" required>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <div class="form-group">
+        <label>{{'dashboard.onlineCV.certLink' | translate}}</label>
+        <input formControlName="url" type="text" placeholder="{{'dashboard.onlineCV.phLink' | translate}}" class="form-control" name="link">
+      </div>
+    </div>
+
+    <button *ngIf="!loading" [disabled]="!certificationForm.valid" type="submit" class="btn add-pr-item-btn mt-2 ml-1">{{'dashboard.onlineCV.addButton' | translate}}</button>
+    <div *ngIf="loading" class="spinner-border text-success ml-3 mt-2" role="status"><span class="sr-only">Loading...</span></div>
+  </div>
+</form>
+
+<!-- EXPERIENCE -->
+
+<form *ngIf="type == 'EXPERIENCE'" [formGroup]="experienceForm" (ngSubmit)="addExperience()">
+  <div class="row" id="add-experience">
+
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label>{{'dashboard.onlineCV.expJob' | translate}}</label>
+        <input formControlName="jobPosition" class="form-control" type="text" placeholder="{{'dashboard.onlineCV.expJob' | translate}}" name="jobPosition" required>
+      </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label>{{'dashboard.onlineCV.expCompany' | translate}}</label>
+        <input formControlName="company" placeholder="{{'dashboard.onlineCV.phCompany' | translate}}" type="text" class="form-control" name="company" required>
+      </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="form-group mt-1 float-right">
+        <input formControlName="inProgress" (change)="changeInProgress($event, 'EXPERIENCE')" type="checkbox" name="inProgress" id="check-experience">&nbsp;&nbsp;{{'dashboard.onlineCV.inProgress' | translate}}
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <div class="form-group">
+        <label>{{'dashboard.onlineCV.startDate' | translate}}</label>
+        <input formControlName="startDate" type="date" class="form-control" name="startDate" required>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <div class="form-group">
+        <label>{{'dashboard.onlineCV.endDate' | translate}}</label>
+        <input formControlName="endDate" id="end-experience" type="date" class="form-control" name="endDate">
+      </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label>{{'dashboard.onlineCV.expDescription' | translate}}</label>
+        <textarea formControlName="description" placeholder="{{'dashboard.onlineCV.expDescription' | translate}}" name="description" class="form-control" required></textarea>
+      </div>
+    </div>
+
+    <button *ngIf="!loading" [disabled]="!experienceForm.valid" type="submit" class="btn add-pr-item-btn mt-2 ml-1">{{'dashboard.onlineCV.addButton' | translate}}</button>
+    <div *ngIf="loading" class="spinner-border text-success ml-3 mt-2" role="status"><span class="sr-only">Loading...</span></div>
+  </div>
+</form>
+
+<!-- QUALIFICATION -->
+
+<form *ngIf="type == 'QUALIFICATION'" [formGroup]="qualificationForm" (ngSubmit)="addQualification()">
+  <div id="add-qualification" class="row">
+
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label>{{'dashboard.onlineCV.qualName' | translate}}</label>
+        <input formControlName="name" class="form-control" name="name" placeholder="{{'dashboard.onlineCV.qualName' | translate}}" type="text" required>
+      </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="form-group mt-1 float-right">
+        <input formControlName="inProgress" (change)="changeInProgress($event, 'QUALIFICATION')" type="checkbox" name="inProgress" id="check-qualification">&nbsp;&nbsp;{{'dashboard.onlineCV.inProgress' | translate}}
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <div class="form-group">
+        <label>{{'dashboard.onlineCV.startDate' | translate}}</label>
+        <input formControlName="startDate" type="date" class="form-control" name="startDate" required>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <div class="form-group">
+        <label>{{'dashboard.onlineCV.endDate' | translate}}</label>
+        <input formControlName="endDate" id="end-qualification" type="date" class="form-control" name="endDate">
+      </div>
+    </div>
+
+
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label>{{'dashboard.onlineCV.qualInstitute' | translate}}</label>
+        <input formControlName="institute" placeholder="{{'dashboard.onlineCV.phInstitute' | translate}}" name="institute" type="text" class="form-control" required>
+      </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label>{{'dashboard.onlineCV.qualDescription' | translate}}</label>
+        <textarea formControlName="description" placeholder="{{'dashboard.onlineCV.qualDescription' | translate}}" name="description" class="form-control"></textarea>
+      </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label>{{'dashboard.onlineCV.qualValuation' | translate}}</label>
+        <input formControlName="valuation" placeholder="{{'dashboard.onlineCV.qualValuation' | translate}}" name="valuation" type="text" class="form-control">
+      </div>
+    </div>
+
+    <button *ngIf="!loading" [disabled]="!qualificationForm.valid" type="submit" class="btn add-pr-item-btn mt-2 ml-1">{{'dashboard.onlineCV.addButton' | translate}}</button>
+    <div *ngIf="loading" class="spinner-border text-success ml-3 mt-2" role="status"><span class="sr-only">Loading...</span></div>
+  </div>
+</form>
+
+

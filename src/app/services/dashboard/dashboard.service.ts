@@ -109,17 +109,17 @@ export class DashboardService extends BaseService{
   }
 
   removeExperience(applicantId: number, experienceId: number): Observable<void> {
-    const requestUrl = `${environment.baseUrl}/${environment.applicant.get}/${applicantId}/${environment.onlineCv.qualifications}/${experienceId}`;
+    const requestUrl = `${environment.baseUrl}/${environment.applicant.get}/${applicantId}/${environment.onlineCv.experiences}/${experienceId}`;
     return this.http.delete<void>(requestUrl).pipe(catchError(this.handleError));
   }
 
   removeSkill(applicantId: number, skillId: number): Observable<void> {
-    const requestUrl = `${environment.baseUrl}/${environment.applicant.get}/${applicantId}/${environment.onlineCv.qualifications}/${skillId}`;
+    const requestUrl = `${environment.baseUrl}/${environment.applicant.get}/${applicantId}/${environment.onlineCv.skills}/${skillId}`;
     return this.http.delete<void>(requestUrl).pipe(catchError(this.handleError));
   }
 
   removeCertification(applicantId: number, certificationId: number): Observable<void> {
-    const requestUrl = `${environment.baseUrl}/${environment.applicant.get}/${applicantId}/${environment.onlineCv.qualifications}/${certificationId}`;
+    const requestUrl = `${environment.baseUrl}/${environment.applicant.get}/${applicantId}/${environment.onlineCv.certifications}/${certificationId}`;
     return this.http.delete<void>(requestUrl).pipe(catchError(this.handleError));
   }
 

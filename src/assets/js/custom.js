@@ -265,37 +265,6 @@
 		placeholder: "Specialisms"
 	});
 
-	// Editor
-	$('#summernote').summernote({
-		height: 150,
-		toolbar: [
-			[ 'style', [ 'style' ] ],
-			[ 'font', [ 'bold', 'italic', 'underline'] ],
-			[ 'fontname', [ 'fontname' ] ],
-			[ 'fontsize', [ 'fontsize' ] ],
-			[ 'color', [ 'color' ] ],
-			[ 'para', [ 'ol', 'ul' ] ],
-			[ 'table', [ 'table' ] ],
-			[ 'insert', [ 'link'] ],
-			[ 'view', [ 'undo', 'redo', 'fullscreen', 'codeview'] ]
-		]
-	});
-
-	// Editor
-	$('#resume-info').summernote({
-		height: 120
-	});
-
-	// Job Description
-	$('#jb-description').summernote({
-		height: 150
-	});
-
-	// CV
-	$('#cv-cover').summernote({
-		height: 150
-	});
-
 	// File upload
 	$(".custom-file-input").on("change", function() {
 	  var fileName = $(this).val().split("\\").pop();
@@ -320,46 +289,6 @@
     $(function () {
       $('[data-toggle="tooltip"]').tooltip()
     });
-  });
-
-  $(document).ready(function() {
-    $('select').select2({
-      minimumResultsForSearch: -1
-    });
-  });
-
-  $(document).ready(function() {
-    $('#level-skill-select').select2({
-      minimumResultsForSearch: -1
-    });
-  });
-
-  jQuery(function($) {
-    $(document).ready( function () {
-
-      let options = {
-        "scrollX": true,
-        "scrollY": '280px',
-        "scrollCollapse": true,
-        "order": false,
-        "targets": 'no-sort',
-        "bSort": false,
-        "bInfo": false,
-        "bLengthChange": false,
-        "bFilter": true,
-        "bAutoWidth": false,
-        "paging": false,
-        "language": {
-          "emptyTable": "[[#{ocv.noData}]]",
-          "sSearch": "[[#{ocv.search}]]"
-        }
-      };
-
-      $('#qualification_table').DataTable(options);
-      $('#skill_table').DataTable(options);
-      $('#experience_table').DataTable(options);
-      $('#certificate_table').DataTable(options);
-    } );
   });
 
 

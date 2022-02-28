@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from "../../../auth/auth.service";
 import {DashboardService} from "../../../services/dashboard/dashboard.service";
 import {ApplicantService} from "../../../services/applicant/applicant.service";
@@ -8,7 +8,6 @@ import {Experience} from "../../../model/Experience";
 import {Qualification} from "../../../model/Qualification";
 import {Certification} from "../../../model/Certification";
 import {forkJoin} from "rxjs";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CVFile} from "../../../model/CVFile";
 import * as FileSaver from "file-saver";
 
@@ -40,48 +39,30 @@ export class OnlineCvComponent implements OnInit {
   experienceToRemove!: number;
   certificationToRemove!: number;
   qualificationToRemove!: number;
-  skillForm!: FormGroup;
-  qualificationForm!: FormGroup;
-  experienceForm!: FormGroup;
-  certificationForm!: FormGroup;
   description!: string;
-  inProgress: FormObjectBoolean = {experience: false, certification: false, qualification: false};
   formOpen: FormObjectBoolean = {skill: false, experience: false, certification: false, qualification: false};
+  dtOptions: DataTables.Settings = {};
 
-  constructor(private fb: FormBuilder, public authService: AuthService, private dashboardService: DashboardService, private applicantService: ApplicantService, private alertService: AlertService) {
-    this.skillForm = this.fb.group({
-      name: [null, [Validators.required, Validators.minLength(3)]],
-      assestment: [null, [Validators.required, Validators.pattern('^(BEGINNER|INTERMEDIATE|ADVANCED)$')]]
-    });
+  @ViewChild('closeSkillModal') closeSkillModal!: ElementRef;
+  @ViewChild('closeQualificationModal') closeQualificationModal!: ElementRef;
+  @ViewChild('closeCertificationModal') closeCertificationModal!: ElementRef;
+  @ViewChild('closeExperienceModal') closeExperienceModal!: ElementRef;
 
-    this.experienceForm = this.fb.group({
-      jobPosition: [null, [Validators.required, Validators.minLength(3)]],
-      startDate: [null, [Validators.required]],
-      endDate: [null],
-      description: [null, [Validators.minLength(3)]],
-      valuation: [null],
-      institute: [null, [Validators.required, Validators.minLength(3)]],
-      inProgress: [false],
-    });
-
-    this.qualificationForm = this.fb.group({
-      jobPosition: [null, [Validators.required, Validators.minLength(3)]],
-      startDate: [null, [Validators.required]],
-      endDate: [null],
-      description: [null, [Validators.minLength(3)]],
-      company: [null, [Validators.required, Validators.minLength(3)]],
-      inProgress: [false],
-    });
-
-    this.certificationForm = this.fb.group({
-      name: [null, [Validators.required, Validators.minLength(3)]],
-      date: [null, [Validators.required]],
-      endDate: [null],
-      url: [null, [Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]],
-      credential: [null, [Validators.required, Validators.minLength(5)]],
-      company: [null, [Validators.required, Validators.minLength(3)]],
-      noExpiration: [false],
-    });
+  constructor(public authService: AuthService, private dashboardService: DashboardService, private applicantService: ApplicantService, private alertService: AlertService) {
+    this.dtOptions = {
+      scrollX: true,
+      scrollY: '280px',
+      scrollCollapse: true,
+      ordering: false,
+      autoWidth: false,
+      info: false,
+      lengthChange: false,
+      paging: false,
+      language: {
+        emptyTable: "No Data",
+        search: "",
+      }
+    };
   }
 
   ngOnInit(): void {
@@ -106,74 +87,81 @@ export class OnlineCvComponent implements OnInit {
     })
   }
 
-  addSkill() {
+  addSkill(skill: Skill) {
     this.loadingSkill = true;
-    this.dashboardService.addSkill(this.applicantId, this.skillForm.value).subscribe( {
+    this.dashboardService.addSkill(this.applicantId, skill).subscribe( {
       next: res => {
         this.alertService.showSuccess('dashboard.onlineCV.successSkill', '');
         this.getSkills();
       },
       error: error => {
-        this.loadingModal = false;
-        this.alertService.showSuccess('error.error', '');
+        this.loadingSkill = false;
+        this.alertService.showError('error.error', '');
       }
     });
   }
 
-  addCertification() {
+  addCertification(certification: Certification) {
     this.loadingCertification = true;
-    this.dashboardService.addCertification(this.applicantId, this.certificationForm.value).subscribe( {
+    this.dashboardService.addCertification(this.applicantId, certification).subscribe( {
       next: res => {
         this.alertService.showSuccess('dashboard.onlineCV.successCertificate', '');
-        this.getSkills();
+        this.getCertifications();
       },
       error: error => {
-        this.loadingModal = false;
-        this.alertService.showSuccess('error.error', '');
+        this.loadingCertification = false;
+        this.alertService.showError('error.error', '');
       }
     });
   }
 
-  addQualification() {
+  addQualification(qualification: Qualification) {
     this.loadingQualification = true;
-    this.dashboardService.addQualification(this.applicantId, this.qualificationForm.value).subscribe( {
+    this.dashboardService.addQualification(this.applicantId, qualification).subscribe( {
       next: res => {
         this.alertService.showSuccess('dashboard.onlineCV.successQualification', '');
-        this.getSkills();
+        this.getQualifications();
       },
       error: error => {
-        this.loadingModal = false;
-        this.alertService.showSuccess('error.error', '');
+        this.loadingQualification = false;
+        this.alertService.showError('error.error', '');
       }
     });
   }
 
-  addExperience() {
+  addExperience(experience: Experience) {
     this.loadingExperience = true;
-    this.dashboardService.addExperience(this.applicantId, this.experienceForm.value).subscribe( {
+    this.dashboardService.addExperience(this.applicantId, experience).subscribe( {
       next: res => {
         this.alertService.showSuccess('dashboard.onlineCV.successExperience', '');
-        this.getSkills();
+        this.getExperiences();
       },
       error: error => {
-        this.loadingModal = false;
-        this.alertService.showSuccess('error.error', '');
+        this.loadingExperience = false;
+        this.alertService.showError('error.error', '');
       }
     });
   }
 
   removeSkill() {
+    console.log('remove skill', this.skillToRemove);
     this.loadingModal = true;
     this.dashboardService.removeSkill(this.applicantId, this.skillToRemove).subscribe( {
       next: res => {
         this.alertService.showSuccess('dashboard.onlineCV.deleteSkill', '');
         this.getSkills();
+        this.closeSkillModal.nativeElement.click();
       },
       error: error => {
         this.loadingModal = false;
-        this.alertService.showSuccess('error.error', '');
+        this.alertService.showError('error.error', '');
+        this.closeSkillModal.nativeElement.click();
       }
     });
+  }
+
+  testClose() {
+    this.closeExperienceModal.nativeElement.click();
   }
 
   removeExperience() {
@@ -182,10 +170,12 @@ export class OnlineCvComponent implements OnInit {
       next: res => {
         this.alertService.showSuccess('dashboard.onlineCV.deleteExperience', '');
         this.getExperiences();
+        this.closeExperienceModal.nativeElement.click();
       },
       error: error => {
         this.loadingModal = false;
-        this.alertService.showSuccess('error.error', '');
+        this.alertService.showError('error.error', '');
+        this.closeExperienceModal.nativeElement.click();
       }
     });
   }
@@ -196,10 +186,12 @@ export class OnlineCvComponent implements OnInit {
       next: res => {
         this.alertService.showSuccess('dashboard.onlineCV.deleteCertificate', '');
         this.getCertifications();
+        this.closeCertificationModal.nativeElement.click();
       },
       error: error => {
         this.loadingModal = false;
-        this.alertService.showSuccess('error.error', '');
+        this.alertService.showError('error.error', '');
+        this.closeCertificationModal.nativeElement.click();
       }
     });
   }
@@ -210,10 +202,12 @@ export class OnlineCvComponent implements OnInit {
       next: res => {
         this.alertService.showSuccess('dashboard.onlineCV.successQualification', '');
         this.getQualifications();
+        this.closeQualificationModal.nativeElement.click();
       },
       error: error => {
         this.loadingModal = false;
-        this.alertService.showSuccess('error.error', '');
+        this.alertService.showError('error.error', '');
+        this.closeQualificationModal.nativeElement.click();
       }
     });
   }
@@ -239,22 +233,6 @@ export class OnlineCvComponent implements OnInit {
 
   markDescription(description: string) {
     this.description = description;
-  }
-
-  changeInProgress(type: string) {
-    switch (type) {
-      case 'EXPERIENCE':
-        this.inProgress['experience'] = !this.inProgress['experience'];
-        break;
-      case 'CERTIFICATION':
-        this.inProgress['certification'] = !this.inProgress['certification'];
-        break;
-      case 'QUALIFICATION':
-        this.inProgress['qualification'] = !this.inProgress['qualification'];
-        break;
-      default:
-        this.alertService.showError('error.error', '');
-    }
   }
 
   openForm(type: string) {
