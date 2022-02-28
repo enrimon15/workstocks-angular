@@ -31,48 +31,51 @@ export class OnlineCvFormComponent implements OnInit {
   @Output() qualificationEvent = new EventEmitter<Qualification>();
 
   constructor(private fb: FormBuilder, private alertService: AlertService) {
-    this.skillForm = this.fb.group({
-      name: [null, [Validators.required, Validators.minLength(3)]],
-      assestment: [null, [Validators.required, Validators.pattern('^(BEGINNER|INTERMEDIATE|ADVANCED)$')]]
-    });
-
-    this.experienceForm = this.fb.group({
-      jobPosition: [null, [Validators.required, Validators.minLength(3)]],
-      startDate: [null, [Validators.required]],
-      endDate: [null],
-      description: [null, [Validators.minLength(3)]],
-      valuation: [null],
-      company: [null, [Validators.required, Validators.minLength(3)]],
-      inProgress: [false],
-    });
-
-    this.qualificationForm = this.fb.group({
-      name: [null, [Validators.required, Validators.minLength(3)]],
-      startDate: [null, [Validators.required]],
-      endDate: [null],
-      description: [null, [Validators.minLength(3)]],
-      valuation: [null],
-      institute: [null, [Validators.required, Validators.minLength(3)]],
-      inProgress: [false],
-    });
-
-    this.certificationForm = this.fb.group({
-      name: [null, [Validators.required, Validators.minLength(3)]],
-      date: [null, [Validators.required]],
-      endDate: [null],
-      url: [null, [Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]],
-      credential: [null, [Validators.required, Validators.minLength(5)]],
-      society: [null, [Validators.required, Validators.minLength(3)]],
-      noExpiration: [false],
-    });
   }
 
   ngOnInit(): void {
+
+    this.skillForm = this.fb.group({
+      name: [this.skill?.name ?? null, [Validators.required, Validators.minLength(3)]],
+      assestment: [this.skill?.assestment ?? 'BEGINNER', [Validators.required, Validators.pattern('^(BEGINNER|INTERMEDIATE|ADVANCED)$')]]
+    });
+
+    this.experienceForm = this.fb.group({
+      jobPosition: [this.experience?.jobPosition ?? null, [Validators.required, Validators.minLength(3)]],
+      startDate: [this.experience?.startDate ?? null, [Validators.required]],
+      endDate: [{value: this.experience?.endDate ?? null, disabled: this.experience?.inProgress ? true : false}],
+      description: [this.experience?.description ?? null, [Validators.minLength(3)]],
+      company: [this.experience?.company ?? null, [Validators.required, Validators.minLength(3)]],
+      inProgress: [this.experience?.inProgress ?? false],
+    });
+
+    this.qualificationForm = this.fb.group({
+      name: [this.qualification?.name ?? null, [Validators.required, Validators.minLength(3)]],
+      startDate: [this.qualification?.startDate ?? null, [Validators.required]],
+      endDate: [{value: this.qualification?.endDate ?? null, disabled: this.qualification?.inProgress ? true : false}],
+      description: [this.qualification?.description ?? null, [Validators.minLength(3)]],
+      valuation: [this.qualification?.valuation ?? null],
+      institute: [this.qualification?.institute ?? null, [Validators.required, Validators.minLength(3)]],
+      inProgress: [this.qualification?.inProgress ?? false],
+    });
+
+    this.certificationForm = this.fb.group({
+      name: [this.certification?.name ?? null, [Validators.required, Validators.minLength(3)]],
+      date: [this.certification?.date ?? null, [Validators.required]],
+      endDate: [{value: this.certification?.endDate ?? null, disabled: this.certification?.noExpiration ? true : false}],
+      url: [this.certification?.url ?? null, [Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]],
+      credential: [this.certification?.credential ?? null, [Validators.required, Validators.minLength(5)]],
+      society: [this.certification?.society ?? null, [Validators.required, Validators.minLength(3)]],
+      noExpiration: [this.certification?.noExpiration ?? false],
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes['loading'].currentValue);
     this.loading = changes['loading'].currentValue;
+    if (changes['skill']) this.skill = changes['skill'].currentValue;
+    if (changes['experience']) this.experience = changes['experience'].currentValue;
+    if (changes['qualification']) this.qualification = changes['qualification'].currentValue;
+    if (changes['certification']) this.certification = changes['certification'].currentValue;
   }
 
   addSkill() {

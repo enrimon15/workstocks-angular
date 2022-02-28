@@ -1,1 +1,28 @@
-<p>edit-cv works!</p>
+<app-spinner *ngIf="loading"></app-spinner>
+
+<div *ngIf="!loading && type == 'qualification'" class="container">
+  <h3 class="mb-5">{{'dashboard.onlineCV.modifyQualification' | translate}}</h3>
+  <app-online-cv-form [loading]="loadingSpinner" [type]="type.toUpperCase()" [qualification]="qualification"
+                      (qualificationEvent)="updateQualification($event)"></app-online-cv-form>
+</div>
+
+
+<div *ngIf="!loading && type == 'experience'" class="container">
+  <h3 class="mb-5">{{'dashboard.onlineCV.modifyExperience' | translate}}</h3>
+  <app-online-cv-form [loading]="loadingSpinner" [type]="type.toUpperCase()" [experience]="experience"
+                      (experienceEvent)="updateExperience($event)"></app-online-cv-form>
+</div>
+
+
+<div *ngIf="!loading && type == 'certificate'" class="container">
+  <h3 class="mb-5">{{'dashboard.onlineCV.modifyCertificate' | translate}}</h3>
+  <app-online-cv-form [loading]="loadingSpinner" [type]="type.toUpperCase()" [certification]="certification"
+                      (certificationEvent)="updateCertification($event)"></app-online-cv-form>
+</div>
+
+
+<div *ngIf="!loading && type == 'skill'" class="container">
+  <h3 class="mb-5">{{'dashboard.onlineCV.modifySkill' | translate}}</h3>
+  <app-online-cv-form [loading]="loadingSpinner" [type]="type.toUpperCase()" [skill]="skill"
+                      (skillEvent)="updateSkill($event)"></app-online-cv-form>
+</div>

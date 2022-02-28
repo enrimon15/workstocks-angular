@@ -200,7 +200,7 @@ export class OnlineCvComponent implements OnInit {
     this.loadingModal = true;
     this.dashboardService.removeQualification(this.applicantId, this.qualificationToRemove).subscribe( {
       next: res => {
-        this.alertService.showSuccess('dashboard.onlineCV.successQualification', '');
+        this.alertService.showSuccess('dashboard.onlineCV.deleteQualification', '');
         this.getQualifications();
         this.closeQualificationModal.nativeElement.click();
       },

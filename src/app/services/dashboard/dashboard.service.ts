@@ -123,23 +123,23 @@ export class DashboardService extends BaseService{
     return this.http.delete<void>(requestUrl).pipe(catchError(this.handleError));
   }
 
-  updateQualification(applicantId: number, qualification: Qualification): Observable<void> {
-    const requestUrl = `${environment.baseUrl}/${environment.applicant.get}/${applicantId}/${environment.onlineCv.qualifications}`;
+  updateQualification(applicantId: number, qualificationId: number, qualification: Qualification): Observable<void> {
+    const requestUrl = `${environment.baseUrl}/${environment.applicant.get}/${applicantId}/${environment.onlineCv.qualifications}/${qualificationId}`;
     return this.http.put<void>(requestUrl, qualification).pipe(catchError(this.handleError));
   }
 
-  updateExperience(applicantId: number, experience: Experience): Observable<void> {
-    const requestUrl = `${environment.baseUrl}/${environment.applicant.get}/${applicantId}/${environment.onlineCv.experiences}`;
+  updateExperience(applicantId: number, experienceId: number, experience: Experience): Observable<void> {
+    const requestUrl = `${environment.baseUrl}/${environment.applicant.get}/${applicantId}/${environment.onlineCv.experiences}/${experienceId}`;
     return this.http.put<void>(requestUrl, experience).pipe(catchError(this.handleError));
   }
 
-  updateSkill(applicantId: number, skill: Skill): Observable<void> {
-    const requestUrl = `${environment.baseUrl}/${environment.applicant.get}/${applicantId}/${environment.onlineCv.skills}`;
+  updateSkill(applicantId: number, skillId: number, skill: Skill): Observable<void> {
+    const requestUrl = `${environment.baseUrl}/${environment.applicant.get}/${applicantId}/${environment.onlineCv.skills}/${skillId}`;
     return this.http.put<void>(requestUrl, skill).pipe(catchError(this.handleError));
   }
 
-  updateCertification(applicantId: number, certification: Certification): Observable<void> {
-    const requestUrl = `${environment.baseUrl}/${environment.applicant.get}/${applicantId}/${environment.onlineCv.certifications}`;
+  updateCertification(applicantId: number, certificationId: number, certification: Certification): Observable<void> {
+    const requestUrl = `${environment.baseUrl}/${environment.applicant.get}/${applicantId}/${environment.onlineCv.certifications}/${certificationId}`;
     return this.http.put<void>(requestUrl, certification).pipe(catchError(this.handleError));
   }
 

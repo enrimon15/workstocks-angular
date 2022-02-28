@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <button *ngIf="!loading" [disabled]="!skillForm.valid" type="submit" class="btn add-pr-item-btn mt-2 ml-1">{{'dashboard.onlineCV.addButton' | translate}}</button>
+    <button *ngIf="!loading" [disabled]="!skillForm.valid" type="submit" class="btn add-pr-item-btn mt-2 ml-1">{{(this.skill ? 'dashboard.onlineCV.update' : 'dashboard.onlineCV.addButton') | translate}}</button>
     <div *ngIf="loading" class="spinner-border text-success ml-3 mt-2" role="status"><span class="sr-only">Loading...</span></div>
   </div>
 </form>
@@ -80,7 +80,7 @@
       </div>
     </div>
 
-    <button *ngIf="!loading" [disabled]="!certificationForm.valid" type="submit" class="btn add-pr-item-btn mt-2 ml-1">{{'dashboard.onlineCV.addButton' | translate}}</button>
+    <button *ngIf="!loading" [disabled]="!certificationForm.valid" type="submit" class="btn add-pr-item-btn mt-2 ml-1">{{(this.certification ? 'dashboard.onlineCV.update' : 'dashboard.onlineCV.addButton') | translate}}</button>
     <div *ngIf="loading" class="spinner-border text-success ml-3 mt-2" role="status"><span class="sr-only">Loading...</span></div>
   </div>
 </form>
@@ -131,7 +131,7 @@
       </div>
     </div>
 
-    <button *ngIf="!loading" [disabled]="!experienceForm.valid" type="submit" class="btn add-pr-item-btn mt-2 ml-1">{{'dashboard.onlineCV.addButton' | translate}}</button>
+    <button *ngIf="!loading" [disabled]="!experienceForm.valid" type="submit" class="btn add-pr-item-btn mt-2 ml-1">{{(this.experience ? 'dashboard.onlineCV.update' : 'dashboard.onlineCV.addButton') | translate}}</button>
     <div *ngIf="loading" class="spinner-border text-success ml-3 mt-2" role="status"><span class="sr-only">Loading...</span></div>
   </div>
 </form>
@@ -190,7 +190,7 @@
       </div>
     </div>
 
-    <button *ngIf="!loading" [disabled]="!qualificationForm.valid" type="submit" class="btn add-pr-item-btn mt-2 ml-1">{{'dashboard.onlineCV.addButton' | translate}}</button>
+    <button *ngIf="!loading" [disabled]="!qualificationForm.valid" type="submit" class="btn add-pr-item-btn mt-2 ml-1">{{(this.qualification ? 'dashboard.onlineCV.update' : 'dashboard.onlineCV.addButton') | translate}}</button>
     <div *ngIf="loading" class="spinner-border text-success ml-3 mt-2" role="status"><span class="sr-only">Loading...</span></div>
   </div>
 </form>

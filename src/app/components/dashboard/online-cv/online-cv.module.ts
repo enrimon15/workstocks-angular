@@ -10,11 +10,10 @@ import {OnlineCvFormComponent} from "../online-cv-form/online-cv-form.component"
 
 
 @NgModule({
-  declarations: [OnlineCvComponent, OnlineCvFormComponent],
+  declarations: [OnlineCvComponent],
   imports: [
     CommonModule,
     SharedModule,
-    ReactiveFormsModule,
     DataTablesModule,
     OnlineCvRoutingModule
   ]

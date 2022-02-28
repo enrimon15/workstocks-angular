@@ -37,7 +37,7 @@
           </td>
           <td>
             <div class="dash-action">
-              <a href="javascript:void(0)" class="dg-edit" data-toggle="tooltip" data-placement="top" title="{{'dashboard.onlineCV.modify' | translate}}"><i class="ti-pencil"></i></a>
+              <a [routerLink]="['/dashboard/online-cv/edit', 'qualification', qualification.id]" class="dg-edit" data-toggle="tooltip" data-placement="top" title="{{'dashboard.onlineCV.modify' | translate}}"><i class="ti-pencil"></i></a>
               <span data-toggle="tooltip" data-placement="top" title="{{'dashboard.onlineCV.delete' | translate}}">
                   <a href="javascript:void(0)" class="dg-delete" (click)="markRemoveOnlineCv('QUALIFICATION', qualification.id)" data-toggle="modal" data-target="#delete-qualification-modal"><i class="ti-trash"></i></a>
               </span>
@@ -127,7 +127,7 @@
           </td>
           <td>
             <div class="dash-action">
-              <a href="javascript:void(0)" class="dg-edit" data-toggle="tooltip" data-placement="top" title="{{'dashboard.onlineCV.modify' | translate}}"><i class="ti-pencil"></i></a>
+              <a [routerLink]="['/dashboard/online-cv/edit', 'experience', experience.id]" class="dg-edit" data-toggle="tooltip" data-placement="top" title="{{'dashboard.onlineCV.modify' | translate}}"><i class="ti-pencil"></i></a>
               <span data-toggle="tooltip" data-placement="top" title="{{'dashboard.onlineCV.delete' | translate}}">
                   <a href="#" (click)="markRemoveOnlineCv('EXPERIENCE', experience.id)" data-toggle="modal" data-target="#delete-experience-modal" class="dg-delete"><i class="ti-trash"></i></a>
               </span>
@@ -213,7 +213,7 @@
           <td>{{certificate?.society}}</td>
           <td>
             <div class="dash-action">
-              <a href="javascript:void(0)" class="dg-edit" data-toggle="tooltip" data-placement="top" title="{{'dashboard.onlineCV.modify' | translate}}"><i class="ti-pencil"></i></a>
+              <a [routerLink]="['/dashboard/online-cv/edit', 'certification', certificate.id]" class="dg-edit" data-toggle="tooltip" data-placement="top" title="{{'dashboard.onlineCV.modify' | translate}}"><i class="ti-pencil"></i></a>
               <span data-toggle="tooltip" data-placement="top" title="{{'dashboard.onlineCV.delete' | translate}}">
                   <a href="javascript:void(0)" (click)="markRemoveOnlineCv('CERTIFICATION', certificate.id)" data-toggle="modal" data-target="#delete-certificate-modal" class="dg-delete"><i class="ti-trash"></i></a>
               </span>
@@ -276,7 +276,7 @@
                 <td>{{('dashboard.onlineCV.' + (skill?.assestment | lowercase)) | translate}}</td>
                 <td>
                     <div class="dash-action">
-                        <a href="javascript:void(0)" class="dg-edit" data-toggle="tooltip" data-placement="top" title="{{'dashboard.onlineCV.modify' | translate}}"><i class="ti-pencil"></i></a>
+                        <a [routerLink]="['/dashboard/online-cv/edit', 'skill', skill.id]" class="dg-edit" data-toggle="tooltip" data-placement="top" title="{{'dashboard.onlineCV.modify' | translate}}"><i class="ti-pencil"></i></a>
                         <span data-toggle="tooltip" data-placement="top" title="{{'dashboard.onlineCV.delete' | translate}}">
                             <a href="#" (click)="markRemoveOnlineCv('SKILL', skill.id)" data-toggle="modal" data-target="#delete-skill-modal" class="dg-delete"><i class="ti-trash"></i></a>
                         </span>
