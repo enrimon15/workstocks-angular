@@ -10,12 +10,10 @@ const routes: Routes = [
   { path: 'companies', loadChildren: () => import('./components/company/company.module').then(m => m.CompanyModule )},
   { path: 'job-offers', loadChildren: () => import('./components/job-offer/job-offer.module').then(m => m.JobOfferModule )},
   { path: 'dashboard', loadChildren: () => import('./components/dashboard/dashboard.module').then(m => m.DashboardModule )},
+  { path: 'news', loadChildren: () => import('./components/news/news.module').then(m => m.NewsModule )},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'error', component: ErrorComponent },
-  //{ path: '**', redirectTo: '/error' }
-  // { path: '/pagina', component: paginaComponent },
-  // { path: '/pagina1/:id', component: pagina1Component }
+  { path: 'error', component: ErrorComponent }
 ];
 
 @NgModule({

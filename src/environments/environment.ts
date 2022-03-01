@@ -46,6 +46,9 @@ export const environment = {
   },
   dashboard: {
     photo: 'photo'
+  },
+  news: {
+    get: 'news'
   }
 };
 

@@ -18,6 +18,10 @@ import {AppConstants} from "./app.constants";
 import {JwtModule} from "@auth0/angular-jwt";
 import {LoginResponse} from "./model/LoginResponse";
 import { ToastrModule } from 'ngx-toastr';
+import { StoreModule } from '@ngrx/store';
+import {appNewsReducers} from "./components/news/reducers/app.news.reducers";
+import { EffectsModule } from '@ngrx/effects';
+import {NewsEffects} from "./components/news/effects/news.effect.service";
 
 // required for AOT compilation
 export function HttpLoaderFactory(http: HttpClient) {
@@ -66,7 +70,9 @@ export function tokenGetter() {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    StoreModule.forRoot(appNewsReducers),
+    EffectsModule.forRoot([NewsEffects])
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}

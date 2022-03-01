@@ -25,7 +25,7 @@
         <tbody>
         <tr *ngFor="let qualification of qualificationList">
           <th scope="row">{{qualification?.name}}</th>
-          <td>{{qualification?.startDate + '  -  ' + (qualification?.endDate ?? ('dashboard.onlineCV.inProgress' | translate))}}</td>
+          <td>{{(qualification?.startDate | date:'dd/MM/yyyy') + '  -  ' + (qualification?.endDate ? (qualification?.endDate | date:'dd/MM/yyyy') : ('dashboard.onlineCV.inProgress' | translate))}}</td>
           <td>{{qualification?.institute}}</td>
           <td>{{qualification?.valuation}}</td>
           <td>
@@ -117,7 +117,7 @@
         <tr *ngFor="let experience of experienceList">
           <th scope="row">{{experience?.jobPosition + ' @ ' + experience?.company}}</th>
           <td>
-            {{experience?.startDate + ' - ' + (experience?.endDate ?? ('dashboard.onlineCV.inProgress' | translate))}}</td>
+            {{(experience?.startDate | date:'dd/MM/yyyy') + ' - ' + (experience?.endDate ? (experience?.endDate | date:'dd/MM/yyyy') : ('dashboard.onlineCV.inProgress' | translate))}}</td>
           <td>
             <span *ngIf="experience?.description" data-toggle="modal" data-target="#experience-description-modal">
             <a href="javascript:void(0)" class="dg-edit" data-toggle="tooltip" data-placement="top" title="{{'dashboard.onlineCV.readDesc' | translate}}" (click)="markDescription(experience?.description  ?? '')">
@@ -206,7 +206,7 @@
         <tbody>
         <tr *ngFor="let certificate of certificationList">
           <th scope="row">{{certificate.name}}</th>
-          <td>{{certificate?.date + ' - ' + (certificate?.endDate ?? ('dashboard.onlineCV.certNoExp' | translate))}}</td>
+          <td>{{(certificate?.date | date:'dd/MM/yyyy')  + ' - ' + (certificate?.endDate ? (certificate?.endDate | date:'dd/MM/yyyy') : ('dashboard.onlineCV.certNoExp' | translate))}}</td>
 
           <td><a [style.text-decoration-line]="certificate?.url ? 'underline' : ''" href="{{certificate.url ?? 'javascript:void(0)'}}" target="_blank">
             {{certificate?.credential}}</a></td>
