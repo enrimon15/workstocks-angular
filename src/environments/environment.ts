@@ -48,7 +48,8 @@ export const environment = {
     photo: 'photo'
   },
   news: {
-    get: 'news'
+    get: 'news',
+    likes: 'likes'
   }
 };
 

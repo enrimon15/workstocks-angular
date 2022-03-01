@@ -1,9 +1,8 @@
 export interface News {
-  createdAt: Date;
-  id: number;
+  createdAt?: Date;
+  id: string;
   title: string;
   body: string;
   photo: string;
   likesNumber: number;
-  commentSize: number;
 }

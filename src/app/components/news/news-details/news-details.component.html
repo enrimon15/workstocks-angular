@@ -1,0 +1,70 @@
+<div [ngClass]="loading ? 'Loader' : 'Loader-end'"></div>
+
+<div *ngIf="!loading">
+
+  <div class="clearfix"></div>
+
+  <!-- ============================ Blog Grid Start ================================== -->
+
+  <section style="background-color: #f4f8fa !important; margin-bottom: -40px;">
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <article class="blog-news big-detail-wrap">
+            <div class="blog-detail-wrap">
+
+              <!-- Featured Image -->
+              <figure class="img-holder">
+                <a href="javascript:void(0)"><img [src]="'data:image/jpeg;base64,' + news?.photo" class="img-responsive" alt="News"></a>
+                <div class="blog-post-date theme-bg">
+                  {{news?.createdAt | date:'dd-MM-yyyy'}}
+                </div>
+              </figure>
+
+              <!-- Blog Content -->
+              <div class="full blog-content">
+                <div class="post-meta">
+                  <span class="author"><i class="ti-calendar"></i>{{news?.createdAt | date:'dd-MM-yyyy'}}</span>
+                  <span class="author" id="likesNumber"><i class="ti-heart"></i>{{likesNumber}}</span>
+                </div>
+                <h3>{{news?.title}}</h3>
+                <div class="blog-text" [innerHTML]="news?.body">
+                </div>
+
+              </div>
+              <!-- Blog Content -->
+
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Sidebar Start -->
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="sidebar">
+
+            <div class="offer-btn-wrap mb-4">
+
+              <a *ngIf="authService.isAuthenticated(); else likeNoAuth" id="like" href="javascript:void(0)"
+                 (click)="sendLike()" class="btn btn-info btn-md"><i id="heart"
+                 [ngClass]="isLikedByUser ? 'mr-2 lni lni-heart-filled' : 'mr-2 lni lni-heart'"></i>{{'blog.like' | translate}}</a>
+
+              <ng-template #likeNoAuth>
+                <a href="javascript:void(0)" class="btn btn-info btn-md" style="cursor: not-allowed"><i class="mr-2 lni lni-heart"></i>{{'blog.like' | translate}}</a>
+              </ng-template>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+  <div class="clearfix"></div>
+  <!-- ============================ Blog Grid End ================================== -->
+
+</div>

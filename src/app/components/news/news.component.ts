@@ -1,11 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {select, Store} from "@ngrx/store";
-import {INewsListState, INewsState} from "./state/news.states";
+import {INewsListState, INewsState} from "./store/state/news.states";
 import {News} from "../../model/News";
-import {selectNewsList} from "./selectors/news.selector";
+import {selectNewsList} from "./store/selectors/news.selector";
 import {map, Observable, Subscription} from "rxjs";
 import {PaginatedResponse} from "../../model/PaginatedResponse";
-import {ShowAllAction} from "./actions/news.actions";
+import {ShowAllAction} from "./store/actions/news.actions";
 
 @Component({
   selector: 'app-news',

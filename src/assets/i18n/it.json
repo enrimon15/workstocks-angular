@@ -35,7 +35,8 @@
     "home": "Home",
     "offers": "Offerte",
     "companies": "Aziende",
-    "applicants": "Iscritti"
+    "applicants": "Iscritti",
+    "blog": "Blog"
   },
   "auth": {
     "failed": "Credenziali non valide riprova!",
@@ -330,6 +331,14 @@
   },
   "onlineCV": {
     "inProgress": "In corso"
+  },
+  "blog": {
+    "title": "Blog",
+    "search": "Cerca...",
+    "go": "Cerca",
+    "noNews": "Non sono presenti notizie",
+    "likes": "Mi Piace",
+    "like": "Mi Piace"
   },
   "error": {
     "ops": "Oops!",

@@ -20,7 +20,7 @@
             </div>
             <!-- Error -->
 
-            <p class="color--error mb-2" *ngIf="!profileForm.get('name')?.valid && profileForm.get('name')?.touched"><strong>error name</strong></p>
+            <p class="color--error mb-2" *ngIf="!profileForm.get('name')?.valid && profileForm.get('name')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
           </div>
 
           <div class="col-lg-12 col-md-12 col-sm-12">
@@ -29,7 +29,7 @@
               <input formControlName="surname" class="form-control" name="surname" required type="text">
             </div>
             <!-- Error -->
-            <p class="color--error mb-2" *ngIf="!profileForm.get('surname')?.valid && profileForm.get('surname')?.touched"><strong>error surname</strong></p>
+            <p class="color--error mb-2" *ngIf="!profileForm.get('surname')?.valid && profileForm.get('surname')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
           </div>
 
           <div class="col-lg-12 col-md-12 col-sm-12">
@@ -38,7 +38,7 @@
               <input formControlName="jobTitle" class="form-control" name="jobTitle" type="text" placeholder="{{'dashboard.profile.jobPosition' | translate}}">
             </div>
             <!-- Error -->
-            <p class="color--error mb-2" *ngIf="!profileForm.get('jobPosition')?.valid && profileForm.get('jobPosition')?.touched"><strong>job title</strong></p>
+            <p class="color--error mb-2" *ngIf="!profileForm.get('jobPosition')?.valid && profileForm.get('jobPosition')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
           </div>
 
           <div class="col-lg-12 col-md-12 col-sm-12">
@@ -47,7 +47,7 @@
               <input formControlName="minimumExpectedSalary" class="form-control" name="minimumExpectedSalary" type="number" placeholder="0">
             </div>
             <!-- Error -->
-            <p class="color--error mb-2" *ngIf="!profileForm.get('minimumExpectedSalary')?.valid && profileForm.get('minimumExpectedSalary')?.touched"><strong>min salary</strong></p>
+            <p class="color--error mb-2" *ngIf="!profileForm.get('minimumExpectedSalary')?.valid && profileForm.get('minimumExpectedSalary')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
           </div>
 
           <div class="col-lg-12 col-md-12 col-sm-12">
@@ -56,7 +56,7 @@
               <textarea [ngxSummernote]="summernoteConfig" formControlName="overview" name="overview"></textarea>
             </div>
             <!-- Error -->
-            <p class="color--error mb-2" *ngIf="!profileForm.get('overview')?.valid && profileForm.get('overview')?.touched"><strong>description</strong></p>
+            <p class="color--error mb-2" *ngIf="!profileForm.get('overview')?.valid && profileForm.get('overview')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
           </div>
 
           <div class="col-lg-6 col-md-6 col-sm-12">
@@ -65,7 +65,7 @@
               <input formControlName="dateOfBirth" class="form-control" type="date" name="dateOfBirth">
             </div>
             <!-- Error -->
-            <p class="color--error mb-2" *ngIf="!profileForm.get('dateOfBirth')?.valid && profileForm.get('dateOfBirth')?.touched"><strong>error birth</strong></p>
+            <p class="color--error mb-2" *ngIf="!profileForm.get('dateOfBirth')?.valid && profileForm.get('dateOfBirth')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
           </div>
 
           <div class="col-lg-6 col-md-6 col-sm-12">
@@ -79,7 +79,7 @@
 
             </div>
             <!-- Error -->
-            <p class="color--error mb-2" *ngIf="!profileForm.get('gender')?.valid && profileForm.get('gender')?.touched"><strong>error sex</strong></p>
+            <p class="color--error mb-2" *ngIf="!profileForm.get('gender')?.valid && profileForm.get('gender')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
           </div>
 
         </div>
@@ -103,7 +103,7 @@
               <input formControlName="phoneNumber" class="form-control" type="text" name="phoneNumber" placeholder="{{'dashboard.profile.telephone' | translate}}">
             </div>
             <!-- Error -->
-            <p class="color--error mb-2" *ngIf="!profileForm.get('phoneNumber')?.valid && profileForm.get('phoneNumber')?.touched"><strong>error telephone</strong></p>
+            <p class="color--error mb-2" *ngIf="!profileForm.get('phoneNumber')?.valid && profileForm.get('phoneNumber')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
           </div>
 
           <div class="col-lg-6 col-md-6 col-sm-12">
@@ -112,10 +112,10 @@
               <input formControlName="email" class="form-control" type="email" name="email" required>
             </div>
             <!-- Error -->
-            <p *ngIf="profileForm.get('email')?.errors?.['emailExists'] && profileForm.get('email')?.touched; else errorMailFormat" class="color--error mb-2"><strong>error email exists</strong></p>
+            <p *ngIf="profileForm.get('email')?.errors?.['emailExists'] && profileForm.get('email')?.touched; else errorMailFormat" class="color--error mb-2"><strong>{{'errorEmailDouble' | translate}}</strong></p>
             <ng-template #errorMailFormat>
               <div class="container">
-                <p *ngIf="!profileForm.get('email')?.valid && profileForm.get('email')?.touched" class="color--error mb-2"><strong>error email</strong></p>
+                <p *ngIf="!profileForm.get('email')?.valid && profileForm.get('email')?.touched" class="color--error mb-2"><strong>{{'errorForm' | translate}}</strong></p>
               </div>
             </ng-template>
           </div>
@@ -127,7 +127,7 @@
                 <input formControlName="country" class="form-control" type="text" minlength="2" maxlength="2" name="country" placeholder="{{'dashboard.profile.phCountry' | translate}}">
               </div>
               <!-- Error -->
-              <p class="color--error mb-2" *ngIf="!profileForm.get('address.country')?.valid && profileForm.get('address.country')?.touched"><strong>error country</strong></p>
+              <p class="color--error mb-2" *ngIf="!profileForm.get('address.country')?.valid && profileForm.get('address.country')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
             </div>
 
             <div class="col-lg-6 col-md-6 col-sm-12">
@@ -136,7 +136,7 @@
                 <input formControlName="city" class="form-control" type="text" name="city" placeholder="{{'dashboard.profile.phCity' | translate}}">
               </div>
               <!-- Error -->
-              <p class="color--error mb-2" *ngIf="!profileForm.get('address.city')?.valid && profileForm.get('address.city')?.touched"><strong>error city</strong></p>
+              <p class="color--error mb-2" *ngIf="!profileForm.get('address.city')?.valid && profileForm.get('address.city')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
             </div>
           </ng-container>
 
@@ -146,7 +146,7 @@
               <input formControlName="website" class="form-control" name="website" type="text" placeholder="{{'dashboard.profile.phWebsite' | translate}}">
             </div>
             <!-- Error -->
-            <p class="color--error mb-2" *ngIf="!profileForm.get('website')?.valid && profileForm.get('website')?.touched"><strong>error website</strong></p>
+            <p class="color--error mb-2" *ngIf="!profileForm.get('website')?.valid && profileForm.get('website')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
           </div>
 
         </div>

@@ -342,6 +342,15 @@
   "onlineCV": {
     "inProgress": "In progress"
   },
+  "blog": {
+    "title": "Blog",
+    "search": "Search...",
+    "go": "Search",
+    "noNews": "There are no news",
+    "comments": "Comments",
+    "likes": "Likes",
+    "like": "Like"
+  },
   "error": {
     "ops": "Oops!",
     "error": "An error has occurred",

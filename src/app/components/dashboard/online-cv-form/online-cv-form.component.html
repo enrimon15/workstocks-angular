@@ -8,6 +8,8 @@
         <label>{{'dashboard.onlineCV.skillName' | translate}}</label>
         <input formControlName="name" class="form-control" placeholder="{{'dashboard.onlineCV.phSkill' | translate}}" type="text" name="skillName" required>
       </div>
+      <!-- Error -->
+      <p class="color--error mb-2" *ngIf="!skillForm.get('name')?.valid && skillForm.get('name')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
     </div>
 
     <div class="col-lg-12 col-md-12 col-sm-12">
@@ -19,6 +21,8 @@
           <option value="ADVANCED">{{'dashboard.onlineCV.advanced' | translate}}</option>
         </select>
       </div>
+      <!-- Error -->
+      <p class="color--error mb-2" *ngIf="!skillForm.get('assestment')?.valid && skillForm.get('assestement')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
     </div>
 
     <button *ngIf="!loading" [disabled]="!skillForm.valid" type="submit" class="btn add-pr-item-btn mt-2 ml-1">{{(this.skill ? 'dashboard.onlineCV.update' : 'dashboard.onlineCV.addButton') | translate}}</button>
@@ -37,6 +41,8 @@
         <label>{{'dashboard.onlineCV.certName' | translate}}</label>
         <input formControlName="name" class="form-control" type="text" placeholder="{{'dashboard.onlineCV.phCertificate' | translate}}" name="name" required>
       </div>
+      <!-- Error -->
+      <p class="color--error mb-2" *ngIf="!certificationForm.get('name')?.valid && certificationForm.get('name')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
     </div>
 
     <div class="col-lg-12 col-md-12 col-sm-12">
@@ -44,12 +50,16 @@
         <label>{{'dashboard.onlineCV.certSociety' | translate}}</label>
         <input formControlName="society" placeholder="{{'dashboard.onlineCV.phSociety' | translate}}" type="text" class="form-control" name="certificateSociety" required>
       </div>
+      <!-- Error -->
+      <p class="color--error mb-2" *ngIf="!certificationForm.get('society')?.valid && certificationForm.get('society')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
     </div>
 
     <div class="col-lg-12 col-md-12 col-sm-12">
       <div class="form-group mt-1 float-right">
         <input formControlName="noExpiration" (change)="changeInProgress($event, 'CERTIFICATION')" type="checkbox" name="noEnd" id="no-end-certification">&nbsp;&nbsp;{{'dashboard.onlineCV.certNoExp' | translate}}
       </div>
+      <!-- Error -->
+      <p class="color--error mb-2" *ngIf="!certificationForm.get('noExpiration')?.valid && certificationForm.get('noExpiration')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
     </div>
 
     <div class="col-lg-6 col-md-6 col-sm-6">
@@ -57,6 +67,8 @@
         <label>{{'dashboard.onlineCV.certGet' | translate}}</label>
         <input formControlName="date" type="date" class="form-control" name="date" required>
       </div>
+      <!-- Error -->
+      <p class="color--error mb-2" *ngIf="!certificationForm.get('date')?.valid && certificationForm.get('date')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
     </div>
 
     <div class="col-lg-6 col-md-6 col-sm-6">
@@ -64,6 +76,8 @@
         <label>{{'dashboard.onlineCV.certExpired' | translate}}</label>
         <input formControlName="endDate" id="end-certification" type="date" class="form-control" name="endDate">
       </div>
+      <!-- Error -->
+      <p class="color--error mb-2" *ngIf="!certificationForm.get('endDate')?.valid && certificationForm.get('endDate')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
     </div>
 
     <div class="col-lg-6 col-md-6 col-sm-6">
@@ -71,6 +85,8 @@
         <label>{{'dashboard.onlineCV.certCredential' | translate}}</label>
         <input formControlName="credential" type="text" placeholder="{{'dashboard.onlineCV.phCredential' | translate}}" class="form-control" name="credential" required>
       </div>
+      <!-- Error -->
+      <p class="color--error mb-2" *ngIf="!certificationForm.get('credential')?.valid && certificationForm.get('credential')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
     </div>
 
     <div class="col-lg-6 col-md-6 col-sm-6">
@@ -78,6 +94,8 @@
         <label>{{'dashboard.onlineCV.certLink' | translate}}</label>
         <input formControlName="url" type="text" placeholder="{{'dashboard.onlineCV.phLink' | translate}}" class="form-control" name="link">
       </div>
+      <!-- Error -->
+      <p class="color--error mb-2" *ngIf="!certificationForm.get('url')?.valid && certificationForm.get('url')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
     </div>
 
     <button *ngIf="!loading" [disabled]="!certificationForm.valid" type="submit" class="btn add-pr-item-btn mt-2 ml-1">{{(this.certification ? 'dashboard.onlineCV.update' : 'dashboard.onlineCV.addButton') | translate}}</button>
@@ -95,6 +113,8 @@
         <label>{{'dashboard.onlineCV.expJob' | translate}}</label>
         <input formControlName="jobPosition" class="form-control" type="text" placeholder="{{'dashboard.onlineCV.expJob' | translate}}" name="jobPosition" required>
       </div>
+      <!-- Error -->
+      <p class="color--error mb-2" *ngIf="!experienceForm.get('jobPosition')?.valid && experienceForm.get('jobPosition')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
     </div>
 
     <div class="col-lg-12 col-md-12 col-sm-12">
@@ -102,12 +122,16 @@
         <label>{{'dashboard.onlineCV.expCompany' | translate}}</label>
         <input formControlName="company" placeholder="{{'dashboard.onlineCV.phCompany' | translate}}" type="text" class="form-control" name="company" required>
       </div>
+      <!-- Error -->
+      <p class="color--error mb-2" *ngIf="!experienceForm.get('company')?.valid && experienceForm.get('company')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
     </div>
 
     <div class="col-lg-12 col-md-12 col-sm-12">
       <div class="form-group mt-1 float-right">
         <input formControlName="inProgress" (change)="changeInProgress($event, 'EXPERIENCE')" type="checkbox" name="inProgress" id="check-experience">&nbsp;&nbsp;{{'dashboard.onlineCV.inProgress' | translate}}
       </div>
+      <!-- Error -->
+      <p class="color--error mb-2" *ngIf="!experienceForm.get('inProgress')?.valid && experienceForm.get('inProgress')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
     </div>
 
     <div class="col-lg-6 col-md-6 col-sm-6">
@@ -115,6 +139,8 @@
         <label>{{'dashboard.onlineCV.startDate' | translate}}</label>
         <input formControlName="startDate" type="date" class="form-control" name="startDate" required>
       </div>
+      <!-- Error -->
+      <p class="color--error mb-2" *ngIf="!experienceForm.get('startDate')?.valid && experienceForm.get('startDate')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
     </div>
 
     <div class="col-lg-6 col-md-6 col-sm-6">
@@ -122,6 +148,8 @@
         <label>{{'dashboard.onlineCV.endDate' | translate}}</label>
         <input formControlName="endDate" id="end-experience" type="date" class="form-control" name="endDate">
       </div>
+      <!-- Error -->
+      <p class="color--error mb-2" *ngIf="!experienceForm.get('endDate')?.valid && experienceForm.get('endDate')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
     </div>
 
     <div class="col-lg-12 col-md-12 col-sm-12">
@@ -129,6 +157,8 @@
         <label>{{'dashboard.onlineCV.expDescription' | translate}}</label>
         <textarea formControlName="description" placeholder="{{'dashboard.onlineCV.expDescription' | translate}}" name="description" class="form-control" required></textarea>
       </div>
+      <!-- Error -->
+      <p class="color--error mb-2" *ngIf="!experienceForm.get('description')?.valid && experienceForm.get('description')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
     </div>
 
     <button *ngIf="!loading" [disabled]="!experienceForm.valid" type="submit" class="btn add-pr-item-btn mt-2 ml-1">{{(this.experience ? 'dashboard.onlineCV.update' : 'dashboard.onlineCV.addButton') | translate}}</button>
@@ -146,12 +176,16 @@
         <label>{{'dashboard.onlineCV.qualName' | translate}}</label>
         <input formControlName="name" class="form-control" name="name" placeholder="{{'dashboard.onlineCV.qualName' | translate}}" type="text" required>
       </div>
+      <!-- Error -->
+      <p class="color--error mb-2" *ngIf="!qualificationForm.get('name')?.valid && qualificationForm.get('name')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
     </div>
 
     <div class="col-lg-12 col-md-12 col-sm-12">
       <div class="form-group mt-1 float-right">
         <input formControlName="inProgress" (change)="changeInProgress($event, 'QUALIFICATION')" type="checkbox" name="inProgress" id="check-qualification">&nbsp;&nbsp;{{'dashboard.onlineCV.inProgress' | translate}}
       </div>
+      <!-- Error -->
+      <p class="color--error mb-2" *ngIf="!qualificationForm.get('inProgress')?.valid && qualificationForm.get('inProgress')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
     </div>
 
     <div class="col-lg-6 col-md-6 col-sm-6">
@@ -159,6 +193,8 @@
         <label>{{'dashboard.onlineCV.startDate' | translate}}</label>
         <input formControlName="startDate" type="date" class="form-control" name="startDate" required>
       </div>
+      <!-- Error -->
+      <p class="color--error mb-2" *ngIf="!qualificationForm.get('startDate')?.valid && qualificationForm.get('startDate')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
     </div>
 
     <div class="col-lg-6 col-md-6 col-sm-6">
@@ -166,6 +202,8 @@
         <label>{{'dashboard.onlineCV.endDate' | translate}}</label>
         <input formControlName="endDate" id="end-qualification" type="date" class="form-control" name="endDate">
       </div>
+      <!-- Error -->
+      <p class="color--error mb-2" *ngIf="!qualificationForm.get('endDate')?.valid && qualificationForm.get('endDate')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
     </div>
 
 
@@ -174,6 +212,8 @@
         <label>{{'dashboard.onlineCV.qualInstitute' | translate}}</label>
         <input formControlName="institute" placeholder="{{'dashboard.onlineCV.phInstitute' | translate}}" name="institute" type="text" class="form-control" required>
       </div>
+      <!-- Error -->
+      <p class="color--error mb-2" *ngIf="!qualificationForm.get('institute')?.valid && qualificationForm.get('institute')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
     </div>
 
     <div class="col-lg-12 col-md-12 col-sm-12">
@@ -181,6 +221,8 @@
         <label>{{'dashboard.onlineCV.qualDescription' | translate}}</label>
         <textarea formControlName="description" placeholder="{{'dashboard.onlineCV.qualDescription' | translate}}" name="description" class="form-control"></textarea>
       </div>
+      <!-- Error -->
+      <p class="color--error mb-2" *ngIf="!qualificationForm.get('description')?.valid && qualificationForm.get('description')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
     </div>
 
     <div class="col-lg-12 col-md-12 col-sm-12">
@@ -188,6 +230,8 @@
         <label>{{'dashboard.onlineCV.qualValuation' | translate}}</label>
         <input formControlName="valuation" placeholder="{{'dashboard.onlineCV.qualValuation' | translate}}" name="valuation" type="text" class="form-control">
       </div>
+      <!-- Error -->
+      <p class="color--error mb-2" *ngIf="!qualificationForm.get('valuation')?.valid && qualificationForm.get('valuation')?.touched"><strong>{{'errorForm' | translate}}</strong></p>
     </div>
 
     <button *ngIf="!loading" [disabled]="!qualificationForm.valid" type="submit" class="btn add-pr-item-btn mt-2 ml-1">{{(this.qualification ? 'dashboard.onlineCV.update' : 'dashboard.onlineCV.addButton') | translate}}</button>

@@ -13,7 +13,8 @@ const routes: Routes = [
   { path: 'news', loadChildren: () => import('./components/news/news.module').then(m => m.NewsModule )},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'error', component: ErrorComponent }
+  { path: 'error', component: ErrorComponent },
+  { path: '**', redirectTo: 'error' }
 ];
 
 @NgModule({

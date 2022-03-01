@@ -42,6 +42,8 @@ export class ErrorInterceptor implements HttpInterceptor {
     {uri: 'experiences', method: 'DELETE'},
     {uri: 'experiences', method: 'PUT'},
     {uri: 'experiences', method: 'POST'},
+    {uri: 'likes', method: 'DELETE'},
+    {uri: 'likes', method: 'POST'},
   ];
 
   constructor(private router: Router) {}

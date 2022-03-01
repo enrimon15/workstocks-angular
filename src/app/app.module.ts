@@ -19,9 +19,9 @@ import {JwtModule} from "@auth0/angular-jwt";
 import {LoginResponse} from "./model/LoginResponse";
 import { ToastrModule } from 'ngx-toastr';
 import { StoreModule } from '@ngrx/store';
-import {appNewsReducers} from "./components/news/reducers/app.news.reducers";
+import {appNewsReducers} from "./components/news/store/reducers/app.news.reducers";
 import { EffectsModule } from '@ngrx/effects';
-import {NewsEffects} from "./components/news/effects/news.effect.service";
+import {NewsEffects} from "./components/news/store/effects/news.effect.service";
 
 // required for AOT compilation
 export function HttpLoaderFactory(http: HttpClient) {
