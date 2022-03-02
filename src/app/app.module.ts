@@ -22,6 +22,8 @@ import { StoreModule } from '@ngrx/store';
 import {appNewsReducers} from "./components/news/store/reducers/app.news.reducers";
 import { EffectsModule } from '@ngrx/effects';
 import {NewsEffects} from "./components/news/store/effects/news.effect.service";
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 // required for AOT compilation
 export function HttpLoaderFactory(http: HttpClient) {
@@ -72,7 +74,13 @@ export function tokenGetter() {
       }
     }),
     StoreModule.forRoot(appNewsReducers),
-    EffectsModule.forRoot([NewsEffects])
+    EffectsModule.forRoot([NewsEffects]),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}

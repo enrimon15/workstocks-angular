@@ -1,0 +1,48 @@
+{
+  "$schema": "./node_modules/@angular/service-worker/config/schema.json",
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "resources": {
+        "files": [
+          "/favicon.ico",
+          "/index.html",
+          "/manifest.webmanifest",
+          "/*.css",
+          "/*.js"
+        ]
+      }
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/assets/**",
+          "/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
+        ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "home-api",
+      "urls": [
+        "http://localhost:9100/workstocks/rest/v1/companies/popular",
+        "http://localhost:9100/workstocks/rest/v1/job-offers/popular",
+        "http://localhost:9100/workstocks/rest/v1/applications/count",
+        "http://localhost:9100/workstocks/rest/v1/applicants/count",
+        "http://localhost:9100/workstocks/rest/v1/companies/count",
+        "http://localhost:9100/workstocks/rest/v1/job-offers/count"
+      ],
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxSize": 100,
+        "maxAge": "3d2h"
+      }
+    }
+  ]
+}
