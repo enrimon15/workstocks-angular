@@ -199,6 +199,7 @@
   },
   "dashboard": {
     "profile": {
+      "photo": "Profile Photo",
       "title": "Profile Details",
       "name": "Name",
       "surname": "Surname",
@@ -337,6 +338,16 @@
       "jobAlert": "Job Alert",
       "showProfile": "Show Profile",
       "logout": "Logout"
+    },
+    "changePassword": {
+      "title": "Change Password",
+      "buttonSave": "Save",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm Password",
+      "errorConfirmPassword": "The password doesn't match",
+      "success": "Password succesfully changed",
+      "error": "An error has occurred, check that the current password matches"
     }
   },
   "onlineCV": {

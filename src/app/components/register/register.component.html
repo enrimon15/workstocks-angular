@@ -78,7 +78,7 @@
                     <i class="ti-unlock"></i>
                   </div>
                   <!-- Error -->
-                  <p *ngIf="registerForm.get('passwordConfirmation')?.errors?.['confirmPasswordMatchError'] && registerForm.get('passwordConfirmation')?.touched" class="color--error mb-2"><strong>{{'errorForm' | translate}}</strong></p>
+                  <p *ngIf="registerForm.errors?.['confirmPasswordMatchError'] && registerForm.get('passwordConfirmation')?.touched" class="color--error mb-2"><strong>{{'auth.passwordDoesNotMatch' | translate}}</strong></p>
                 </div>
 
                 <div class="form-group text-center">

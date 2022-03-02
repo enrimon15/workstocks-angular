@@ -11,6 +11,7 @@ import {Experience} from "../../model/Experience";
 import {Skill} from "../../model/Skill";
 import {Certification} from "../../model/Certification";
 import {CVFile} from "../../model/CVFile";
+import {PasswordRequest} from "../../model/PasswordRequest";
 
 @Injectable({
   providedIn: 'root'
@@ -146,5 +147,10 @@ export class DashboardService extends BaseService{
   loadCv(applicantId: number, cv: CVFile): Observable<void> {
     const requestUrl = `${environment.baseUrl}/${environment.applicant.get}/${applicantId}/${environment.onlineCv.cv}`;
     return this.http.put<void>(requestUrl, cv).pipe(catchError(this.handleError));
+  }
+
+  changePw(applicantId: number, newPassword: PasswordRequest): Observable<void> {
+    const requestUrl = `${environment.baseUrl}/${environment.applicant.get}/${applicantId}/${environment.onlineCv.password}`;
+    return this.http.put<void>(requestUrl, newPassword).pipe(catchError(this.handleError));
   }
 }

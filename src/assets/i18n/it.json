@@ -4,6 +4,7 @@
   "cancelButton": "Annulla",
   "errorForm": "Il campo non è valido",
   "errorEmailDouble": "L'email è già registrata",
+  "errorEmailDouble": "L'email è già registrata",
   "home": {
     "title": "Workstocks",
     "bannerTitle": "Trova il lavoro adatto a te",
@@ -190,6 +191,7 @@
   },
   "dashboard": {
     "profile": {
+      "photo": "Foto Profilo",
       "title": "Dettagli Profilo",
       "name": "Nome",
       "surname": "Cognome",
@@ -317,6 +319,16 @@
       "modalBodyCertificate": "Sei sicuro di voler eliminare la certificazione?",
       "generateButton": "Genera",
       "generateText": "Oppure genera automaticamente il CV in base al tuo profilo"
+    },
+    "changePassword": {
+      "title": "Cambia Password",
+      "buttonSave": "Salva",
+      "currentPassword": "Password Attuale",
+      "newPassword": "Nuova Password",
+      "confirmPassword": "Conferma Password",
+      "errorConfirmPassword": "Le due password non coincidono",
+      "success": "Password cambiata con successo",
+      "error": "Si è verificato un errore, controlla che la password attuale coincida"
     },
     "menu": {
       "profile": "Profilo",

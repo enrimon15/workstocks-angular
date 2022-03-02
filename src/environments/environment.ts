@@ -26,7 +26,8 @@ export const environment = {
     qualifications: 'qualifications',
     certifications: 'certifications',
     experiences: 'experiences',
-    cv: 'cv'
+    cv: 'cv',
+    password: 'password'
   },
   company: {
     search: 'companies/search',

@@ -23,8 +23,8 @@ export class CustomValidators {
   constructor(private http: HttpClient) {}
 
   validateConfirmPassword(control: AbstractControl) {
-    let password = control.get('password')?.value;
-    let confirmPassword = control.get('passwordConfirmation')?.value;
+    let password = control.get('password') ? control.get('password')?.value : control.get('newPassword')?.value;
+    let confirmPassword = control.get('passwordConfirmation') ? control.get('passwordConfirmation')?.value : control.get('confirmPassword')?.value;
 
     const error = password !== confirmPassword;
     return error ? { 'confirmPasswordMatchError': { valid: false, value: confirmPassword } } : null;
