@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {JobOffer} from "../../../model/JobOffer";
 import {DashboardService} from "../../../services/dashboard/dashboard.service";
 import {AuthService} from "../../../auth/auth.service";
@@ -21,6 +21,8 @@ export class FavoritesComponent implements OnInit {
   favoriteToDelete?: number;
   applicantId!: number;
   now: Date = new Date();
+
+  @ViewChild('closeDeleteModal') closeDeleteModal!: ElementRef;
 
   constructor(private dashboardService: DashboardService, private authService: AuthService, private alertService: AlertService) { }
 
@@ -57,6 +59,9 @@ export class FavoritesComponent implements OnInit {
         next: (res) => {
           this.loadingModal = false;
           this.alertService.showSuccess('dashboard.favorite.successDelete', '');
+          this.closeDeleteModal.nativeElement.click();
+
+          this.getFavorites()
         },
         error: (error) => {
           this.loadingModal = false;

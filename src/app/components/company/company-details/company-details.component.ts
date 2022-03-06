@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {CompanyService} from "../../../services/company/company.service";
 import {AuthService} from "../../../auth/auth.service";
@@ -22,10 +22,11 @@ export class CompanyDetailsComponent implements OnInit {
   loading: boolean = false;
   company?: Company;
   isJobAlert: Check = {result: false};
-  userReview?: Review;
   loadingSpinner: boolean = false;
   email: EmailRequest;
   review: Review;
+
+  @ViewChild('closeMailModal') closeMailModal!: ElementRef;
 
   customOptions: OwlOptions = {
     loop: true,
@@ -73,7 +74,7 @@ export class CompanyDetailsComponent implements OnInit {
       ]).subscribe(([company, isJobAlert, review]) => {
         this.company = company;
         this.isJobAlert = isJobAlert;
-        this.userReview = review;
+        this.review.rating = review.rating;
 
         this.loading = false;
       })
@@ -96,6 +97,8 @@ export class CompanyDetailsComponent implements OnInit {
       next: (res) => {
         this.loadingSpinner = false;
         this.alertService.showSuccess('profile.mailSuccess', '');
+        this.email.messageBody = '';
+        this.closeMailModal.nativeElement.click();
       },
       error: (error) => {
         this.loadingSpinner = false;
@@ -109,8 +112,7 @@ export class CompanyDetailsComponent implements OnInit {
 
     this.companyService.setReviewByLoggedApplicant(this.companyId, this.review).subscribe({
       next: (res) => {
-        this.loadingSpinner = false;
-        this.alertService.showSuccess('profile.reviewSuccess', '');
+        this.updateGUIReview();
       },
       error: (error) => {
         this.loadingSpinner = false;
@@ -119,9 +121,17 @@ export class CompanyDetailsComponent implements OnInit {
     });
   }
 
+  private updateGUIReview() {
+    this.companyService.getById(this.companyId).subscribe(res => {
+      // @ts-ignore
+      this.company?.ratingStats = res.ratingStats;
+      this.loadingSpinner = false;
+      this.alertService.showSuccess('profile.reviewSuccess', '');
+    })
+  }
+
   handleJobAlert() {
     const oldJobAlert = this.isJobAlert.result;
-    this.isJobAlert.result = !oldJobAlert;
 
     if (this.isJobAlert?.result) {
       this.companyService.removeJobAlert(this.companyId, this.authService.getUserLogged()?.id ?? 0).subscribe({
@@ -138,6 +148,8 @@ export class CompanyDetailsComponent implements OnInit {
         }
       });
     }
+
+    this.isJobAlert.result = !oldJobAlert;
 
   }
 

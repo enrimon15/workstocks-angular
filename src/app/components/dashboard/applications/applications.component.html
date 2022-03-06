@@ -12,8 +12,8 @@
         </div>
         <div class="modal-body">{{'dashboard.application.modalBody' | translate}}</div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">{{'cancelButton' | translate}}</button>
-          <a *ngIf="!loadingModal" (click)="deleteApplication()" id="buttonDelete" href="#" class="btn btn-danger color--white" style="border-color: transparent!important;">{{'dashboard.favorite.delete' | translate}}</a>
+          <button #closeDeleteModal type="button" class="btn btn-primary" data-dismiss="modal">{{'cancelButton' | translate}}</button>
+          <button *ngIf="!loadingModal" (click)="deleteApplication()" id="buttonDelete" type="button" class="btn btn-danger color--white" style="border-color: transparent!important;">{{'dashboard.favorite.delete' | translate}}</button>
           <div *ngIf="loadingModal" id="spinner" class="spinner-border text-success" role="status"><span class="sr-only">Loading...</span></div>
         </div>
       </div>
@@ -43,7 +43,7 @@
             <div class="mg-list-wrap">
               <div class="mg-list-caption">
                 <h4 class="mg-title title">
-                  <a [routerLink]="['/job-offers', job.id]" style="cursor: pointer">{{'job.title' | translate}}</a>
+                  <a [routerLink]="['/job-offers', job.id]" style="cursor: pointer">{{job.title}}</a>
                   <span class="j-part-time p-2 ml-2" style="font-size: small; font-weight: normal">{{('job.' + job.contractType) | translate}}</span>
                 </h4>
 

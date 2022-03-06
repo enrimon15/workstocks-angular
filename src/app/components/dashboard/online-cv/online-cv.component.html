@@ -72,7 +72,7 @@
         <div class="modal-body">{{'dashboard.onlineCV.modalBodyQualification' | translate}}</div>
         <div class="modal-footer">
           <button #closeQualificationModal type="button" class="btn btn-primary" data-dismiss="modal">{{'cancelButton' | translate}}</button>
-          <a *ngIf="!loadingModal" (click)="removeQualification()" id="buttonDeleteQualification" href="#" class="btn btn-danger color--white" style="border-color: transparent!important;">{{'dashboard.onlineCV.delete' | translate}}</a>
+          <button *ngIf="!loadingModal" (click)="removeQualification()" id="buttonDeleteQualification" type="button" class="btn btn-danger color--white" style="border-color: transparent!important;">{{'dashboard.onlineCV.delete' | translate}}</button>
           <div *ngIf="loadingModal" class="spinner-border text-success ml-3" role="status"><span class="sr-only">Loading...</span></div>
         </div>
       </div>
@@ -161,7 +161,7 @@
         <div class="modal-body">{{'dashboard.onlineCV.modalBodyExperience' | translate}}</div>
         <div class="modal-footer">
           <button #closeExperienceModal type="button" class="btn btn-primary" data-dismiss="modal">{{'cancelButton' | translate}}</button>
-          <a *ngIf="!loadingModal" (click)="removeExperience()" id="buttonDeleteExperience" href="#" class="btn btn-danger color--white" style="border-color: transparent!important;">{{'dashboard.onlineCV.delete' | translate}}</a>
+          <button *ngIf="!loadingModal" (click)="removeExperience()" id="buttonDeleteExperience" type="button" class="btn btn-danger color--white" style="border-color: transparent!important;">{{'dashboard.onlineCV.delete' | translate}}</button>
           <div *ngIf="loadingModal" class="spinner-border text-success ml-3" role="status"><span class="sr-only">Loading...</span></div>
         </div>
       </div>
@@ -248,7 +248,7 @@
         <div class="modal-body">{{'dashboard.onlineCV.modalBodyCertificate' | translate}}</div>
         <div class="modal-footer">
           <button #closeCertificationModal type="button" class="btn btn-primary" data-dismiss="modal">{{'cancelButton' | translate}}</button>
-          <a *ngIf="!loadingModal" (click)="removeCertification()" id="buttonDeleteCertificate" href="#" class="btn btn-danger color--white" style="border-color: transparent!important;">{{'dashboard.onlineCV.delete' | translate}}</a>
+          <button *ngIf="!loadingModal" (click)="removeCertification()" id="buttonDeleteCertificate" type="button" class="btn btn-danger color--white" style="border-color: transparent!important;">{{'dashboard.onlineCV.delete' | translate}}</button>
           <div *ngIf="loadingModal" class="spinner-border text-success ml-3" role="status"><span class="sr-only">Loading...</span></div>
         </div>
       </div>
@@ -312,7 +312,7 @@
         <div class="modal-body">{{'dashboard.onlineCV.modalBodySkill' | translate}}</div>
         <div class="modal-footer">
           <button #closeSkillModal type="button" class="btn btn-primary" data-dismiss="modal">{{'cancelButton' | translate}}</button>
-          <a *ngIf="!loadingModal" (click)="removeSkill()" id="buttonDeleteSkill" href="javascript:void(0)" class="btn btn-danger color--white" style="border-color: transparent!important;">{{'dashboard.onlineCV.delete' | translate}}</a>
+          <button *ngIf="!loadingModal" (click)="removeSkill()" id="buttonDeleteSkill" type="button" class="btn btn-danger color--white" style="border-color: transparent!important;">{{'dashboard.onlineCV.delete' | translate}}</button>
           <div *ngIf="loadingModal" class="spinner-border text-success ml-3" role="status"><span class="sr-only">Loading...</span></div>
         </div>
       </div>
@@ -336,7 +336,8 @@
                             <p *ngIf="isCv" class="mr-3">{{'CV_' + authService.getUserLogged()?.name + '_' + authService.getUserLogged()?.surname+ '_' +applicantId + '.pdf'}}</p>
                             <div class="form-group mr-2">
                                 <a href="javascript:void(0)">
-                                    <button (click)="downloadCurriculum()" [disabled]="!isCv" type="button" class="btn btn-primary p-15" data-toggle="tooltip" data-placement="top"><i class="ti-download mr-2"></i>{{'dashboard.onlineCV.downloadCv' | translate}}</button>
+                                    <button *ngIf="!loadingCVDownload" (click)="downloadCurriculum()" [disabled]="!isCv" type="button" class="btn btn-primary p-15" data-toggle="tooltip" data-placement="top"><i class="ti-download mr-2"></i>{{'dashboard.onlineCV.downloadCv' | translate}}</button>
+                                    <div *ngIf="loadingCV" class="spinner-border text-success mr-3" role="status"><span class="sr-only">Loading...</span></div>
                                 </a>
                             </div>
                         </div>
@@ -347,7 +348,7 @@
                             <label>{{'dashboard.onlineCV.cv' | translate}}</label>
                             <div class="custom-file">
                                 <input #cvInput (change)="processCV(cvInput)" type="file" class="custom-file-input" id="ccv" name="cv" accept=".pdf" required>
-                                <label class="custom-file-label" for="ccv">{{'dashboard.onlineCV.chooseCv' | translate}}</label>
+                                <label class="custom-file-label" for="ccv">{{cvFileName || ('dashboard.onlineCV.chooseCv' | translate)}}</label>
                             </div>
                         </div>
                     </div>
@@ -370,8 +371,8 @@
                         </div>
                     </div>
 
-                    <div *ngIf="loadingCV" class="spinner-border text-success mt-3 ml-3" role="status"><span class="sr-only">Loading...</span></div>
-                    <button *ngIf="!loadingCV" id="auto-butt-cv" (click)="loadCV(false)" class="btn add-pr-item-btn mt-2 ml-1">
+                    <div *ngIf="loadingCVAutoGenerate" class="spinner-border text-success mt-3 ml-3" role="status"><span class="sr-only">Loading...</span></div>
+                    <button *ngIf="!loadingCVAutoGenerate" id="auto-butt-cv" (click)="loadCV(true)" class="btn add-pr-item-btn mt-2 ml-1">
                       {{'dashboard.onlineCV.generateButton' | translate}}</button>
 
                 </div>

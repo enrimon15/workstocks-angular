@@ -3,7 +3,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Check} from "../model/Check";
-import {catchError, map, Observable, switchMap, throwError, timer} from "rxjs";
+import {map, Observable} from "rxjs";
 
 export interface AsyncValidatorFn {
   (c: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null>;
@@ -13,7 +13,6 @@ export declare type ValidationErrors = {
   [key: string]: any;
 };
 
-const URL = 'https://jsonplaceholder.typicode.com';
 
 @Injectable({
   providedIn: 'root'

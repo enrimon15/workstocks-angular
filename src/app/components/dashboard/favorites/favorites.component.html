@@ -12,8 +12,8 @@
         </div>
         <div class="modal-body">{{'dashboard.favorite.modalBody' | translate}}</div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">{{'cancelButton' | translate}}</button>
-          <a *ngIf="!loadingModal" (click)="deleteFavorite()" id="buttonDelete" href="#" class="btn btn-danger color--white" style="border-color: transparent!important;">{{'dashboard.favorite.delete' | translate}}</a>
+          <button #closeDeleteModal type="button" class="btn btn-primary" data-dismiss="modal">{{'cancelButton' | translate}}</button>
+          <button *ngIf="!loadingModal" (click)="deleteFavorite()" id="buttonDelete" type="button" class="btn btn-danger color--white" style="border-color: transparent!important;">{{'dashboard.favorite.delete' | translate}}</button>
           <div *ngIf="loadingModal" id="spinner" class="spinner-border text-success" role="status"><span class="sr-only">Loading...</span></div>
         </div>
       </div>

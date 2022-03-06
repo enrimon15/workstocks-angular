@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {JobOffer} from "../../../model/JobOffer";
 import {DashboardService} from "../../../services/dashboard/dashboard.service";
 import {AuthService} from "../../../auth/auth.service";
@@ -21,6 +21,8 @@ export class ApplicationsComponent implements OnInit {
   applicationToDelete?: number;
   applicantId!: number;
   now: Date = new Date();
+
+  @ViewChild('closeDeleteModal') closeDeleteModal!: ElementRef;
 
   constructor(private dashboardService: DashboardService, private authService: AuthService, private alertService: AlertService) { }
 
@@ -56,6 +58,7 @@ export class ApplicationsComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.loadingModal = false;
+          this.closeDeleteModal.nativeElement.click();
           this.alertService.showSuccess('dashboard.application.successDelete', '');
         },
         error: (error) => {

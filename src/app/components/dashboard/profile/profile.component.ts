@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
   loadingProfile: boolean = false;
   loadingPhoto: boolean = false;
   photo!: FileSnippet;
+  photoFileName: string = '';
 
   summernoteConfig: SummernoteOptions = {
     placeholder: '',
@@ -89,6 +90,7 @@ export class ProfileComponent implements OnInit {
 
     reader.addEventListener('load', (event: any) => {
       this.photo = new FileSnippet(event.target.result, file);
+      this.photoFileName = file.name;
     });
 
     reader.readAsDataURL(file);

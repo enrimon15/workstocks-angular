@@ -14,7 +14,7 @@
 </div>
 
 
-<div *ngIf="!loading && type == 'certificate'" class="container">
+<div *ngIf="!loading && type == 'certification'" class="container">
   <h3 class="mb-5">{{'dashboard.onlineCV.modifyCertificate' | translate}}</h3>
   <app-online-cv-form [loading]="loadingSpinner" [type]="type.toUpperCase()" [certification]="certification"
                       (certificationEvent)="updateCertification($event)"></app-online-cv-form>

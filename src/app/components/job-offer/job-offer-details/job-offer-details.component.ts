@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {AuthService} from "../../../auth/auth.service";
 import {EmailService} from "../../../services/email/email.service";
@@ -20,6 +20,8 @@ export class JobOfferDetailsComponent implements OnInit {
   isApplicated: Check = {result: false};
   isFavorite: Check = {result: false};
   loadingSpinner: boolean = false;
+
+  @ViewChild('closeApplyModal') closeApplyModal!: ElementRef;
 
   constructor(private route: ActivatedRoute, public authService: AuthService, private mailService: EmailService,
               private alertService: AlertService, private jobService: JobOfferService) { }
@@ -63,6 +65,8 @@ export class JobOfferDetailsComponent implements OnInit {
       next: (res) => {
         this.loadingSpinner = false;
         this.alertService.showSuccess('job.alreadyApplied', '');
+        this.closeApplyModal.nativeElement.click();
+        this.isApplicated.result = true;
       },
       error: (error) => {
         this.loadingSpinner = false;
@@ -73,7 +77,6 @@ export class JobOfferDetailsComponent implements OnInit {
 
   handleFavorite() {
     const oldFavorite = this.isFavorite.result;
-    this.isFavorite.result = !oldFavorite;
 
     if (this.isFavorite?.result) {
       this.jobService.removeFavorite(this.jobOfferId, this.authService.getUserLogged()?.id ?? 0).subscribe({
@@ -90,6 +93,8 @@ export class JobOfferDetailsComponent implements OnInit {
         }
       });
     }
+
+    this.isFavorite.result = !oldFavorite;
 
   }
 

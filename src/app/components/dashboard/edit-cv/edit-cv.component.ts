@@ -33,6 +33,8 @@ export class EditCvComponent implements OnInit {
       this.id = Number(paramMap.get('id'));
       this.type = paramMap.get('type') ?? '';
 
+      console.log(this.type);
+
       switch (this.type) {
         case 'skill':
           this.getSkillById(this.id);

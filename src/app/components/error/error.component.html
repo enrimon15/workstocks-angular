@@ -4,9 +4,15 @@
     <div class="notfound">
       <div class="notfound-404">
         <h1>{{'error.ops' | translate}}</h1>
-        <h2 *ngIf="errorCode == 500 || (errorCode != 401 && errorCode != 404)">{{'error.error' | translate}}</h2>
-        <h2 *ngIf="errorCode == 404 || !errorCode">{{'error.errorNotFound' | translate}}</h2>
-        <h2 *ngIf="errorCode == 401 || errorCode == 403">{{'error.errorDenied' | translate}}</h2>
+        <ng-container [ngSwitch]="errorCode">
+          <h2 *ngSwitchCase="404">{{'error.errorNotFound' | translate}}</h2>
+          <h2 *ngSwitchCase="0">{{'error.errorNotFound' | translate}}</h2>
+          <h2 *ngSwitchCase="401">{{'error.errorDenied' | translate}}</h2>
+          <h2 *ngSwitchCase="403">{{'error.errorDenied' | translate}}</h2>
+          <h2 *ngSwitchCase="500">{{'error.error' | translate}}</h2>
+          <h2 *ngSwitchDefault>{{'error.error' | translate}}</h2>
+        </ng-container>
+
       </div>
       <a routerLink="/">{{'error.goHome' | translate}}</a>
     </div>

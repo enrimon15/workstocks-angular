@@ -70,17 +70,17 @@ export class DashboardService extends BaseService{
   }
 
   getExperience(applicantId: number, experienceId: number): Observable<Experience> {
-    const requestUrl = `${environment.baseUrl}/${environment.applicant.get}/${applicantId}/${environment.onlineCv.qualifications}/${experienceId}`;
+    const requestUrl = `${environment.baseUrl}/${environment.applicant.get}/${applicantId}/${environment.onlineCv.experiences}/${experienceId}`;
     return this.http.get<Experience>(requestUrl);
   }
 
   getSkill(applicantId: number, skillId: number): Observable<Skill> {
-    const requestUrl = `${environment.baseUrl}/${environment.applicant.get}/${applicantId}/${environment.onlineCv.qualifications}/${skillId}`;
+    const requestUrl = `${environment.baseUrl}/${environment.applicant.get}/${applicantId}/${environment.onlineCv.skills}/${skillId}`;
     return this.http.get<Skill>(requestUrl);
   }
 
   getCertification(applicantId: number, certificationId: number): Observable<Certification> {
-    const requestUrl = `${environment.baseUrl}/${environment.applicant.get}/${applicantId}/${environment.onlineCv.qualifications}/${certificationId}`;
+    const requestUrl = `${environment.baseUrl}/${environment.applicant.get}/${applicantId}/${environment.onlineCv.certifications}/${certificationId}`;
     return this.http.get<Certification>(requestUrl);
   }
 

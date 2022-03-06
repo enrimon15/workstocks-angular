@@ -9,11 +9,8 @@ import { ErrorComponent } from './components/error/error.component';
 import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
 import {ErrorInterceptor} from "./interceptors/error.interceptor";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AppConstants} from "./app.constants";
 import {JwtModule} from "@auth0/angular-jwt";
 import {LoginResponse} from "./model/LoginResponse";
@@ -48,14 +45,10 @@ export function tokenGetter() {
     AppComponent,
     NavbarComponent,
     FooterComponent,
-    ErrorComponent,
-    LoginComponent,
-    RegisterComponent
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,

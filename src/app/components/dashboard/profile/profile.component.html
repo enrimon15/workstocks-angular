@@ -178,7 +178,7 @@
             <label>{{'dashboard.profile.avatar' | translate}}</label>
             <div class="custom-file">
               <input #imageInput (change)="processFile(imageInput)" type="file" class="custom-file-input" id="clogo" name="photo" accept=".png,.jpg,.jpeg">
-              <label class="custom-file-label" for="clogo">{{'dashboard.profile.chooseImg' | translate}}</label>
+              <label class="custom-file-label" for="clogo">{{photoFileName || ('dashboard.profile.chooseImg' | translate)}}</label>
             </div>
           </div>
         </div>

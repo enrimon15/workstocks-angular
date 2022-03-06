@@ -69,8 +69,8 @@ export class NewsEffects {
             return new LikeSuccessAction(true);
           }),
           catchError((error: Error) => {
-            return of(new HandleLikeFailureAction(false));
             this.alertService.showError('error.error','');
+            return of(new HandleLikeFailureAction(false));
           })
         )
       )

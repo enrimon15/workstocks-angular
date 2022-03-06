@@ -104,7 +104,7 @@
                 <h4><i class="ti-cup"></i> {{'profile.openPosition' | translate}}</h4>
               </div>
               <div id="showMore" class="col-sm-12 col-lg col-md" style="text-align: end">
-                <a *ngIf="company?.jobOffers" [routerLink]="['/job-offers']" [queryParams]="{company: company?.name}">
+                <a *ngIf="company?.jobOffers && company?.jobOffers?.length" [routerLink]="['/job-offers']" [queryParams]="{company: company?.name}">
                   {{'profile.showMore' | translate}}
                 </a>
               </div>
@@ -112,7 +112,7 @@
             </div>
             <div class="tr-single-body">
               <div id="rl-list">
-                <div *ngIf="company?.jobOffers; else noJobOffers">
+                <div *ngIf="company?.jobOffers && company?.jobOffers?.length; else noJobOffers">
                   <owl-carousel-o [options]="customOptions">
                   <ng-container *ngFor="let job of company?.jobOffers">
                     <ng-template carouselSlide>
@@ -311,7 +311,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="mailLabel">{{'profile.message' | translate}}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button #closeMailModal type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -358,31 +358,31 @@
                     <div class="rating-wrapper">
 
                       <!-- star 5 -->
-                      <input [(ngModel)]="review.rating" type="radio" id="5-star-rating" name="star-rating" value="5">
+                      <input [(ngModel)]="review.rating" type="radio" id="5-star-rating" name="star-rating" [value]="5">
                       <label for="5-star-rating" class="star-rating">
                         <i class="lni lni-star d-inline-block"></i>
                       </label>
 
                       <!-- star 4 -->
-                      <input [(ngModel)]="review.rating" type="radio" id="4-star-rating" name="star-rating" value="4">
+                      <input [(ngModel)]="review.rating" type="radio" id="4-star-rating" name="star-rating" [value]="4">
                       <label for="4-star-rating" class="star-rating star">
                         <i class="lni lni-star d-inline-block"></i>
                       </label>
 
                       <!-- star 3 -->
-                      <input [(ngModel)]="review.rating" type="radio" id="3-star-rating" name="star-rating" value="3">
+                      <input [(ngModel)]="review.rating" type="radio" id="3-star-rating" name="star-rating" [value]="3">
                       <label for="3-star-rating" class="star-rating star">
                         <i class="lni lni-star d-inline-block"></i>
                       </label>
 
                       <!-- star 2 -->
-                      <input [(ngModel)]="review.rating" type="radio" id="2-star-rating" name="star-rating" value="2">
+                      <input [(ngModel)]="review.rating" type="radio" id="2-star-rating" name="star-rating" [value]="2">
                       <label for="2-star-rating" class="star-rating star">
                         <i class="lni lni-star d-inline-block"></i>
                       </label>
 
                       <!-- star 1 -->
-                      <input [(ngModel)]="review.rating" type="radio" id="1-star-rating" name="star-rating" value="1">
+                      <input [(ngModel)]="review.rating" type="radio" id="1-star-rating" name="star-rating" [value]="1">
                       <label for="1-star-rating" class="star-rating star">
                         <i class="lni lni-star d-inline-block"></i>
                       </label>

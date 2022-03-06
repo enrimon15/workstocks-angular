@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ApplicantService} from "../../../services/applicant/applicant.service";
 import {forkJoin} from "rxjs";
@@ -31,6 +31,7 @@ export class ApplicantDetailsComponent implements OnInit {
   certifications: Certification[] = [];
   emailData: EmailRequest;
 
+  @ViewChild('closeMailModal') closeMailModal!: ElementRef;
 
   constructor(private route: ActivatedRoute, private applicantService: ApplicantService, public authService: AuthService,
               private mailService: EmailService, private alertService: AlertService) {
@@ -116,6 +117,8 @@ export class ApplicantDetailsComponent implements OnInit {
       next: (res) => {
         this.loadingMail = false;
         this.alertService.showSuccess('profile.mailSuccess', '');
+        this.emailData.messageBody = '';
+        this.closeMailModal.nativeElement.click();
       },
       error: (error) => {
         this.loadingMail = false;

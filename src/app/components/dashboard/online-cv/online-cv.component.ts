@@ -29,8 +29,11 @@ export class OnlineCvComponent implements OnInit {
   loadingQualification: boolean = false;
   loadingCertification: boolean = false;
   loadingCV: boolean = false;
+  loadingCVAutoGenerate: boolean = false;
+  loadingCVDownload: boolean = false;
   isCv: boolean = false;
-  cv!: CVFile;
+  cv: CVFile;
+  cvFileName: string = '';
   skillList: Skill[] = [];
   experienceList: Experience[] = [];
   qualificationList: Qualification[] = [];
@@ -49,6 +52,8 @@ export class OnlineCvComponent implements OnInit {
   @ViewChild('closeExperienceModal') closeExperienceModal!: ElementRef;
 
   constructor(public authService: AuthService, private dashboardService: DashboardService, private applicantService: ApplicantService, private alertService: AlertService) {
+    this.cv = {autogenerate: false, curriculum: ''};
+
     this.dtOptions = {
       scrollX: true,
       scrollY: '280px',
@@ -255,48 +260,51 @@ export class OnlineCvComponent implements OnInit {
   }
 
   downloadCurriculum() {
-    this.loadingCV = true;
+    this.loadingCVDownload = true;
 
     this.applicantService.downloadCv(this.applicantId).subscribe({
       next: (res) => {
         const cvName = `CV_${this.authService.getUserLogged()?.name}_${this.authService.getUserLogged()?.surname}_${this.applicantId}.pdf`
         FileSaver.saveAs(res, cvName)
-        this.loadingCV = false;
+        this.loadingCVDownload = false;
       },
       error: (error) => {
-        this.loadingCV = false;
+        this.loadingCVDownload = false;
         this.alertService.showError('profile.cvError', '');
       }
     });
   }
 
   processCV(cvInput: any) {
-    const file: File = cvInput.files[0];
+    const file = cvInput.files[0];
     const reader = new FileReader();
 
+    reader.readAsDataURL(file as Blob);
     reader.addEventListener('load', (event: any) => {
       this.cv.autogenerate = false;
-      this.cv.curriculum = event.target.result; //btoa(event.target.result);
+      let base64 = reader.result as string;
+      this.cv.curriculum = base64.split('base64,')[1];
+      this.cvFileName = file.name;
     });
 
     reader.readAsDataURL(file);
   }
 
   loadCV(autogenerate: boolean) {
-    this.loadingCV = true;
+    autogenerate ? this.loadingCVAutoGenerate = true : this.loadingCV = true;
 
     if (autogenerate) {
-      this.cv.curriculum = undefined;
+      if (this.cv.curriculum) this.cv.curriculum = '';
       this.cv.autogenerate = true;
     }
 
     this.dashboardService.loadCv(this.applicantId, this.cv).subscribe({
       next: (res) => {
-        this.loadingCV = false;
-        this.alertService.showError('dashboard.onlineCV.successCv', '');
+        autogenerate ? this.loadingCVAutoGenerate = false : this.loadingCV = false;
+        this.alertService.showSuccess('dashboard.onlineCV.successCv', '');
       },
       error: (error) => {
-        this.loadingCV = false;
+        autogenerate ? this.loadingCVAutoGenerate = false : this.loadingCV = false;
         this.alertService.showError('error.error', '');
       }
     });

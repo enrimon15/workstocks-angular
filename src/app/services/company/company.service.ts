@@ -52,7 +52,7 @@ export class CompanyService extends BaseService{
 
   setReviewByLoggedApplicant(companyId: number, review: Review): Observable<void> {
     const requestUrl = `${environment.baseUrl}/${environment.company.get}/${companyId}/${environment.company.review}`;
-    return this.http.post<void>(requestUrl, review).pipe(catchError(this.handleError));
+    return this.http.put<void>(requestUrl, review).pipe(catchError(this.handleError));
   }
 
   checkJobAlert(companyId: number, applicantId: number | null): Observable<Check> {
