@@ -111,7 +111,7 @@ export class EditCvComponent implements OnInit {
     });
   }
 
-  getSkillById(id: number) {
+  private getSkillById(id: number) {
     this.loading = true;
     this.dashboardService.getSkill(this.applicantId, id).subscribe(res => {
       this.skill = res;
@@ -119,7 +119,7 @@ export class EditCvComponent implements OnInit {
     });
   }
 
-  getExperienceById(id: number) {
+  private getExperienceById(id: number) {
     this.loading = true;
     this.dashboardService.getExperience(this.applicantId, id).subscribe(res => {
       this.experience = res;
@@ -127,7 +127,7 @@ export class EditCvComponent implements OnInit {
     });
   }
 
-  getCertificationById(id: number) {
+  private getCertificationById(id: number) {
     this.loading = true;
     this.dashboardService.getCertification(this.applicantId, id).subscribe(res => {
       this.certification = res;
@@ -135,7 +135,7 @@ export class EditCvComponent implements OnInit {
     });
   }
 
-  getQualificationById(id: number) {
+  private getQualificationById(id: number) {
     this.loading = true;
     this.dashboardService.getQualification(this.applicantId, id).subscribe(res => {
       this.qualification = res;

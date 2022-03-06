@@ -6,6 +6,7 @@ import {JobOffer} from "../../model/JobOffer";
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import {NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
+import {AlertService} from "../../services/alert/alert.service";
 
 @Component({
   selector: 'app-home',
@@ -47,7 +48,7 @@ export class HomeComponent implements OnInit {
   title: string = '';
 
 
-  constructor(private homeService: HomeService, private router: Router) { }
+  constructor(private homeService: HomeService, private router: Router, private alert: AlertService) { }
 
   ngOnInit(): void {
     this.loadData();
@@ -80,6 +81,8 @@ export class HomeComponent implements OnInit {
     if (homeForm.valid && homeForm.value != null) {
       let params = {address: this.address ?? null, title: this.title ?? null};
       this.router.navigate(['job-offers'], {queryParams: params});
+    } else {
+      this.alert.showError('error.error','');
     }
   }
 }

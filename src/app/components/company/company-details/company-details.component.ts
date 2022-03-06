@@ -63,7 +63,7 @@ export class CompanyDetailsComponent implements OnInit {
     })
   }
 
-  getById() {
+  private getById() {
     this.loading = true;
 
     if (this.authService.isAuthenticated()) {

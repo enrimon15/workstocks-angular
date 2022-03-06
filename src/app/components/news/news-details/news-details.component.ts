@@ -55,11 +55,11 @@ export class NewsDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  getById() {
+  private getById() {
     this.store.dispatch(new ShowDetailsAction(this.newsId));
   }
 
-  checkLike() {
+  private checkLike() {
     this.store.dispatch((new CheckLikeAction(this.newsId)));
   }
 

@@ -45,7 +45,7 @@ export class ApplicantDetailsComponent implements OnInit {
     })
   }
 
-  getById() {
+  private getById() {
     this.loading = true;
 
     forkJoin([
@@ -78,7 +78,7 @@ export class ApplicantDetailsComponent implements OnInit {
     }
   }
 
-  getSkillColor(assestment: string) {
+  getSkillColor(assestment: string): string {
     switch (assestment) {
       case 'BEGINNER':
         return "danger";
@@ -87,7 +87,7 @@ export class ApplicantDetailsComponent implements OnInit {
       case 'ADVANCED':
         return "success";
       default:
-        return null;
+        return '';
     }
   }
 

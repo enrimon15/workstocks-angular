@@ -36,7 +36,7 @@ export class JobSearchComponent implements OnInit {
     });
   }
 
-  getJobList(): void {
+  private getJobList(): void {
     this.firstOpening ? this.loading = true : this.loadingNext = true;
     this.jobService.getAll(this.contractType, this.salary, this.experience, this.description, this.address, this.company, this.skill, this.page, this.pageSize)
       .subscribe(response => {
@@ -48,27 +48,36 @@ export class JobSearchComponent implements OnInit {
       });
   }
 
+  searchJobList() {
+    this.page = 1;
+    this.getJobList();
+  }
+
   handlePageChange(event: number): void {
     this.page = event;
     this.getJobList();
   }
 
   onExperienceChange(newValue: number) {
+    this.page = 1;
     this.experience = newValue;
     this.getJobList();
   }
 
   onSalaryChange(newValue: number) {
+    this.page = 1;
     this.salary = newValue;
     this.getJobList();
   }
 
   onContractTypeChange(newValue: string) {
+    this.page = 1;
     this.contractType = newValue;
     this.getJobList();
   }
 
   resetFilters(searchForm: NgForm) {
+    this.page = 1;
     searchForm.resetForm();
     this.salary = null;
     this.experience = null;

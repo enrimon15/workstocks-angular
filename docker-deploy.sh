@@ -1,6 +1,6 @@
 # docker initialization
 docker-compose down
-docker images rm -f workstocks-angular-image
+docker image rm -f workstocks-angular-image
 
 # build stage
 npm run build-prod # ng build --configuration=production

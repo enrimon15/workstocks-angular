@@ -17,7 +17,6 @@ import {OnlineCvFormComponent} from "../components/dashboard/online-cv-form/onli
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    HttpClientModule,
     NgxPaginationModule,
     TranslateModule.forChild({
       extend: true
@@ -28,7 +27,6 @@ import {OnlineCvFormComponent} from "../components/dashboard/online-cv-form/onli
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    HttpClientModule,
     NgxPaginationModule,
     TranslateModule,
     SpinnerComponent,

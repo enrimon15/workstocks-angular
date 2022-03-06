@@ -27,7 +27,7 @@ export class CompanySearchComponent implements OnInit {
     this.getCompanyList();
   }
 
-  getCompanyList(): void {
+  private getCompanyList(): void {
     this.firstOpening ? this.loading = true : this.loadingNext = true;
     this.companyService.getAll(this.foundationYear, this.employeesNumber, this.name, this.address, this.page, this.pageSize)
       .subscribe(response => {
@@ -39,22 +39,30 @@ export class CompanySearchComponent implements OnInit {
       });
   }
 
+  searchCompanyList() {
+    this.page = 1;
+    this.getCompanyList();
+  }
+
   handlePageChange(event: number): void {
     this.page = event;
     this.getCompanyList();
   }
 
   onFoundationYearChange(newValue: number) {
+    this.page = 1;
     this.foundationYear = newValue;
     this.getCompanyList();
   }
 
   onEmployeesNumberChange(newValue: number) {
+    this.page = 1;
     this.employeesNumber = newValue;
     this.getCompanyList();
   }
 
   resetFilters(searchForm: NgForm) {
+    this.page = 1;
     searchForm.resetForm();
     this.employeesNumber = null;
     this.foundationYear = null;

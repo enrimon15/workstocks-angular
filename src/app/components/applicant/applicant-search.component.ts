@@ -28,7 +28,7 @@ export class ApplicantSearchComponent implements OnInit {
     this.getApplicantList();
   }
 
-  getApplicantList(): void {
+  private getApplicantList(): void {
     this.firstOpening ? this.loading = true : this.loadingNext = true;
     this.applicantService.getAll(this.salary, this.name, this.skill, this.jobTitle, this.address, this.page, this.pageSize)
       .subscribe(response => {
@@ -40,17 +40,24 @@ export class ApplicantSearchComponent implements OnInit {
     });
   }
 
+  searchApplicantList() {
+    this.page = 1;
+    this.getApplicantList();
+  }
+
   handlePageChange(event: number): void {
     this.page = event;
     this.getApplicantList();
   }
 
   onSalaryChange(newValue: number) {
+    this.page = 1;
     this.salary = newValue;
     this.getApplicantList();
   }
 
   resetFilters(searchForm: NgForm) {
+    this.page = 1;
     searchForm.resetForm();
     this.salary = null;
     this.getApplicantList();

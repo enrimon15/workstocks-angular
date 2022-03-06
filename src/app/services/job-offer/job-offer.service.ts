@@ -38,7 +38,7 @@ export class JobOfferService extends BaseService{
       requestParam = requestParam.append('company', company);
     }
     if (skill) {
-      requestParam = requestParam.append('company', skill);
+      requestParam = requestParam.append('skill', skill);
     }
 
     const requestUrl = `${environment.baseUrl}/${environment.jobOffer.search}`;

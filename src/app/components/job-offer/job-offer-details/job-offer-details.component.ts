@@ -33,7 +33,7 @@ export class JobOfferDetailsComponent implements OnInit {
     })
   }
 
-  getById() {
+  private getById() {
     this.loading = true;
 
     if (this.authService.isAuthenticated()) {
