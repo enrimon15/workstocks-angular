@@ -7,6 +7,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {CustomValidators} from "../../../validators/CustomValidators";
 import {FileSnippet} from "../../../model/FileSnippet";
 import {SummernoteOptions} from "ngx-summernote/lib/summernote-options";
+import {AppConstants} from "../../../app.constants";
+import {LoginResponse} from "../../../model/LoginResponse";
 
 @Component({
   selector: 'app-profile',
@@ -49,7 +51,7 @@ export class ProfileComponent implements OnInit {
   private getLoggedUser() {
     this.loading = true;
     this.applicantId = this.authService.getUserLogged()?.id ?? 0;
-    this.applicantService.getById(this.authService.getUserLogged()?.id ?? 0).subscribe( res => {
+    this.applicantService.getById(this.applicantId).subscribe( res => {
       this.profileForm = this.fb.group({
         name: [res.name, [Validators.required, Validators.minLength(3)]],
         surname: [res.surname, [Validators.required, Validators.minLength(3)]],
@@ -74,8 +76,7 @@ export class ProfileComponent implements OnInit {
     this.loadingProfile = true;
     this.dashboardService.updateProfile(this.profileForm.value, this.applicantId).subscribe( {
       next: res => {
-        this.loadingProfile = false;
-        this.alertService.showSuccess('dashboard.profile.success', '');
+        this.reloadProfile('profile');
       },
       error: error => {
         this.loadingProfile = false;
@@ -100,13 +101,36 @@ export class ProfileComponent implements OnInit {
     this.loadingPhoto = true;
     this.dashboardService.updatePhoto(this.photo.file, this.applicantId).subscribe( {
       next: res => {
-        this.loadingPhoto = false;
-        this.alertService.showSuccess('dashboard.profile.success', '');
+        this.reloadProfile('photo');
       },
       error: error => {
         this.loadingPhoto = false;
         this.alertService.showError('dashboard.profile.error', '');
       }
+    });
+  }
+
+  private reloadProfile(type: string) {
+    this.applicantService.getById(this.applicantId).subscribe( res => {
+
+      let userStorage: LoginResponse | null = this.authService.getUserLogged();
+      if (userStorage) {
+        userStorage = {
+          ...userStorage,
+          photo: res.photo,
+          name: res.name,
+          surname: res.surname,
+          jobTitle: res.jobTitle,
+          email: res.email
+        };
+
+        localStorage.setItem(AppConstants.USER_STORAGE, JSON.stringify(userStorage));
+      }
+
+      if (type == 'photo') this.loadingPhoto = false;
+      else this.loadingProfile = false;
+
+      this.alertService.showSuccess('dashboard.profile.success', '');
     });
   }
 }

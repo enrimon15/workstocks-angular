@@ -60,6 +60,8 @@ export class ApplicationsComponent implements OnInit {
           this.loadingModal = false;
           this.closeDeleteModal.nativeElement.click();
           this.alertService.showSuccess('dashboard.application.successDelete', '');
+
+          this.getApplicationsList();
         },
         error: (error) => {
           this.loadingModal = false;
