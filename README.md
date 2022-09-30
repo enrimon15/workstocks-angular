@@ -15,7 +15,7 @@ Inoltre, Work Stocks integra anche un comodo blog comprendente le ultime notizie
  \
 <br/>
 
-### LOW-FI https://github.com/enrimon15/workstocks-angular/blob/master/resources/Ricerca_Offerte-Candidati-Aziende.png
+### LOW-FI
 #### ![Skeleton](<https://github.com/enrimon15/workstocks-angular/blob/master/resources/Ricerca_Offerte-Candidati-Aziende.png>)
 
 ### HI-FI
